@@ -50,7 +50,9 @@
     <h1>LustroLindo - Demo Prenotazioni</h1>
   </header>
   <main>
-    <a class="btn" href="LINK_DEL_TUO_FORM" target="_blank">Apri Booking Demo</a>
+    <a class="btn" href="https://docs.google.com/forms/d/12p9C2582DXx_0wwkoJOoRgQHPGTZpN2rSp-LxlF74Qo/viewform?usp=sf_link" target="_blank">
+      Apri Booking Demo
+    </a>
     <h2>Prenotazioni Live</h2>
     <div id="bookings-container">
       <!-- Prenotazioni saranno caricate qui -->
@@ -59,8 +61,10 @@
 
   <script>
     const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSuKDnH0hWwLeS6e2JMzli-_naIpNfb0az_yO23XzLqefmi9bw5aSfyVDq0sIMBrnaTyYnPVrPXHfvk/pub?output=csv";
+
     let bookings = [];
 
+    // Funzione per leggere CSV
     function loadCSV(url, callback){
       fetch(url)
         .then(res => res.text())
@@ -78,20 +82,19 @@
         .catch(err => console.error('Errore CSV:', err));
     }
 
+    // Mostra prenotazioni nella pagina
     function renderBookings(){
       const container = document.getElementById("bookings-container");
       container.innerHTML = "";
       bookings.forEach(b => {
         const div = document.createElement("div");
         div.className = "booking-card";
-        div.innerHTML = `
-          <strong>${b.Nome}</strong> - ${b.Servizio} - ${b.Data}
-        `;
+        div.innerHTML = `<strong>${b.Nome}</strong> - ${b.Servizio} - ${b.Data}`;
         container.appendChild(div);
       });
     }
 
-    // Carica il CSV e mostra prenotazioni
+    // Carica CSV e aggiorna prenotazioni
     loadCSV(CSV_URL, data => {
       bookings = data;
       renderBookings();
