@@ -3,20 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LustroLindo - Demo</title>
+  <title>LustroLindo - Demo Killer</title>
   <style>
+    /* ==== Stile globale ==== */
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #f2f2f7;
       margin: 0;
       padding: 0;
+      background: #f0f2f5;
       color: #333;
     }
     header {
       background: #4caf50;
       color: white;
-      padding: 1rem;
       text-align: center;
+      padding: 1.2rem;
+      font-size: 1.8rem;
+      font-weight: bold;
+      letter-spacing: 1px;
     }
     main {
       max-width: 1000px;
@@ -24,22 +28,18 @@
       padding: 0 1rem;
     }
     .btn {
-      display: inline-block;
-      padding: 0.5rem 1rem;
+      padding: 0.6rem 1.2rem;
       margin: 0.3rem;
-      border-radius: 5px;
-      text-decoration: none;
-      color: white;
+      border-radius: 6px;
       background: #2196f3;
+      color: white;
+      border: none;
       cursor: pointer;
-      transition: background 0.2s;
+      font-weight: bold;
+      transition: 0.2s all;
     }
-    .btn:hover {
-      background: #1976d2;
-    }
-    .view-toggle {
-      margin-bottom: 1rem;
-    }
+    .btn:hover { background: #1976d2; transform: translateY(-2px); }
+    .view-toggle { margin-bottom: 1rem; }
     #bookings-container {
       display: flex;
       flex-wrap: wrap;
@@ -47,44 +47,46 @@
     }
     .booking-card {
       background: white;
+      flex: 1 1 220px;
+      min-width: 220px;
+      border-radius: 10px;
       padding: 1rem;
-      border-radius: 8px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      flex: 1 1 200px;
-      min-width: 200px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
       transition: transform 0.2s;
+      position: relative;
     }
-    .booking-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 10px rgba(0,0,0,0.15);
-    }
-    .booking-header {
+    .booking-card:hover { transform: translateY(-3px); box-shadow: 0 6px 12px rgba(0,0,0,0.15); }
+    .booking-header { font-weight: bold; font-size: 1.1rem; margin-bottom: 0.4rem; }
+    .booking-service { color: #555; margin-bottom: 0.3rem; }
+    .badge {
+      display: inline-block;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
       font-weight: bold;
-      margin-bottom: 0.5rem;
-      font-size: 1.1rem;
+      margin-right: 0.3rem;
+      color: white;
     }
-    .booking-service {
-      color: #555;
-    }
+    .badge-demo { background: #ff9800; }
+    .badge-real { background: #4caf50; }
+    .badge-service-standard { background: #2196f3; }
+    .badge-service-deep { background: #9c27b0; }
+    .badge-service-abbonamento { background: #f44336; }
     .counter {
       margin: 1rem 0;
-      font-size: 1.2rem;
+      font-size: 1.3rem;
       font-weight: bold;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>LustroLindo - Demo Prenotazioni</h1>
-  </header>
+  <header>LustroLindo - Demo Killer</header>
   <main>
     <div class="view-toggle">
       <button class="btn" onclick="setView('vc')">Vista VC</button>
       <button class="btn" onclick="setView('user')">Vista User</button>
       <button class="btn" onclick="setView('editor')">Editor</button>
-      <a class="btn" href="https://docs.google.com/forms/d/12p9C2582DXx_0wwkoJOoRgQHPGTZpN2rSp-LxlF74Qo/viewform?usp=sf_link" target="_blank">
-        Apri Booking Demo
-      </a>
+      <a class="btn" href="https://docs.google.com/forms/d/12p9C2582DXx_0wwkoJOoRgQHPGTZpN2rSp-LxlF74Qo/viewform?usp=sf_link" target="_blank">Apri Booking Demo</a>
     </div>
     <div class="counter" id="total-counter">Totale Prenotazioni: 0</div>
     <div id="bookings-container"></div>
@@ -108,8 +110,7 @@
             return obj;
           });
           callback(rows);
-        })
-        .catch(err => console.error('Errore CSV:', err));
+        }).catch(err => console.error('Errore CSV:', err));
     }
 
     function renderBookings(){
@@ -117,18 +118,26 @@
       container.innerHTML = "";
 
       let filtered = bookings;
-      if(currentView === 'user'){
-        filtered = bookings.filter(b => b.Tipo === 'User');
-      } else if(currentView === 'vc'){
-        filtered = bookings.filter(b => b.Tipo === 'VC');
-      }
+      if(currentView === 'user') filtered = bookings.filter(b => b.Tipo === 'User');
+      else if(currentView === 'vc') filtered = bookings.filter(b => b.Tipo === 'VC');
+
+      filtered.sort((a,b) => new Date(a.Data) - new Date(b.Data));
 
       filtered.forEach(b => {
         const div = document.createElement("div");
         div.className = "booking-card";
+
+        // Badge tipo
+        const tipoBadge = b.Tipo === 'User' ? `<span class="badge badge-demo">Demo</span>` : `<span class="badge badge-real">Reale</span>`;
+        // Badge servizio
+        let serviceBadge = '';
+        if(b.Servizio.toLowerCase().includes('standard')) serviceBadge = `<span class="badge badge-service-standard">Standard</span>`;
+        else if(b.Servizio.toLowerCase().includes('deep')) serviceBadge = `<span class="badge badge-service-deep">Deep Clean</span>`;
+        else if(b.Servizio.toLowerCase().includes('abbonamento')) serviceBadge = `<span class="badge badge-service-abbonamento">Abbonamento</span>`;
+
         div.innerHTML = `
           <div class="booking-header">${b.Nome}</div>
-          <div class="booking-service">${b.Servizio} - ${b.Data}</div>
+          <div class="booking-service">${b.Data} ${tipoBadge} ${serviceBadge}</div>
         `;
         container.appendChild(div);
       });
@@ -142,8 +151,7 @@
     }
 
     loadCSV(CSV_URL, data => {
-      bookings = data;
-      bookings.forEach(b => { if(!b.Tipo) b.Tipo = 'VC'; });
+      bookings = data.map(b => { if(!b.Tipo) b.Tipo='VC'; return b; });
       renderBookings();
     });
   </script>
