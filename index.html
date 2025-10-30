@@ -3,14 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LustroLindo Demo</title>
+  <title>LustroLindo - Demo</title>
   <style>
+    /* ==== Stile globale ==== */
     body {
-      font-family: Arial, sans-serif;
-      background: #f5f5f5;
-      color: #333;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f2f2f7;
       margin: 0;
       padding: 0;
+      color: #333;
     }
     header {
       background: #4caf50;
@@ -19,29 +20,57 @@
       text-align: center;
     }
     main {
-      max-width: 900px;
+      max-width: 1000px;
       margin: 2rem auto;
       padding: 0 1rem;
     }
     .btn {
       display: inline-block;
       padding: 0.5rem 1rem;
-      background: #2196f3;
-      color: white;
-      text-decoration: none;
+      margin: 0.3rem;
       border-radius: 5px;
+      text-decoration: none;
+      color: white;
+      background: #2196f3;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn:hover {
+      background: #1976d2;
+    }
+    .view-toggle {
       margin-bottom: 1rem;
     }
     #bookings-container {
       display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
     }
     .booking-card {
       background: white;
       padding: 1rem;
-      border-radius: 5px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      flex: 1 1 200px;
+      min-width: 200px;
+      transition: transform 0.2s;
+    }
+    .booking-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 10px rgba(0,0,0,0.15);
+    }
+    .booking-header {
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+    }
+    .booking-service {
+      color: #555;
+    }
+    .counter {
+      margin: 1rem 0;
+      font-size: 1.2rem;
+      font-weight: bold;
     }
   </style>
 </head>
@@ -50,21 +79,25 @@
     <h1>LustroLindo - Demo Prenotazioni</h1>
   </header>
   <main>
-    <a class="btn" href="https://docs.google.com/forms/d/12p9C2582DXx_0wwkoJOoRgQHPGTZpN2rSp-LxlF74Qo/viewform?usp=sf_link" target="_blank">
-      Apri Booking Demo
-    </a>
-    <h2>Prenotazioni Live</h2>
-    <div id="bookings-container">
-      <!-- Prenotazioni saranno caricate qui -->
+    <div class="view-toggle">
+      <button class="btn" onclick="setView('vc')">Vista VC</button>
+      <button class="btn" onclick="setView('user')">Vista User</button>
+      <button class="btn" onclick="setView('editor')">Editor</button>
+      <a class="btn" href="https://docs.google.com/forms/d/12p9C2582DXx_0wwkoJOoRgQHPGTZpN2rSp-LxlF74Qo/viewform?usp=sf_link" target="_blank">
+        Apri Booking Demo
+      </a>
     </div>
+    <div class="counter" id="total-counter">Totale Prenotazioni: 0</div>
+    <div id="bookings-container"></div>
   </main>
 
   <script>
+    // ==== Config ====
     const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSuKDnH0hWwLeS6e2JMzli-_naIpNfb0az_yO23XzLqefmi9bw5aSfyVDq0sIMBrnaTyYnPVrPXHfvk/pub?output=csv";
-
     let bookings = [];
+    let currentView = 'vc';
 
-    // Funzione per leggere CSV
+    // ==== Lettura CSV ====
     function loadCSV(url, callback){
       fetch(url)
         .then(res => res.text())
@@ -82,23 +115,49 @@
         .catch(err => console.error('Errore CSV:', err));
     }
 
-    // Mostra prenotazioni nella pagina
+    // ==== Render prenotazioni ====
     function renderBookings(){
       const container = document.getElementById("bookings-container");
       container.innerHTML = "";
-      bookings.forEach(b => {
+
+      let filtered = bookings;
+      // Qui si possono filtrare viste diverse
+      if(currentView === 'user'){
+        filtered = bookings.filter(b => b.Tipo === 'User');
+      } else if(currentView === 'vc'){
+        filtered = bookings.filter(b => b.Tipo === 'VC');
+      } // editor mostra tutto
+
+      filtered.forEach(b => {
         const div = document.createElement("div");
         div.className = "booking-card";
-        div.innerHTML = `<strong>${b.Nome}</strong> - ${b.Servizio} - ${b.Data}`;
+        div.innerHTML = `
+          <div class="booking-header">${b.Nome}</div>
+          <div class="booking-service">${b.Servizio} - ${b.Data}</div>
+        `;
         container.appendChild(div);
       });
+
+      // Aggiorna contatore
+      document.getElementById("total-counter").textContent = "Totale Prenotazioni: " + filtered.length;
     }
 
-    // Carica CSV e aggiorna prenotazioni
+    // ==== Cambio vista ====
+    function setView(view){
+      currentView = view;
+      renderBookings();
+    }
+
+    // ==== Carica dati CSV e mostra ====
     loadCSV(CSV_URL, data => {
       bookings = data;
+      // Se non esiste campo Tipo nei dati, assegna tutti 'VC' di default
+      bookings.forEach(b => {
+        if(!b.Tipo) b.Tipo = 'VC';
+      });
       renderBookings();
     });
+
   </script>
 </body>
 </html>
