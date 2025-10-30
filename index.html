@@ -1,40 +1,437 @@
 <!doctype html>
 <html lang="it">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>LustroLindo — Demo Staging</title>
-  <style>
-    body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; margin:0; padding:32px; background:#f6fbff; color:#0b2540; }
-    .card { max-width:820px; margin:40px auto; padding:28px; background:white; border-radius:12px; box-shadow:0 6px 30px rgba(3,15,40,0.08); }
-    h1 { margin:0 0 8px; font-size:28px; letter-spacing:-0.3px; }
-    p.lead { margin:0 0 20px; color:#274059; }
-    .btn { display:inline-block; padding:10px 18px; border-radius:8px; background:#1f7ed8; color:white; text-decoration:none; font-weight:600; }
-    .muted { color:#6b8598; font-size:14px; margin-top:14px; }
-    .section { margin-top:20px; padding-top:18px; border-top:1px dashed #e6eef6; }
-    .feature { display:flex; gap:12px; margin:12px 0; align-items:center; }
-    .dot { width:12px; height:12px; border-radius:999px; background:#cfe9ff; }
-    footer { text-align:center; margin-top:30px; color:#7b98ad; font-size:13px; }
-  </style>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>LustroLindo — Demo / Investor</title>
+<link rel="icon" href="data:,">
+<style>
+  :root{
+    --accent:#0ea5a9;
+    --accent-2:#ff3f78;
+    --muted:#6b7b88;
+    --bg:#f6f9fb;
+    --card:#ffffff;
+    --glass: rgba(255,255,255,0.7);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;background:var(--bg);color:#0b2338}
+  .wrap{max-width:1100px;margin:28px auto;padding:18px}
+  header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .brand{display:flex;gap:12px;align-items:center}
+  .logo{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,#ffd1e0,#ff78a3);display:flex;align-items:center;justify-content:center;color:white;font-weight:800}
+  h1{margin:0;font-size:20px}
+  .subtitle{color:var(--muted);font-size:13px;margin-top:4px}
+  .controls{display:flex;gap:10px;align-items:center}
+  .mode-btn{background:transparent;border:1px solid rgba(11,35,56,0.06);padding:8px 12px;border-radius:10px;cursor:pointer;font-weight:700}
+  .mode-btn.active{background:var(--accent);color:white;border-color:transparent}
+  .pill{background:#fff;border-radius:999px;padding:8px 10px;font-weight:700;border:1px solid rgba(11,35,56,0.06)}
+
+  .grid{display:grid;grid-template-columns:1fr 380px;gap:18px;margin-top:18px}
+  @media(max-width:980px){.grid{grid-template-columns:1fr}.right{order:2}}
+  .card{background:var(--card);padding:18px;border-radius:12px;box-shadow:0 6px 22px rgba(11,35,56,0.06)}
+  .muted{color:var(--muted);font-size:14px}
+  .stats{display:flex;gap:12px;flex-wrap:wrap}
+  .stat{background:linear-gradient(180deg,#f8ffff,#ffffff);padding:12px;border-radius:8px;min-width:110px;text-align:center;box-shadow:0 6px 18px rgba(11,35,56,0.04)}
+  .stat h3{margin:0;font-size:18px;color:var(--accent-2)}
+  .small{font-size:13px;color:var(--muted)}
+  h2{margin:0 0 8px 0}
+  .section{margin-top:12px}
+  .btn{display:inline-block;padding:10px 16px;border-radius:10px;background:var(--accent);color:white;text-decoration:none;font-weight:700;cursor:pointer;border:0}
+  .btn.ghost{background:transparent;color:var(--accent);border:1px solid rgba(11,35,56,0.06)}
+  label{display:block;margin-top:8px;font-size:13px;color:var(--muted)}
+
+  /* booking form */
+  input, select{width:100%;padding:10px;border-radius:8px;border:1px solid #e6eef6;margin-top:6px}
+  .tiny{font-size:13px;color:var(--muted);margin-top:6px}
+
+  footer{margin-top:18px;text-align:center;color:var(--muted);font-size:13px}
+
+  /* investor panel */
+  .roadmap li{margin-bottom:6px}
+  .leadNum{font-size:22px;font-weight:800;color:var(--accent-2)}
+  .center{text-align:center}
+  /* modal */
+  .modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(3,18,32,0.55);z-index:40;visibility:hidden;opacity:0;transition:opacity .16s}
+  .modal.show{visibility:visible;opacity:1}
+  .modal .box{background:white;padding:20px;border-radius:10px;max-width:520px;width:100%}
+  .editor{background:#fafafa;padding:10px;border-radius:8px;border:1px dashed #e6eef6;margin-top:10px}
+
+  .hint{font-size:12px;color:#7b98ad}
+</style>
 </head>
 <body>
-  <div class="card">
-    <h1>LustroLindo — Demo (staging)</h1>
-    <p class="lead">Questa è una pagina di prova per mostrare design e flussi. <strong>Nessun dato sensibile viene salvato.</strong></p>
-
-    <a class="btn" href="#" onclick="alert('Questo pulsante è demo: collega a Google Sheet o alla versione completa quando pronto.')">Prova prenotazione (demo)</a>
-
-    <div class="section">
-      <div class="feature"><div class="dot"></div><div><strong>Design Lovable</strong><div class="muted">Interfaccia visuale e colori come nello scheletro.</div></div></div>
-      <div class="feature"><div class="dot"></div><div><strong>Flusso booking</strong><div class="muted">Simuliamo prenotazioni per testare UX.</div></div></div>
-      <div class="feature"><div class="dot"></div><div><strong>Dati di test</strong><div class="muted">Usiamo Google Sheet pubblicato o CSV per raccogliere demo.</div></div></div>
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <div class="logo">LL</div>
+      <div>
+        <h1>LustroLindo</h1>
+        <div class="subtitle">Demo & Investor view — Demo pulita, niente dipendenze, subito condivisibile</div>
+      </div>
     </div>
 
-    <div class="section">
-      <p class="muted">Condividi questo link solo con amici fidati per raccogliere feedback. Quando vorrai, possiamo collegare un foglio Google per raccogliere le prenotazioni di prova.</p>
+    <div class="controls">
+      <div class="pill" id="stagePill">STAGE: Demo</div>
+      <button class="mode-btn active" id="demoModeBtn">Demo</button>
+      <button class="mode-btn" id="investorModeBtn">Investor</button>
+      <button class="mode-btn" id="openEditorBtn" title="Reveal quick editor (press E)">Edit</button>
+    </div>
+  </header>
+
+  <div class="grid">
+    <!-- left: demo / investor main content -->
+    <div class="card" id="mainCard">
+      <!-- Demo content -->
+      <div id="demoArea">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div>
+            <h2>Booking — demo</h2>
+            <div class="muted">Simula prenotazioni, raccogli dati locali (solo per test). Nessun backend, no costi.</div>
+          </div>
+          <div class="muted small">Local demo • safe</div>
+        </div>
+
+        <div class="section">
+          <form id="bookingForm">
+            <label>Nome</label>
+            <input id="bName" placeholder="Es. Mario Rossi" required>
+            <label>Email</label>
+            <input id="bEmail" placeholder="esempio@email.com" required>
+            <label>Servizio</label>
+            <select id="bService">
+              <option>Standard clean (1h)</option>
+              <option>Deep clean (3h)</option>
+              <option>Abbonamento mensile</option>
+            </select>
+            <label>Data (demo)</label>
+            <input id="bDate" type="date" required>
+            <div style="margin-top:10px;display:flex;gap:8px">
+              <button class="btn" type="submit">Invia prenotazione (demo)</button>
+              <button type="button" class="btn ghost" id="clearBookings">Pulisci demo</button>
+            </div>
+          </form>
+          <div class="tiny">Le prenotazioni restano solo nel tuo browser (localStorage) finché vuoi.</div>
+        </div>
+
+        <div class="section">
+          <h3>Dati demo attuali</h3>
+          <div class="stats" id="statsRow">
+            <div class="stat"><div class="small">Waitlist</div><h3 id="statUsers">0</h3></div>
+            <div class="stat"><div class="small">Prenotazioni</div><h3 id="statBookings">0</h3></div>
+            <div class="stat"><div class="small">Rating target</div><h3>4.8★</h3></div>
+            <div class="stat"><div class="small">Retention stimata</div><h3 id="statRetention">60%</h3></div>
+          </div>
+        </div>
+
+        <div class="section">
+          <h3>Activity log (solo demo)</h3>
+          <div id="log" style="max-height:160px;overflow:auto;padding:8px;border-radius:8px;background:#fbfdff;border:1px solid #eef6fb"></div>
+        </div>
+      </div>
+
+      <!-- Investor area -->
+      <div id="investorArea" style="display:none">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div>
+            <h2>Investor Snapshot</h2>
+            <div class="muted">One‑page view per meeting: traction, unit economics, roadmap, ask.</div>
+          </div>
+          <div class="muted small">Elevator ready</div>
+        </div>
+
+        <div class="section">
+          <div style="display:flex;gap:12px;flex-wrap:wrap">
+            <div class="card" style="flex:1">
+              <div class="small">Waitlist / users</div>
+              <div class="leadNum" id="ivUsers">[num]</div>
+              <div class="tiny muted">Growth channels: referrals, partnerships, content</div>
+            </div>
+            <div class="card" style="flex:1">
+              <div class="small">Bookings (demo)</div>
+              <div class="leadNum" id="ivBookings">[num]</div>
+              <div class="tiny muted">Conversion &gt; target</div>
+            </div>
+            <div class="card" style="flex:1">
+              <div class="small">Ask</div>
+              <div class="leadNum" id="ivAsk">€1,000,000</div>
+              <div class="tiny muted">Use: product, growth, hires</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <h3>One‑liner</h3>
+          <div class="muted">“LustroLindo: la piattaforma premium on‑demand per la cura della casa — retention ricorrente e margini importanti.”</div>
+        </div>
+
+        <div class="section">
+          <h3>Roadmap (18m)</h3>
+          <ul class="roadmap">
+            <li>0‑3m: MVP Milano, 500 waitlist, 50 clienti paganti</li>
+            <li>4‑9m: app release, abbonamenti, +3 città</li>
+            <li>9‑18m: family services partner first, B2B PRO</li>
+          </ul>
+        </div>
+
+        <div class="section">
+          <h3>Key metrics (live)</h3>
+          <div class="cols" style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <div class="card small">
+              CAC (stima): <strong id="ivCAC">€35</strong><br><span class="tiny muted">Target</span>
+            </div>
+            <div class="card small">
+              LTV (stima): <strong id="ivLTV">€520</strong><br><span class="tiny muted">Target</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="section" style="margin-top:12px">
+          <button class="btn" id="demoDriveBtn">Apri booking demo (simulate)</button>
+          <button class="btn ghost" id="downloadDeck">Show one‑pager</button>
+        </div>
+      </div>
     </div>
 
-    <footer>Staging • Non pubblico • LustroLindo</footer>
+    <!-- right column: quick actions, video, mini-deck -->
+    <div class="right">
+      <div class="card center">
+        <div class="small">Share link</div>
+        <div style="margin-top:8px"><input id="shareLink" style="width:100%;padding:10px;border-radius:8px;border:1px solid #e6eef6" readonly></div>
+        <div style="margin-top:10px">
+          <button class="btn" id="copyLink">Copia link</button>
+        </div>
+        <div class="section">
+          <h3 class="muted">Video walkthrough</h3>
+          <div class="muted tiny" style="margin-bottom:8px">Carica un video unlisted su YouTube e incolla URL nell'editor per usarlo qui.</div>
+          <div id="videoWrap" style="min-height:120px;background:#fbfbfe;border-radius:8px;display:flex;align-items:center;justify-content:center;padding:8px">
+            <div class="muted">No video set</div>
+          </div>
+        </div>
+
+        <div class="section">
+          <h3 class="muted">Quick actions</h3>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <button class="btn" id="openFormBtn">Apri booking demo</button>
+            <button class="btn ghost" id="resetDemoBtn">Reset dati demo</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:12px">
+        <h3 class="muted">Notes for demo</h3>
+        <ul style="padding-left:18px;color:var(--muted);font-size:14px">
+          <li>Usa <strong>Demo mode</strong> per far prenotare i tester (simulazioni locali).</li>
+          <li>Usa <strong>Investor mode</strong> per mostrare metriche pulite e roadmap.</li>
+          <li>Premi <strong>E</strong> per aprire il quick editor (modifica numeri/video rapido prima della sessione).</li>
+        </ul>
+      </div>
+
+      <div class="card" style="margin-top:12px;text-align:center">
+        <div class="muted small">Version: staging — safe demo</div>
+      </div>
+    </div>
   </div>
+
+  <footer>© LustroLindo — Demo staging — No payments, no real user data</footer>
+</div>
+
+<!-- modal editor -->
+<div id="editorModal" class="modal">
+  <div class="box">
+    <h3>Quick editor (local only)</h3>
+    <div class="editor">
+      <label>Waitlist / users (number)</label>
+      <input id="editUsers" type="number" min="0">
+      <label>Bookings (number)</label>
+      <input id="editBookings" type="number" min="0">
+      <label>Ask (EUR)</label>
+      <input id="editAsk" type="text" placeholder="1000000">
+      <label>Walkthrough video URL (YouTube)</label>
+      <input id="editVideo" type="text" placeholder="https://youtu.be/xxxxx">
+      <div style="margin-top:10px;display:flex;gap:8px">
+        <button class="btn" id="saveEditor">Save</button>
+        <button class="btn ghost" id="cancelEditor">Cancel</button>
+      </div>
+      <div class="hint">I valori modificati sono salvati localmente nel browser (solo demo).</div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  // helpers
+  const $ = id => document.getElementById(id);
+  // mode controls
+  const demoBtn = $('demoModeBtn'), invBtn = $('investorModeBtn'), editorBtn = $('openEditorBtn');
+  const demoArea = $('demoArea'), investorArea = $('investorArea'), stagePill = $('stagePill');
+  const shareLink = $('shareLink');
+
+  // local storage keys
+  const KEY_BOOKINGS = 'll_bookings_v1';
+  const KEY_USERS = 'll_users_v1';
+  const KEY_IV = 'll_investor_v1';
+
+  // initialize storage if empty
+  function loadState(){
+    let bookings = JSON.parse(localStorage.getItem(KEY_BOOKINGS) || '[]');
+    let users = Number(localStorage.getItem(KEY_USERS) || 120); // default waitlist
+    let iv = JSON.parse(localStorage.getItem(KEY_IV) || JSON.stringify({ask:1000000,video:''}));
+    return {bookings,users,iv};
+  }
+  function saveState(state){
+    localStorage.setItem(KEY_BOOKINGS, JSON.stringify(state.bookings));
+    localStorage.setItem(KEY_USERS, String(state.users));
+    localStorage.setItem(KEY_IV, JSON.stringify(state.iv));
+  }
+
+  let state = loadState();
+
+  // render stats
+  function renderStats(){
+    $('statUsers').innerText = state.users;
+    $('statBookings').innerText = state.bookings.length;
+    $('statRetention').innerText = '60%';
+    $('ivUsers').innerText = state.users;
+    $('ivBookings').innerText = state.bookings.length;
+    $('ivAsk').innerText = '€' + (state.iv.ask || 1000000).toLocaleString();
+    $('shareLink').value = window.location.href;
+    $('ivCAC').innerText = '€35';
+    $('ivLTV').innerText = '€520';
+    // log
+    const log = $('log');
+    log.innerHTML = '';
+    state.bookings.slice().reverse().forEach(b=>{
+      const el = document.createElement('div');
+      el.style.padding='6px 0'; el.style.borderBottom='1px solid #f1f6fb';
+      el.innerHTML = `<strong>${b.name}</strong> • ${b.service} • <span class="tiny">${b.date}</span>`;
+      log.appendChild(el);
+    });
+    // video
+    const videoWrap = $('videoWrap');
+    videoWrap.innerHTML = '';
+    if(state.iv.video){
+      const iframe = document.createElement('iframe');
+      iframe.width="100%"; iframe.height="180"; iframe.src = state.iv.video;
+      iframe.style.border='0'; iframe.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      videoWrap.appendChild(iframe);
+    } else {
+      videoWrap.innerHTML = '<div class="muted">No video set</div>';
+    }
+  }
+
+  renderStats();
+
+  // mode toggles
+  function setMode(mode){
+    if(mode==='demo'){
+      demoArea.style.display='block';
+      investorArea.style.display='none';
+      demoBtn.classList.add('active'); invBtn.classList.remove('active');
+      stagePill.innerText='STAGE: Demo';
+    } else {
+      demoArea.style.display='none';
+      investorArea.style.display='block';
+      demoBtn.classList.remove('active'); invBtn.classList.add('active');
+      stagePill.innerText='STAGE: Investor';
+    }
+  }
+  demoBtn.addEventListener('click',()=>setMode('demo'));
+  invBtn.addEventListener('click',()=>setMode('investor'));
+
+  // booking form submit
+  $('bookingForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    const name = $('bName').value.trim()||'Anonimo';
+    const email = $('bEmail').value.trim()||'noreply@test';
+    const service = $('bService').value;
+    const date = $('bDate').value || new Date().toISOString().slice(0,10);
+    state.bookings.push({name,email,service,date,ts:Date.now()});
+    // optionally increment users slowly with bookings
+    state.users = Math.max(state.users, 100 + state.bookings.length);
+    saveState(state);
+    renderStats();
+    this.reset();
+    alert('Prenotazione demo registrata (local).');
+  });
+
+  // clear bookings
+  $('clearBookings').addEventListener('click', ()=>{
+    if(!confirm('Cancello tutte le prenotazioni demo salvate nel browser?')) return;
+    state.bookings = [];
+    saveState(state);
+    renderStats();
+  });
+
+  // quick actions
+  $('openFormBtn').addEventListener('click', ()=> {
+    setMode('demo');
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+  $('demoDriveBtn').addEventListener('click', ()=> {
+    setMode('demo');
+    alert('Switch to demo mode. Use the booking form on the left.');
+  });
+  $('resetDemoBtn').addEventListener('click', ()=>{
+    if(!confirm('Reset demo completo?')) return;
+    state.bookings=[]; state.users=120; state.iv={ask:1000000,video:''};
+    saveState(state); renderStats();
+    alert('Demo resettata.');
+  });
+
+  // copy link
+  $('copyLink').addEventListener('click', ()=>{
+    navigator.clipboard.writeText($('shareLink').value).then(()=>alert('Link copiato!'));
+  });
+
+  // editor modal logic
+  const editor = $('editorModal');
+  editorBtn.addEventListener('click', ()=>{ editor.classList.add('show'); $('editUsers').value = state.users; $('editBookings').value = state.bookings.length; $('editAsk').value = state.iv.ask||1000000; $('editVideo').value = state.iv.video||''; });
+  $('cancelEditor').addEventListener('click', ()=>{ editor.classList.remove('show'); });
+  $('saveEditor').addEventListener('click', ()=>{
+    const nu = Number($('editUsers').value||0);
+    const nb = Number($('editBookings').value||0);
+    const na = Number(($('editAsk').value||1000000));
+    const vid = $('editVideo').value.trim();
+    state.users = nu; // If bookings number changed, adjust bookings array length for demo
+    if(nb !== state.bookings.length){
+      state.bookings = Array.from({length: nb}).map((_,i)=>({name:'Demo '+(i+1),email:'demo@test',service:'Standard clean',date:new Date(Date.now()-i*86400000).toISOString().slice(0,10),ts:Date.now()-i*3600000}));
+    }
+    state.iv.ask = na; state.iv.video = vid;
+    saveState(state); renderStats(); editor.classList.remove('show');
+  });
+
+  // keyboard shortcut E for editor
+  document.addEventListener('keydown', (e)=>{
+    if(e.key==='e' || e.key==='E'){ editor.classList.toggle('show'); }
+  });
+
+  // initial state persist
+  saveState(state);
+
+  // ensure investor mode values reflect state
+  renderStats();
+
+  // download one-pager (generate minimal one-pager)
+  $('downloadDeck').addEventListener('click', ()=>{
+    const lines = [
+      'LustroLindo — One‑pager',
+      '',
+      'One-liner: LustroLindo: piattaforma premium on‑demand per la cura della casa.',
+      `Users / waitlist: ${state.users}`,
+      `Bookings (demo): ${state.bookings.length}`,
+      `Ask: €${state.iv.ask||1000000}`,
+      '',
+      'Roadmap: 0-3m MVP; 4-9m app & growth; 9-18m family services & B2B.',
+      '',
+      'Contact: founder@lustrolindo.test'
+    ];
+    const blob = new Blob([lines.join('\\n')],{type:'text/plain'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href=url; a.download='lustrolindo-onepager.txt'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+  });
+
+})();
+</script>
 </body>
 </html>
