@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LustroLindo - Demo</title>
   <style>
-    /* ==== Stile globale ==== */
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: #f2f2f7;
@@ -92,12 +91,10 @@
   </main>
 
   <script>
-    // ==== Config ====
     const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSuKDnH0hWwLeS6e2JMzli-_naIpNfb0az_yO23XzLqefmi9bw5aSfyVDq0sIMBrnaTyYnPVrPXHfvk/pub?output=csv";
     let bookings = [];
     let currentView = 'vc';
 
-    // ==== Lettura CSV ====
     function loadCSV(url, callback){
       fetch(url)
         .then(res => res.text())
@@ -115,18 +112,16 @@
         .catch(err => console.error('Errore CSV:', err));
     }
 
-    // ==== Render prenotazioni ====
     function renderBookings(){
       const container = document.getElementById("bookings-container");
       container.innerHTML = "";
 
       let filtered = bookings;
-      // Qui si possono filtrare viste diverse
       if(currentView === 'user'){
         filtered = bookings.filter(b => b.Tipo === 'User');
       } else if(currentView === 'vc'){
         filtered = bookings.filter(b => b.Tipo === 'VC');
-      } // editor mostra tutto
+      }
 
       filtered.forEach(b => {
         const div = document.createElement("div");
@@ -138,26 +133,19 @@
         container.appendChild(div);
       });
 
-      // Aggiorna contatore
       document.getElementById("total-counter").textContent = "Totale Prenotazioni: " + filtered.length;
     }
 
-    // ==== Cambio vista ====
     function setView(view){
       currentView = view;
       renderBookings();
     }
 
-    // ==== Carica dati CSV e mostra ====
     loadCSV(CSV_URL, data => {
       bookings = data;
-      // Se non esiste campo Tipo nei dati, assegna tutti 'VC' di default
-      bookings.forEach(b => {
-        if(!b.Tipo) b.Tipo = 'VC';
-      });
+      bookings.forEach(b => { if(!b.Tipo) b.Tipo = 'VC'; });
       renderBookings();
     });
-
   </script>
 </body>
 </html>
