@@ -18,6 +18,20 @@
   .dropdown-content button {padding:12px 16px; display:block; width:100%; text-align:left; border:none; background:none; cursor:pointer;}
   .dropdown:hover .dropdown-content {display:block;}
   .dropdown-content button:hover {background:#f2f2f2;}
+  /* RIGHT SLIDE PANEL */
+  #bookingPanel {
+    position: fixed;
+    top: 0;
+    right: -400px;
+    width: 380px;
+    height: 100vh;
+    background: white;
+    box-shadow: -4px 0 25px rgba(0,0,0,.15);
+    padding: 24px;
+    transition: right .35s ease;
+    z-index: 50;
+  }
+  #bookingPanel.open { right: 0; }
 </style>
 </head>
 <body>
@@ -34,13 +48,17 @@
 
 <!-- HERO -->
 <section class="text-center mt-24 mb-20 px-6">
+  <!-- HEADLINE: restored to the previous one -->
   <h1 class="text-5xl font-extrabold navy mb-4 tracking-tight" id="hero-text">
-    It’s not magic.<br>It’s LustroLindo.
+    You take care of yourself.<br>We take care of the rest.
   </h1>
+
+  <!-- SUBTEXT: now contains the new slogan (EN/IT) -->
   <p class="text-lg text-gray-600 mb-8" id="hero-subtext">
-    Premium cleaning. Zero worries. Always on time.
+    It’s not magic. It’s LustroLindo.
   </p>
-  <button class="btn-primary text-lg px-8 py-3">Start booking</button>
+
+  <button class="btn-primary text-lg px-8 py-3" onclick="openBooking()">Book now</button>
 </section>
 
 <!-- KPI CARDS -->
@@ -64,7 +82,7 @@
   <div class="card p-10 text-center">
     <h2 class="text-2xl font-bold navy mb-2" id="cta-client">For clients</h2>
     <p class="text-gray-600 mb-6" id="cta-client-sub">Book, manage and relax.</p>
-    <button class="btn-primary w-full py-3">Start booking</button>
+    <button class="btn-primary w-full py-3" onclick="openBooking()">Start booking</button>
   </div>
   <div class="card p-10 text-center">
     <h2 class="text-2xl font-bold navy mb-2" id="cta-cleaner">For cleaners</h2>
@@ -73,15 +91,38 @@
   </div>
 </section>
 
-<footer class="text-center py-12 text-gray-500 text-sm" id="footer">
-  © 2025 LustroLindo — Built for elegance & efficiency.
-</footer>
+<!-- BOOKING SLIDE PANEL -->
+<div id="bookingPanel" aria-hidden="true">
+  <h2 class="text-2xl font-bold navy mb-6" id="panel-title">Book a Cleaning</h2>
+
+  <label class="block mb-2 font-semibold">Name</label>
+  <input id="fldName" class="w-full p-3 border rounded-lg mb-4" placeholder="Your name">
+
+  <label class="block mb-2 font-semibold">Email</label>
+  <input id="fldEmail" type="email" class="w-full p-3 border rounded-lg mb-4" placeholder="Email">
+
+  <label class="block mb-2 font-semibold">Service</label>
+  <select id="fldService" class="w-full p-3 border rounded-lg mb-4">
+    <option value="">-- Select service --</option>
+    <option>Home cleaning</option>
+    <option>Office cleaning</option>
+    <option>Deep cleaning</option>
+  </select>
+
+  <label class="block mb-2 font-semibold">Date</label>
+  <input id="fldDate" type="date" class="w-full p-3 border rounded-lg mb-6">
+
+  <button class="btn-primary w-full py-3" id="confirmBtn">Confirm</button>
+  <button class="mt-4 w-full py-2 text-gray-600" onclick="closeBooking()">Close</button>
+</div>
+
+<footer class="text-center py-12 text-gray-500 text-sm" id="footer">© 2025 LustroLindo — Built for elegance & efficiency.</footer>
 
 <script>
 function setLang(lang) {
   if(lang==='it'){
-    document.getElementById('hero-text').innerHTML = 'Non è magia.<br>È LustroLindo.';
-    document.getElementById('hero-subtext').innerText = 'Pulizie premium. Zero pensieri. Sempre puntuali.';
+    document.getElementById('hero-text').innerHTML = 'Prenditi cura di te.<br>Noi ci occupiamo del resto.';
+    document.getElementById('hero-subtext').innerText = 'Non è magia. È LustroLindo.';
     document.getElementById('cta-client').innerText = 'Per clienti';
     document.getElementById('cta-client-sub').innerText = 'Prenota, gestisci e rilassati.';
     document.getElementById('cta-cleaner').innerText = 'Per cleaner';
@@ -90,9 +131,14 @@ function setLang(lang) {
     document.getElementById('kpi-sat-text').innerText = 'Clienti soddisfatti';
     document.getElementById('kpi-cleaners-text').innerText = 'Cleaner attivi';
     document.getElementById('footer').innerText = '© 2025 LustroLindo — Eleganza ed efficienza.';
+    document.getElementById('panel-title').innerText = 'Inizia la prenotazione';
+    document.getElementById('confirmBtn').innerText = 'Conferma';
+    document.getElementById('fldName').placeholder = 'Nome';
+    document.getElementById('fldEmail').placeholder = 'Email';
+    document.getElementById('fldService').options[0].text = '-- Seleziona servizio --';
   } else {
-    document.getElementById('hero-text').innerHTML = 'It’s not magic.<br>It’s LustroLindo.';
-    document.getElementById('hero-subtext').innerText = 'Premium cleaning. Zero worries. Always on time.';
+    document.getElementById('hero-text').innerHTML = 'You take care of yourself.<br>We take care of the rest.';
+    document.getElementById('hero-subtext').innerText = 'It’s not magic. It’s LustroLindo.';
     document.getElementById('cta-client').innerText = 'For clients';
     document.getElementById('cta-client-sub').innerText = 'Book, manage and relax.';
     document.getElementById('cta-cleaner').innerText = 'For cleaners';
@@ -101,8 +147,39 @@ function setLang(lang) {
     document.getElementById('kpi-sat-text').innerText = 'Satisfied clients';
     document.getElementById('kpi-cleaners-text').innerText = 'Active cleaners';
     document.getElementById('footer').innerText = '© 2025 LustroLindo — Built for elegance & efficiency.';
+    document.getElementById('panel-title').innerText = 'Book a Cleaning';
+    document.getElementById('confirmBtn').innerText = 'Confirm';
+    document.getElementById('fldName').placeholder = 'Your name';
+    document.getElementById('fldEmail').placeholder = 'Email';
+    document.getElementById('fldService').options[0].text = '-- Select service --';
   }
 }
+
+function openBooking(){ 
+  document.getElementById('bookingPanel').classList.add('open'); 
+  document.getElementById('bookingPanel').setAttribute('aria-hidden','false');
+  document.body.style.overflow = 'hidden';
+}
+function closeBooking(){ 
+  document.getElementById('bookingPanel').classList.remove('open'); 
+  document.getElementById('bookingPanel').setAttribute('aria-hidden','true');
+  document.body.style.overflow = '';
+}
+
+// simple confirm demo: does not send anywhere, just shows native confirm then closes
+document.getElementById('confirmBtn').addEventListener('click', function(){
+  const n = document.getElementById('fldName').value.trim();
+  const e = document.getElementById('fldEmail').value.trim();
+  const s = document.getElementById('fldService').value;
+  const d = document.getElementById('fldDate').value;
+  if(!n || !e || !s || !d){
+    alert('Compila tutti i campi prima di confermare.');
+    return;
+  }
+  // success micro-interaction
+  alert('Prenotazione simulata: ' + n + ' — ' + s + ' — ' + d);
+  closeBooking();
+});
 </script>
 
 </body>
