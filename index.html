@@ -1,158 +1,355 @@
-<!DOCTYPE html>
-<html lang="it">
+<!doctype html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LustroLindo - Demo Killer</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>DashClean — Demo</title>
+
+  <!-- Inter (SF-like) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
   <style>
-    /* ==== Stile globale ==== */
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #f0f2f5;
-      color: #333;
+    :root{
+      --bg-top: #FFF9F2;    /* champagne/cream top */
+      --bg-bottom: #F2EFE8; /* champagne/cream bottom */
+      --navy: #0A2342;      /* deep navy */
+      --navy-2: #1c4f79;
+      --muted: #6b7280;
+      --card: #FFFFFF;
+      --accent: #C9B89A;    /* champagne border */
+      --glass: rgba(255,255,255,0.72);
     }
-    header {
-      background: #4caf50;
-      color: white;
-      text-align: center;
-      padding: 1.2rem;
-      font-size: 1.8rem;
-      font-weight: bold;
-      letter-spacing: 1px;
+    /* Reset */
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg, var(--bg-top), var(--bg-bottom));
+      color: #0b2338;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
     }
-    main {
-      max-width: 1000px;
-      margin: 2rem auto;
-      padding: 0 1rem;
+
+    /* Top nav */
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding:18px 28px;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(6px);
+      border-bottom: 1px solid rgba(11,35,56,0.04);
+      position:sticky; top:0; z-index:40;
+      box-shadow: 0 6px 18px rgba(8,12,20,0.04);
     }
+    .brand { display:flex; align-items:center; gap:14px; }
+    .logo {
+      width:46px;height:46px;border-radius:10px;
+      background: linear-gradient(135deg,#e6f0ff,#cfe6ff);
+      display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--navy);
+      box-shadow: 0 6px 18px rgba(11,35,56,0.06);
+      font-size:16px;
+    }
+    .brand h1{font-size:18px;color:var(--navy);letter-spacing:0.2px}
+    .navactions{display:flex;gap:12px;align-items:center}
+    .nav-link{color:var(--muted);font-weight:600;padding:8px 12px;border-radius:10px;cursor:pointer}
+    .nav-link:hover{color:var(--navy);background:transparent}
+
     .btn {
-      padding: 0.6rem 1.2rem;
-      margin: 0.3rem;
-      border-radius: 6px;
-      background: #2196f3;
-      color: white;
-      border: none;
-      cursor: pointer;
-      font-weight: bold;
-      transition: 0.2s all;
+      display:inline-flex;align-items:center;gap:10px;
+      background:var(--navy); color:white; border-radius:12px;
+      padding:10px 16px;font-weight:700;border:0;cursor:pointer;
+      box-shadow: 0 8px 20px rgba(11,35,56,0.08);
+      transition: transform .16s ease, box-shadow .16s ease, opacity .12s;
     }
-    .btn:hover { background: #1976d2; transform: translateY(-2px); }
-    .view-toggle { margin-bottom: 1rem; }
-    #bookings-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
+    .btn:hover{transform:translateY(-3px);opacity:0.98}
+    .btn.secondary{background:transparent;color:var(--navy);border:1px solid rgba(11,35,56,0.06);font-weight:600}
+
+    /* Layout */
+    .wrap{max-width:1200px;margin:28px auto;padding:0 20px}
+    .hero{
+      position:relative; overflow:hidden;
+      border-radius:18px; padding:80px 36px;
+      display:flex;align-items:center;gap:40px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.6));
+      box-shadow: 0 20px 60px rgba(8,12,20,0.06);
     }
-    .booking-card {
-      background: white;
-      flex: 1 1 220px;
-      min-width: 220px;
-      border-radius: 10px;
-      padding: 1rem;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      transition: transform 0.2s;
-      position: relative;
+
+    /* Liquid soft movement background (subtle) */
+    .liquid {
+      position:absolute;inset:0;z-index:0;pointer-events:none;
+      background: radial-gradient(800px 300px at 10% 10%, rgba(10,34,66,0.06), transparent 12%),
+                  radial-gradient(700px 260px at 90% 80%, rgba(28,79,121,0.04), transparent 15%);
+      mix-blend-mode: overlay;
+      transform: translateZ(0);
+      animation: floaty 9s ease-in-out infinite;
     }
-    .booking-card:hover { transform: translateY(-3px); box-shadow: 0 6px 12px rgba(0,0,0,0.15); }
-    .booking-header { font-weight: bold; font-size: 1.1rem; margin-bottom: 0.4rem; }
-    .booking-service { color: #555; margin-bottom: 0.3rem; }
-    .badge {
-      display: inline-block;
-      padding: 0.2rem 0.5rem;
-      border-radius: 4px;
-      font-size: 0.75rem;
-      font-weight: bold;
-      margin-right: 0.3rem;
-      color: white;
+    @keyframes floaty {
+      0%{transform:translate3d(0,0,0) scale(1)}
+      50%{transform:translate3d(-8px,6px,0) scale(1.02)}
+      100%{transform:translate3d(0,0,0) scale(1)}
     }
-    .badge-demo { background: #ff9800; }
-    .badge-real { background: #4caf50; }
-    .badge-service-standard { background: #2196f3; }
-    .badge-service-deep { background: #9c27b0; }
-    .badge-service-abbonamento { background: #f44336; }
-    .counter {
-      margin: 1rem 0;
-      font-size: 1.3rem;
-      font-weight: bold;
+
+    /* Hero content */
+    .hero-left{flex:1;z-index:2;max-width:720px}
+    .kicker{display:inline-block;padding:6px 10px;border-radius:999px;background:linear-gradient(90deg,#f7efe0,#fff3e6);color:var(--navy);font-weight:700;margin-bottom:12px}
+    h2.title{
+      font-size:44px;line-height:1.02;margin-bottom:18px;color:var(--navy);
+      letter-spacing:-0.6px;font-weight:700;
+      opacity:0; transform:translateY(10px);
+      transition: all .9s cubic-bezier(.2,.9,.3,1);
     }
+    p.lead{color:var(--muted);font-size:18px;margin-bottom:26px;opacity:0;transform:translateY(10px);transition: all 1s .12s cubic-bezier(.2,.9,.3,1)}
+    .cta-row{display:flex;gap:12px;align-items:center;opacity:0;transform:translateY(10px);transition: all 1s .24s cubic-bezier(.2,.9,.3,1)}
+
+    /* Hero right (KPI preview / mock calendar) */
+    .hero-right{width:360px;z-index:2}
+    .mini-card{background:var(--card);padding:18px;border-radius:14px;box-shadow:0 8px 22px rgba(8,12,20,0.06);margin-bottom:14px}
+    .mini-stats{display:flex;gap:12px;align-items:center;justify-content:space-between}
+    .stat-num{font-size:20px;font-weight:800;color:var(--navy)}
+    .stat-label{font-size:13px;color:var(--muted)}
+
+    /* Slide-in panel */
+    .panel{
+      position:fixed;right:0;top:0;height:100vh;width:420px;max-width:92vw;
+      background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,255,255,0.96));
+      box-shadow: -24px 0 60px rgba(8,12,20,0.12); transform:translateX(100%);transition:transform .36s cubic-bezier(.2,.9,.3,1);z-index:60;
+      padding:28px;
+    }
+    .panel.open{transform:translateX(0)}
+    .panel h3{font-size:20px;margin-bottom:8px;color:var(--navy)}
+    .field{margin-bottom:12px}
+    .input, .select, .textarea{
+      width:100%;padding:12px;border-radius:10px;border:1px solid rgba(11,35,56,0.06);font-size:15px;background:transparent
+    }
+
+    /* success micro */
+    .success{
+      display:flex;flex-direction:column;align-items:center;justify-content:center;height:240px;
+      gap:12px;text-align:center
+    }
+    .tick{
+      width:68px;height:68px;border-radius:999px;background:linear-gradient(90deg,var(--navy),var(--navy-2));display:flex;align-items:center;justify-content:center;color:white;font-size:34px;box-shadow:0 10px 30px rgba(10,34,66,0.18)
+    }
+    .success p{color:var(--muted);font-size:15px}
+
+    /* small responsive */
+    @media (max-width:880px){
+      .hero{flex-direction:column; padding:36px}
+      .hero-right{width:100%}
+      .hero-left{max-width:100%}
+    }
+
+    /* Entrance animations hook (will be triggered by JS) */
+    .show { opacity:1; transform:none }
   </style>
 </head>
 <body>
-  <header>LustroLindo - Demo Killer</header>
-  <main>
-    <div class="view-toggle">
-      <button class="btn" onclick="setView('vc')">Vista VC</button>
-      <button class="btn" onclick="setView('user')">Vista User</button>
-      <button class="btn" onclick="setView('editor')">Editor</button>
-      <a class="btn" href="https://docs.google.com/forms/d/12p9C2582DXx_0wwkoJOoRgQHPGTZpN2rSp-LxlF74Qo/viewform?usp=sf_link" target="_blank">Apri Booking Demo</a>
+  <!-- Top bar -->
+  <div class="topbar">
+    <div class="brand">
+      <div class="logo">DC</div>
+      <h1>DashClean</h1>
     </div>
-    <div class="counter" id="total-counter">Totale Prenotazioni: 0</div>
-    <div id="bookings-container"></div>
+
+    <div class="navactions" aria-hidden>
+      <div class="nav-link">Dashboard</div>
+      <div class="nav-link">Bookings</div>
+      <div class="nav-link">Cleaners</div>
+      <div class="nav-link">AI</div>
+    </div>
+
+    <div style="display:flex;gap:10px;align-items:center">
+      <button class="btn secondary" onclick="openSheet()" title="Open live form">Live form</button>
+      <button class="btn" onclick="openPanel()">Get Started</button>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <!-- Hero -->
+    <section class="hero" role="region" aria-label="Hero">
+      <div class="liquid" aria-hidden></div>
+
+      <div class="hero-left">
+        <div class="kicker">Concierge service</div>
+
+        <h2 class="title" id="heroTitle">You take care of yourself.<br/>We take care of the rest.</h2>
+
+        <p class="lead" id="heroSub">Benessere, tempo e qualità — sempre dalla tua parte.</p>
+
+        <div class="cta-row" id="heroCtas">
+          <button class="btn" onclick="openPanel()">Get Started</button>
+          <button class="btn secondary" onclick="openSheet()">Book Live</button>
+        </div>
+      </div>
+
+      <aside class="hero-right" aria-hidden>
+        <div class="mini-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+            <div>
+              <div class="stat-num">348</div>
+              <div class="stat-label">Active customers</div>
+            </div>
+            <div style="text-align:right">
+              <div class="stat-num">14</div>
+              <div class="stat-label">Cleaners online</div>
+            </div>
+          </div>
+
+          <div style="height:10px;background:linear-gradient(90deg,var(--navy),var(--navy-2));border-radius:10px;overflow:hidden">
+            <div style="width:46%;height:10px;background:linear-gradient(90deg,rgba(255,255,255,0.15),rgba(255,255,255,0));"></div>
+          </div>
+        </div>
+
+        <div class="mini-card">
+          <div style="display:flex;align-items:center;gap:12px">
+            <div style="width:44px;height:44px;border-radius:8px;background:linear-gradient(90deg,#e6f0ff,#cfe6ff);display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--navy)">JR</div>
+            <div>
+              <div style="font-weight:700;color:var(--navy)">Julia R.</div>
+              <div style="font-size:13px;color:var(--muted)">Booked 2 days ago — Deep Clean</div>
+            </div>
+          </div>
+        </div>
+
+      </aside>
+    </section>
+
+    <!-- KPI row -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:26px;margin-bottom:48px">
+      <div class="card p-6" style="border-radius:14px"><div style="font-size:22px;font-weight:800;color:var(--navy)">52</div><div style="color:var(--muted)">Prenotazioni oggi</div></div>
+      <div class="card p-6" style="border-radius:14px"><div style="font-size:22px;font-weight:800;color:var(--navy)">98%</div><div style="color:var(--muted)">Soddisfazione</div></div>
+      <div class="card p-6" style="border-radius:14px"><div style="font-size:22px;font-weight:800;color:var(--navy)">14</div><div style="color:var(--muted)">Cleaner attivi</div></div>
+    </div>
+
+    <!-- Two CTAs -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:64px">
+      <div class="card p-8" style="border-radius:14px">
+        <h3 style="font-size:18px;font-weight:700;color:var(--navy)">For clients</h3>
+        <p style="color:var(--muted);margin-top:8px;margin-bottom:12px">Book, schedule and enjoy more time.</p>
+        <button class="btn" onclick="openPanel()">Start booking</button>
+      </div>
+
+      <div class="card p-8" style="border-radius:14px">
+        <h3 style="font-size:18px;font-weight:700;color:var(--navy)">For cleaners</h3>
+        <p style="color:var(--muted);margin-top:8px;margin-bottom:12px">Shift management, routes and tips.</p>
+        <button class="btn secondary">Cleaner portal</button>
+      </div>
+    </div>
+
+    <footer style="text-align:center;padding:40px 10px;color:var(--muted);font-size:13px">© 2025 DashClean — Time is the real luxury.</footer>
   </main>
 
+  <!-- Slide-in panel (fake + live form link) -->
+  <aside id="bookingPanel" class="panel" aria-hidden>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+      <div>
+        <div style="font-size:12px;color:var(--muted)">Booking</div>
+        <h3 style="margin-top:6px;color:var(--navy)">Schedule a service</h3>
+      </div>
+      <button class="btn secondary" onclick="closePanel()">Close</button>
+    </div>
+
+    <div id="panelContent">
+      <div class="field">
+        <label class="field-label" style="font-weight:600;color:var(--navy);font-size:13px">Name</label>
+        <input class="input" id="fldName" placeholder="Ex. Marco Rossi">
+      </div>
+
+      <div class="field">
+        <label style="font-weight:600;color:var(--navy);font-size:13px">Email</label>
+        <input class="input" id="fldEmail" placeholder="you@domain.com">
+      </div>
+
+      <div class="field" style="display:flex;gap:10px">
+        <input class="input" style="flex:1" id="fldDate" type="date">
+        <input class="input" style="width:120px" id="fldTime" type="time">
+      </div>
+
+      <div class="field">
+        <label style="font-weight:600;color:var(--navy);font-size:13px">Service</label>
+        <select class="select" id="fldService">
+          <option>Standard clean</option>
+          <option>Deep clean</option>
+          <option>Monthly subscription</option>
+        </select>
+      </div>
+
+      <div style="display:flex;gap:10px;margin-top:14px">
+        <button class="btn" onclick="submitDemo()">Submit (demo)</button>
+        <button class="btn secondary" onclick="submitLive()">Submit (live)</button>
+      </div>
+
+      <div id="panelNote" style="margin-top:14px;color:var(--muted);font-size:13px">Demo mode: the submit action is local and shows a premium confirmation. Use <strong>Submit (live)</strong> to open the Google Form.</div>
+    </div>
+
+    <div id="panelSuccess" style="display:none">
+      <div class="success">
+        <div class="tick">✓</div>
+        <h4 style="font-size:18px;font-weight:700;color:var(--navy)">Sit back & relax.</h4>
+        <p style="color:var(--muted)">We’ll take it from here.</p>
+        <button class="btn" onclick="closePanel()">Done</button>
+      </div>
+    </div>
+  </aside>
+
   <script>
-    const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSuKDnH0hWwLeS6e2JMzli-_naIpNfb0az_yO23XzLqefmi9bw5aSfyVDq0sIMBrnaTyYnPVrPXHfvk/pub?output=csv";
-    let bookings = [];
-    let currentView = 'vc';
+    // entrance animation
+    window.addEventListener('load', ()=> {
+      setTimeout(()=> document.getElementById('heroTitle').classList.add('show'), 80);
+      setTimeout(()=> document.getElementById('heroSub').classList.add('show'), 240);
+      setTimeout(()=> document.getElementById('heroCtas').classList.add('show'), 360);
+    });
 
-    function loadCSV(url, callback){
-      fetch(url)
-        .then(res => res.text())
-        .then(data => {
-          const lines = data.trim().split('\n');
-          const headers = lines[0].split(',');
-          const rows = lines.slice(1).map(line => {
-            const items = line.split(',');
-            const obj = {};
-            headers.forEach((h,i)=> obj[h.trim()] = items[i].trim());
-            return obj;
-          });
-          callback(rows);
-        }).catch(err => console.error('Errore CSV:', err));
+    // panel control
+    function openPanel(){
+      document.getElementById('bookingPanel').classList.add('open');
+      document.getElementById('bookingPanel').setAttribute('aria-hidden','false');
+      // scroll lock
+      document.body.style.overflow = 'hidden';
+    }
+    function closePanel(){
+      document.getElementById('bookingPanel').classList.remove('open');
+      document.getElementById('bookingPanel').setAttribute('aria-hidden','true');
+      document.body.style.overflow = '';
+      // reset success view
+      document.getElementById('panelSuccess').style.display = 'none';
+      document.getElementById('panelContent').style.display = '';
     }
 
-    function renderBookings(){
-      const container = document.getElementById("bookings-container");
-      container.innerHTML = "";
+    // Demo submit (fake)
+    function submitDemo(){
+      // simple validation
+      const n = document.getElementById('fldName').value.trim();
+      const e = document.getElementById('fldEmail').value.trim();
+      if(!n || !e){
+        alert('Inserisci nome e email per la demo.');
+        return;
+      }
 
-      let filtered = bookings;
-      if(currentView === 'user') filtered = bookings.filter(b => b.Tipo === 'User');
-      else if(currentView === 'vc') filtered = bookings.filter(b => b.Tipo === 'VC');
-
-      filtered.sort((a,b) => new Date(a.Data) - new Date(b.Data));
-
-      filtered.forEach(b => {
-        const div = document.createElement("div");
-        div.className = "booking-card";
-
-        // Badge tipo
-        const tipoBadge = b.Tipo === 'User' ? `<span class="badge badge-demo">Demo</span>` : `<span class="badge badge-real">Reale</span>`;
-        // Badge servizio
-        let serviceBadge = '';
-        if(b.Servizio.toLowerCase().includes('standard')) serviceBadge = `<span class="badge badge-service-standard">Standard</span>`;
-        else if(b.Servizio.toLowerCase().includes('deep')) serviceBadge = `<span class="badge badge-service-deep">Deep Clean</span>`;
-        else if(b.Servizio.toLowerCase().includes('abbonamento')) serviceBadge = `<span class="badge badge-service-abbonamento">Abbonamento</span>`;
-
-        div.innerHTML = `
-          <div class="booking-header">${b.Nome}</div>
-          <div class="booking-service">${b.Data} ${tipoBadge} ${serviceBadge}</div>
-        `;
-        container.appendChild(div);
-      });
-
-      document.getElementById("total-counter").textContent = "Totale Prenotazioni: " + filtered.length;
+      // show success micro-animation
+      document.getElementById('panelContent').style.display = 'none';
+      document.getElementById('panelSuccess').style.display = '';
+      // here you could push to localStorage or update UI; keep it simple for now
+      setTimeout(()=> {
+        // keep panel open so you can see success, then close on Done
+      }, 400);
     }
 
-    function setView(view){
-      currentView = view;
-      renderBookings();
+    // Live submit opens Google Form (A->B flow)
+    function submitLive(){
+      // open the Google Form (replace / ensure it's the live form)
+      window.open('https://docs.google.com/forms/d/12p9C2582DXx_0wwkoJOoRgQHPGTZpN2rSp-LxlF74Qo/viewform?usp=sf_link','_blank');
     }
 
-    loadCSV(CSV_URL, data => {
-      bookings = data.map(b => { if(!b.Tipo) b.Tipo='VC'; return b; });
-      renderBookings();
+    function openSheet(){
+      // open csv/sheet preview if needed (we use the form link as live)
+      window.open('https://docs.google.com/forms/d/12p9C2582DXx_0wwkoJOoRgQHPGTZpN2rSp-LxlF74Qo/viewform?usp=sf_link','_blank');
+    }
+
+    // minor UX: press ESC to close
+    document.addEventListener('keydown', (e)=>{
+      if(e.key === 'Escape') closePanel();
     });
   </script>
 </body>
