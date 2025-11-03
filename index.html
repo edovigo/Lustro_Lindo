@@ -11,23 +11,13 @@
   .bg-navy { background:#0A2342; }
   .btn-primary { background:#0A2342; color:white; border-radius:12px; padding:14px 24px; font-weight:600; transition:.2s; }
   .btn-primary:hover{opacity:.85;}
-  .card{background:white;border-radius:22px;box-shadow:0 10px 25px rgba(0,0,0,.08);}  
+  .card{background:white;border-radius:22px;box-shadow:0 10px 25px rgba(0,0,0,.08);}
   .lang-toggle {cursor:pointer; font-weight:bold;}
-
-  /* RIGHT SLIDE PANEL */
-  #bookingPanel {
-    position: fixed;
-    top: 0;
-    right: -400px;
-    width: 380px;
-    height: 100vh;
-    background: white;
-    box-shadow: -4px 0 25px rgba(0,0,0,.15);
-    padding: 24px;
-    transition: right .35s ease;
-    z-index: 50;
-  }
-  #bookingPanel.open { right: 0; }
+  .dropdown {position:relative; display:inline-block;}
+  .dropdown-content {display:none; position:absolute; right:0; background:white; min-width:160px; box-shadow:0 8px 16px rgba(0,0,0,.2); border-radius:12px; z-index:1;}
+  .dropdown-content button {padding:12px 16px; display:block; width:100%; text-align:left; border:none; background:none; cursor:pointer;}
+  .dropdown:hover .dropdown-content {display:block;}
+  .dropdown-content button:hover {background:#f2f2f2;}
 </style>
 </head>
 <body>
@@ -44,16 +34,29 @@
 
 <!-- HERO -->
 <section class="text-center mt-24 mb-20 px-6">
-  <h1 class="text-5xl font-extrabold navy mb-4 tracking-tight" id="hero-text">You take care of yourself.<br>We take care of the rest.</h1>
-  <p class="text-lg text-gray-600 mb-8" id="hero-subtext">Premium cleaning. Zero worries. Always on time.</p>
-  <button class="btn-primary text-lg px-8 py-3" onclick="openBooking()">Book now</button>
+  <h1 class="text-5xl font-extrabold navy mb-4 tracking-tight" id="hero-text">
+    It’s not magic.<br>It’s LustroLindo.
+  </h1>
+  <p class="text-lg text-gray-600 mb-8" id="hero-subtext">
+    Premium cleaning. Zero worries. Always on time.
+  </p>
+  <button class="btn-primary text-lg px-8 py-3">Start booking</button>
 </section>
 
 <!-- KPI CARDS -->
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 px-6 mb-24">
-  <div class="card p-8 text-center"><div class="text-4xl font-bold navy mb-2" id="kpi-bookings">52</div><div class="text-gray-600" id="kpi-bookings-text">Bookings today</div></div>
-  <div class="card p-8 text-center"><div class="text-4xl font-bold navy mb-2" id="kpi-sat">98%</div><div class="text-gray-600" id="kpi-sat-text">Satisfied clients</div></div>
-  <div class="card p-8 text-center"><div class="text-4xl font-bold navy mb-2" id="kpi-cleaners">14</div><div class="text-gray-600" id="kpi-cleaners-text">Active cleaners</div></div>
+  <div class="card p-8 text-center">
+    <div class="text-4xl font-bold navy mb-2" id="kpi-bookings">52</div>
+    <div class="text-gray-600" id="kpi-bookings-text">Bookings today</div>
+  </div>
+  <div class="card p-8 text-center">
+    <div class="text-4xl font-bold navy mb-2" id="kpi-sat">98%</div>
+    <div class="text-gray-600" id="kpi-sat-text">Satisfied clients</div>
+  </div>
+  <div class="card p-8 text-center">
+    <div class="text-4xl font-bold navy mb-2" id="kpi-cleaners">14</div>
+    <div class="text-gray-600" id="kpi-cleaners-text">Active cleaners</div>
+  </div>
 </div>
 
 <!-- TWO MODE CTA -->
@@ -61,7 +64,7 @@
   <div class="card p-10 text-center">
     <h2 class="text-2xl font-bold navy mb-2" id="cta-client">For clients</h2>
     <p class="text-gray-600 mb-6" id="cta-client-sub">Book, manage and relax.</p>
-    <button class="btn-primary w-full py-3" onclick="openBooking()">Start booking</button>
+    <button class="btn-primary w-full py-3">Start booking</button>
   </div>
   <div class="card p-10 text-center">
     <h2 class="text-2xl font-bold navy mb-2" id="cta-cleaner">For cleaners</h2>
@@ -70,36 +73,14 @@
   </div>
 </section>
 
-<!-- BOOKING SLIDE PANEL -->
-<div id="bookingPanel">
-  <h2 class="text-2xl font-bold navy mb-6">Book a Cleaning</h2>
-
-  <label class="block mb-2 font-semibold">Name</label>
-  <input class="w-full p-3 border rounded-lg mb-4" placeholder="Your name">
-
-  <label class="block mb-2 font-semibold">Email</label>
-  <input type="email" class="w-full p-3 border rounded-lg mb-4" placeholder="Email">
-
-  <label class="block mb-2 font-semibold">Service</label>
-  <select class="w-full p-3 border rounded-lg mb-4">
-    <option>Home cleaning</option>
-    <option>Office cleaning</option>
-    <option>Deep cleaning</option>
-  </select>
-
-  <label class="block mb-2 font-semibold">Date</label>
-  <input type="date" class="w-full p-3 border rounded-lg mb-6">
-
-  <button class="btn-primary w-full py-3">Confirm</button>
-  <button class="mt-4 w-full py-2 text-gray-600" onclick="closeBooking()">Close</button>
-</div>
-
-<footer class="text-center py-12 text-gray-500 text-sm" id="footer">© 2025 LustroLindo — Built for elegance & efficiency.</footer>
+<footer class="text-center py-12 text-gray-500 text-sm" id="footer">
+  © 2025 LustroLindo — Built for elegance & efficiency.
+</footer>
 
 <script>
 function setLang(lang) {
   if(lang==='it'){
-    document.getElementById('hero-text').innerHTML = 'Prenditi cura di te.<br>Noi ci occupiamo del resto.';
+    document.getElementById('hero-text').innerHTML = 'Non è magia.<br>È LustroLindo.';
     document.getElementById('hero-subtext').innerText = 'Pulizie premium. Zero pensieri. Sempre puntuali.';
     document.getElementById('cta-client').innerText = 'Per clienti';
     document.getElementById('cta-client-sub').innerText = 'Prenota, gestisci e rilassati.';
@@ -110,7 +91,7 @@ function setLang(lang) {
     document.getElementById('kpi-cleaners-text').innerText = 'Cleaner attivi';
     document.getElementById('footer').innerText = '© 2025 LustroLindo — Eleganza ed efficienza.';
   } else {
-    document.getElementById('hero-text').innerHTML = 'You take care of yourself.<br>We take care of the rest.';
+    document.getElementById('hero-text').innerHTML = 'It’s not magic.<br>It’s LustroLindo.';
     document.getElementById('hero-subtext').innerText = 'Premium cleaning. Zero worries. Always on time.';
     document.getElementById('cta-client').innerText = 'For clients';
     document.getElementById('cta-client-sub').innerText = 'Book, manage and relax.';
@@ -122,9 +103,6 @@ function setLang(lang) {
     document.getElementById('footer').innerText = '© 2025 LustroLindo — Built for elegance & efficiency.';
   }
 }
-
-function openBooking(){ document.getElementById('bookingPanel').classList.add('open'); }
-function closeBooking(){ document.getElementById('bookingPanel').classList.remove('open'); }
 </script>
 
 </body>
