@@ -1,156 +1,181 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LustroLindo</title>
-<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-<style>
-  body { background:#F7F4EB; font-family:system-ui, sans-serif; }
-  .navy { color:#0A2342; }
-  .bg-navy { background:#0A2342; }
-  .btn-primary { background:#0A2342; color:white; border-radius:12px; padding:14px 24px; font-weight:600; transition:.2s; }
-  .btn-primary:hover{opacity:.85;}
-  .card{background:white;border-radius:22px;box-shadow:0 10px 25px rgba(0,0,0,.08);}
-  .lang-toggle {cursor:pointer; font-weight:bold;}
-  .dropdown {position:relative; display:inline-block;}
-  .dropdown-content {display:none; position:absolute; right:0; background:white; min-width:160px; box-shadow:0 8px 16px rgba(0,0,0,.2); border-radius:12px; z-index:1;}
-  .dropdown-content button {padding:12px 16px; display:block; width:100%; text-align:left; border:none; background:none; cursor:pointer;}
-  .dropdown:hover .dropdown-content {display:block;}
-  .dropdown-content button:hover {background:#f2f2f2;}
-
-  /* Slide panel */
-  #bookingPanel {
-    position: fixed;
-    top: 0;
-    right: -420px;
-    width: 420px;
-    height: 100%;
-    background: #fff;
-    box-shadow: -4px 0 18px rgba(0,0,0,.2);
-    padding: 28px;
-    transition: right .35s ease-in-out;
-    overflow-y: auto;
-    z-index: 2000;
-  }
-  #bookingPanel.open { right: 0; }
-  input, select { width:100%; border:1px solid #ccc; padding:12px; border-radius:10px; margin-bottom:14px; }
-  .cleaner-card{background:#F7F7F7;border:1px solid #e4e4e4;padding:10px;border-radius:10px;display:flex;justify-content:space-between;margin-bottom:8px;}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LustroLindo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f9fafb;
+      color: #111;
+    }
+    header {
+      padding: 20px;
+      background: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #eee;
+    }
+    .brand {
+      font-size: 24px;
+      font-weight: bold;
+      color: #0077ff;
+    }
+    .hero {
+      text-align: center;
+      padding: 70px 20px;
+      background: #eef7ff;
+    }
+    .hero h1 {
+      font-size: 42px;
+      margin: 0;
+      font-weight: 800;
+    }
+    .hero p {
+      font-size: 20px;
+      margin: 10px 0 25px;
+    }
+    button {
+      background: #0077ff;
+      color: white;
+      padding: 14px 26px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 17px;
+      font-weight: bold;
+      transition: 0.2s;
+    }
+    button:hover {
+      opacity: 0.85;
+    }
+    .dashboard {
+      padding: 30px;
+      max-width: 800px;
+      margin: auto;
+    }
+    .panel {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+    }
+    /* Slide booking */
+    .slide {
+      position: fixed;
+      top: 0;
+      right: -400px;
+      width: 350px;
+      height: 100%;
+      background: white;
+      border-left: 2px solid #0077ff;
+      padding: 20px;
+      transition: 0.35s;
+      box-shadow: -4px 0 10px rgba(0,0,0,0.1);
+      z-index: 999;
+    }
+    .slide.open {
+      right: 0;
+    }
+    .slide-close {
+      font-size: 22px;
+      cursor: pointer;
+      float: right;
+      color: #0077ff;
+      font-weight: bold;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
+    }
+    .cleaner-list {
+      margin-top: 10px;
+      border-top: 1px solid #ddd;
+      padding-top: 10px;
+    }
+    .cleaner-card {
+      background: #f4f8ff;
+      padding: 10px;
+      margin-bottom: 6px;
+      border-radius: 6px;
+      font-size: 15px;
+    }
+  </style>
 </head>
 <body>
 
-<!-- NAV -->
-<header class="flex justify-between items-center p-6 bg-white shadow">
-  <div class="text-2xl font-bold navy tracking-tight">LustroLindo</div>
-  <div class="flex gap-4 items-center">
-    <span class="lang-toggle" onclick="setLang('it')">🇮🇹</span>
-    <span class="lang-toggle" onclick="setLang('en')">🇬🇧</span>
-  </div>
-  <button class="btn-primary" onclick="openBooking()">Login</button>
+<header>
+  <div class="brand">LustroLindo</div>
+  <button onclick="openSlide()">Book Now</button>
 </header>
 
-<!-- HERO -->
-<section class="text-center mt-24 mb-20 px-6">
-  <h1 class="text-5xl font-extrabold navy mb-4 tracking-tight" id="hero-text">You take care of yourself.<br>We take care of the rest.</h1>
-  <p class="text-lg text-gray-600 mb-8" id="hero-subtext">Premium cleaning. Zero worries. Always on time.</p>
-  <button class="btn-primary text-lg px-8 py-3" onclick="openBooking()">Book now</button>
+<section class="hero">
+  <h1>It’s not magic. It’s LustroLindo.</h1>
+  <p>Non è magia. È LustroLindo.</p>
+  <button onclick="openSlide()">Start Booking</button>
 </section>
 
-<!-- KPI CARDS -->
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6 px-6 mb-24">
-  <div class="card p-8 text-center"><div class="text-4xl font-bold navy mb-2" id="kpi-bookings">52</div><div class="text-gray-600" id="kpi-bookings-text">Bookings today</div></div>
-  <div class="card p-8 text-center"><div class="text-4xl font-bold navy mb-2" id="kpi-sat">98%</div><div class="text-gray-600" id="kpi-sat-text">Satisfied clients</div></div>
-  <div class="card p-8 text-center"><div class="text-4xl font-bold navy mb-2" id="kpi-cleaners">14</div><div class="text-gray-600" id="kpi-cleaners-text">Active cleaners</div></div>
+<div class="dashboard">
+  <h2>Client Dashboard</h2>
+
+  <div class="panel">
+    <h3>Your tools</h3>
+    <button onclick="showCleaners()">Access Shifts</button>
+  </div>
+  
+  <div id="cleanerContainer" style="display:none;" class="panel">
+    <h3>Available Cleaners</h3>
+    <div class="cleaner-list">
+      <div class="cleaner-card">🧼 Anna — €18/h — 2.4km</div>
+      <div class="cleaner-card">✨ Luca — €20/h — 3.1km</div>
+      <div class="cleaner-card">🧽 Sofia — €17/h — 1.8km</div>
+      <div class="cleaner-card">🪣 Marco — €19/h — 4.7km</div>
+    </div>
+  </div>
 </div>
 
-<!-- TWO MODE CTA -->
-<section class="px-6 mb-20 grid md:grid-cols-2 gap-10">
-  <div class="card p-10 text-center">
-    <h2 class="text-2xl font-bold navy mb-2" id="cta-client">For clients</h2>
-    <p class="text-gray-600 mb-6" id="cta-client-sub">Book, manage and relax.</p>
-    <button class="btn-primary w-full py-3" onclick="openBooking()">Start booking</button>
-  </div>
-  <div class="card p-10 text-center">
-    <h2 class="text-2xl font-bold navy mb-2" id="cta-cleaner">For cleaners</h2>
-    <p class="text-gray-600 mb-6" id="cta-cleaner-sub">Ultra-optimized shifts with AI.</p>
-    <button class="btn-primary w-full py-3" onclick="openBooking()">Access shifts</button>
-  </div>
-</section>
+<!-- Slide Booking -->
+<div id="slide" class="slide">
+  <span class="slide-close" onclick="closeSlide()">✕</span>
+  <h3>Book Cleaning</h3>
+  
+  <input type="text" placeholder="Your name" />
+  <input type="email" placeholder="Email" />
+  
+  <label>Date (DD-MM-YYYY):</label>
+  <input type="text" id="dateInput" placeholder="DD-MM-YYYY" />
 
-<footer class="text-center py-12 text-gray-500 text-sm" id="footer">© 2025 LustroLindo — Built for elegance & efficiency.</footer>
-
-
-<!-- BOOKING SLIDE PANEL -->
-<div id="bookingPanel">
-  <h2 class="text-xl font-bold mb-4 navy">Book your cleaning</h2>
-
-  <input type="text" placeholder="Your name">
-  <input type="email" placeholder="Your email">
-
+  <label>Duration:</label>
   <select>
-    <option>Select service</option>
-    <option>Standard Cleaning</option>
-    <option>Deep Cleaning</option>
-    <option>Office Cleaning</option>
-    <option>Post-Renovation</option>
+    <option value="2h">2 hours</option>
+    <option value="4h">4 hours</option>
+    <option value="6h">6 hours</option>
   </select>
 
-  <!-- DD-MM-YYYY -->
-  <input type="text" id="dateInput" placeholder="DD-MM-YYYY" oninput="formatDate(this)">
-
-  <!-- Durata -->
-  <select>
-    <option>2 hours</option>
-    <option>4 hours</option>
-    <option>6 hours</option>
-  </select>
-
-  <h3 class="text-lg font-semibold mb-2 navy">Available cleaners nearby</h3>
-
-  <!-- Cleaners -->
-  <div class="cleaner-card">🧹 Laura — €18/h — 2.1 km</div>
-  <div class="cleaner-card">✨ Marco — €20/h — 1.4 km</div>
-  <div class="cleaner-card">🧼 Sofia — €17/h — 3.8 km</div>
-  <div class="cleaner-card">🏠 Paolo — €19/h — 0.9 km</div>
-
-  <button class="btn-primary mt-3 w-full">Confirm booking</button>
+  <button>Confirm Booking</button>
 </div>
-
 
 <script>
-function openBooking(){ document.getElementById("bookingPanel").classList.add("open"); }
-function setLang(lang) {
-  if(lang==='it'){
-    document.getElementById('hero-text').innerHTML = 'Prenditi cura di te.<br>Noi ci occupiamo del resto.';
-    document.getElementById('hero-subtext').innerText = 'Non è magia. È LustroLindo.';
-    document.getElementById('cta-client').innerText = 'Per clienti';
-    document.getElementById('cta-client-sub').innerText = 'Prenota, gestisci e rilassati.';
-    document.getElementById('cta-cleaner').innerText = 'Per cleaner';
-    document.getElementById('cta-cleaner-sub').innerText = 'Turni ultra-ottimizzati con AI.';
-    document.getElementById('kpi-bookings-text').innerText = 'Prenotazioni oggi';
-    document.getElementById('kpi-sat-text').innerText = 'Clienti soddisfatti';
-    document.getElementById('kpi-cleaners-text').innerText = 'Cleaner attivi';
-    document.getElementById('footer').innerText = '© 2025 LustroLindo — Eleganza ed efficienza.';
-  } else {
-    document.getElementById('hero-text').innerHTML = 'You take care of yourself.<br>We take care of the rest.';
-    document.getElementById('hero-subtext').innerText = 'It’s not magic. It’s LustroLindo.';
-    document.getElementById('cta-client').innerText = 'For clients';
-    document.getElementById('cta-client-sub').innerText = 'Book, manage and relax.';
-    document.getElementById('cta-cleaner').innerText = 'For cleaners';
-    document.getElementById('cta-cleaner-sub').innerText = 'Ultra-optimized shifts with AI.';
-    document.getElementById('kpi-bookings-text').innerText = 'Bookings today';
-    document.getElementById('kpi-sat-text').innerText = 'Satisfied clients';
-    document.getElementById('kpi-cleaners-text').innerText = 'Active cleaners';
-    document.getElementById('footer').innerText = '© 2025 LustroLindo — Built for elegance & efficiency.';
-  }
+function openSlide() {
+  document.getElementById("slide").classList.add("open");
 }
-
-function formatDate(input){
-  let v=input.value.replace(/\D/g,"").slice(0,8);
-  if(v.length>=5) input.value=v.slice(0,2)+"-"+v.slice(2,4)+"-"+v.slice(4,8);
-  else if(v.length>=3) input.value=v.slice(0,2)+"-"+v.slice(2);
+function closeSlide() {
+  document.getElementById("slide").classList.remove("open");
 }
+function showCleaners() {
+  document.getElementById("cleanerContainer").style.display = "block";
+}
+document.getElementById("dateInput").addEventListener("input", function (e) {
+  this.value = this.value.replace(/[^0-9\-]/g, "").slice(0, 10);
+});
 </script>
 
 </body>
