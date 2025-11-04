@@ -343,6 +343,55 @@ setLang('en');
 
 document.addEventListener('keydown', e => { if(e.key==='Escape'){ closeBooking(); closeShiftsPlaceholder(); } });
 </script>
+<script>
+// Post-confirm Uber-style feedback
+document.addEventListener("DOMContentLoaded", () => {
+  const confirmBtn = document.getElementById("confirmBooking");
+  const confirmationBox = document.getElementById("confirmationFeedback");
+  const selectedCleanerSpan = document.getElementById("selectedCleanerName");
 
+  if (!confirmBtn) return;
+
+  confirmBtn.addEventListener("click", () => {
+    // Nasconde bottone
+    confirmBtn.style.display = "none";
+
+    // Mostra box animazione
+    confirmationBox.innerHTML = `
+      <div class="flex flex-col items-center gap-3 text-center p-4">
+        <div class="animate-pulse text-3xl">🧼</div>
+        <p class="font-semibold text-gray-800">Stiamo bloccando lo slot per te…</p>
+        <p class="text-sm text-gray-500">${selectedCleanerSpan.innerText} sta preparando la magia ✨</p>
+        <div class="loader mt-2"></div>
+      </div>
+    `;
+    confirmationBox.style.display = "block";
+
+    // Dopo 2.5s → conferma finale
+    setTimeout(() => {
+      confirmationBox.innerHTML = `
+        <div class="flex flex-col items-center gap-2 text-center p-4">
+          <div class="text-3xl">✅</div>
+          <p class="font-semibold text-gray-800">Prenotazione confermata!</p>
+          <p class="text-sm text-gray-500">Riceverai una email con i dettagli ✅</p>
+        </div>
+      `;
+    }, 2500);
+  });
+});
+</script>
+
+<style>
+/* Loader minimal */
+.loader {
+  border: 3px solid #ddd;
+  border-top: 3px solid #0A2342;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin { 100% { transform: rotate(360deg); } }
+</style>
 </body>
 </html>
