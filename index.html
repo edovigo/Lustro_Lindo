@@ -13,12 +13,18 @@
   .btn-primary:hover{opacity:.85;}
   .card{background:white;border-radius:22px;box-shadow:0 10px 25px rgba(0,0,0,.08);}
   .lang-toggle {cursor:pointer; font-weight:bold;}
+  .dropdown {position:relative; display:inline-block;}
+  .dropdown-content {display:none; position:absolute; right:0; background:white; min-width:160px; box-shadow:0 8px 16px rgba(0,0,0,.2); border-radius:12px; z-index:1;}
+  .dropdown-content button {padding:12px 16px; display:block; width:100%; text-align:left; border:none; background:none; cursor:pointer;}
+  .dropdown:hover .dropdown-content {display:block;}
+  .dropdown-content button:hover {background:#f2f2f2;}
+
   /* RIGHT SLIDE PANEL */
   #bookingPanel {
     position: fixed;
     top: 0;
     right: -420px;
-    width: 400px;
+    width: 420px;
     height: 100vh;
     background: white;
     box-shadow: -4px 0 25px rgba(0,0,0,.15);
@@ -28,25 +34,30 @@
     overflow-y: auto;
   }
   #bookingPanel.open { right: 0; }
-  /* Shifts modal */
-  #shiftsModal {
-    position: fixed; left:50%; top:50%; transform:translate(-50%,-50%) scale(.98);
-    width: 720px; max-width:94vw; background:white; border-radius:14px; padding:20px;
-    box-shadow:0 20px 60px rgba(8,12,20,0.12); z-index:70; display:none;
+  .field-label { font-weight:600; margin-bottom:6px; display:block; color:#374151; }
+  input[type="text"], input[type="email"], input[type="date"], select {
+    width:100%; padding:12px; border:1px solid #e5e7eb; border-radius:10px; margin-bottom:12px; font-size:15px;
   }
-  #shiftsModal.open { display:block; transform:translate(-50%,-50%) scale(1); }
-  .cleaner { display:flex; gap:12px; align-items:center; padding:12px; border-radius:10px;}
-  .avatar { width:48px; height:48px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-weight:700; background:linear-gradient(90deg,#e6f0ff,#cfe6ff); color:var(--navy); }
-  .status-available { color:green; font-weight:700; }
-  .status-busy { color:#c59b00; font-weight:700; }
+  .timeslot { width:100%; padding:10px; border:1px solid #e5e7eb; border-radius:8px; margin-bottom:12px; }
+
+  /* cleaners list inside panel */
+  .cleaner-card { display:flex; gap:12px; align-items:center; padding:12px; background:#F8FAFC; border-radius:12px; margin-bottom:10px; border:1px solid #eef2f7; cursor:pointer; }
+  .cleaner-selected { outline: 3px solid rgba(10, 132, 255, 0.12); background: #eef6ff; }
+  .avatar { width:44px; height:44px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-weight:700; background:linear-gradient(90deg,#e6f0ff,#cfe6ff); color:var(--navy); }
+
+  /* shifts modal placeholder for Access shifts */
+  #shiftsPlaceholder {
+    position: fixed; left:50%; top:50%; transform:translate(-50%,-50%); width:520px; max-width:94vw; background:white; border-radius:12px; padding:20px; box-shadow:0 20px 60px rgba(8,12,20,0.12); z-index:80; display:none;
+  }
+  #shiftsPlaceholder.show { display:block; }
   @media (max-width:880px){
-    #shiftsModal { width: 92vw; padding:16px; }
     #bookingPanel { width: 92vw; right: -100vw; }
   }
 </style>
 </head>
 <body>
 
+<!-- NAV -->
 <header class="flex justify-between items-center p-6 bg-white shadow">
   <div class="text-2xl font-bold navy tracking-tight">LustroLindo</div>
   <div class="flex gap-4 items-center">
@@ -56,6 +67,7 @@
   <button class="btn-primary">Login</button>
 </header>
 
+<!-- HERO -->
 <section class="text-center mt-24 mb-20 px-6">
   <h1 class="text-5xl font-extrabold navy mb-4 tracking-tight" id="hero-text">
     You take care of yourself.<br>We take care of the rest.
@@ -66,12 +78,14 @@
   <button class="btn-primary text-lg px-8 py-3" onclick="openBooking()">Book now</button>
 </section>
 
+<!-- KPI CARDS -->
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 px-6 mb-24">
   <div class="card p-8 text-center"><div class="text-4xl font-bold navy mb-2" id="kpi-bookings">52</div><div class="text-gray-600" id="kpi-bookings-text">Bookings today</div></div>
   <div class="card p-8 text-center"><div class="text-4xl font-bold navy mb-2" id="kpi-sat">98%</div><div class="text-gray-600" id="kpi-sat-text">Satisfied clients</div></div>
   <div class="card p-8 text-center"><div class="text-4xl font-bold navy mb-2" id="kpi-cleaners">14</div><div class="text-gray-600" id="kpi-cleaners-text">Active cleaners</div></div>
 </div>
 
+<!-- TWO MODE CTA -->
 <section class="px-6 mb-20 grid md:grid-cols-2 gap-10">
   <div class="card p-10 text-center">
     <h2 class="text-2xl font-bold navy mb-2" id="cta-client">For clients</h2>
@@ -85,13 +99,19 @@
   </div>
 </section>
 
+<!-- ✅ NEW FOOTER -->
+<footer class="text-center py-12 text-gray-500 text-sm" id="footer">
+  © 2025 LustroLindo — The future of living.
+</footer>
+
+<!-- BOOKING SLIDE PANEL -->
 <div id="bookingPanel" aria-hidden="true">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
     <div>
       <div style="font-size:12px;color:#6b7280" id="panel-kicker">Booking</div>
       <h3 class="text-2xl font-bold navy" id="panel-title">Book a Cleaning</h3>
     </div>
-    <button style="background:none;border:none;font-size:20px;cursor:pointer" onclick="closeBooking()">✕</button>
+    <button id="closePanelBtn" style="background:none;border:none;font-size:20px;cursor:pointer" onclick="closeBooking()">✕</button>
   </div>
 
   <label class="block mb-2 font-semibold" id="lbl-name">Name</label>
@@ -113,10 +133,12 @@
     <div style="flex:1">
       <label class="block mb-2 font-semibold" id="lbl-date">Date</label>
       <input id="fldDate" type="date" class="w-full p-3 border rounded-lg mb-4">
+      <div id="formattedDate" style="font-size:13px;color:#6b7280;margin-top:-8px;margin-bottom:8px;display:none"></div>
     </div>
     <div style="width:140px">
       <label class="block mb-2 font-semibold" id="lbl-duration">Duration</label>
       <select id="fldDuration" class="w-full p-3 border rounded-lg mb-4">
+        <option value="">--</option>
         <option value="2">2h</option>
         <option value="4">4h</option>
         <option value="6">6h</option>
@@ -125,7 +147,7 @@
   </div>
 
   <label class="block mb-2 font-semibold" id="lbl-timeslot">Time slot</label>
-  <select id="fldTimeslot" class="w-full p-3 border rounded-lg mb-6">
+  <select id="fldTimeslot" class="w-full p-3 border rounded-lg mb-4">
     <option value="">-- Select time --</option>
     <option>09:00</option>
     <option>11:00</option>
@@ -134,28 +156,25 @@
     <option>17:00</option>
   </select>
 
+  <div id="cleanersWrapper" style="display:none;margin-top:6px">
+    <h4 class="text-md font-semibold mb-2">Available cleaners</h4>
+    <div id="cleanersList"></div>
+  </div>
+
   <button class="btn-primary w-full py-3" id="confirmBtn">Confirm</button>
   <button class="mt-4 w-full py-2 text-gray-600" onclick="closeBooking()">Close</button>
 </div>
 
-<div id="shiftsModal" role="dialog" aria-hidden="true">
+<div id="shiftsPlaceholder" role="dialog" aria-hidden="true">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-    <h3 class="text-xl font-bold navy" id="shiftsTitle">Available cleaners</h3>
-    <button style="background:none;border:none;font-size:20px;cursor:pointer" onclick="closeShifts()">✕</button>
+    <h3 class="text-xl font-bold navy">Cleaner Dashboard</h3>
+    <button style="background:none;border:none;font-size:20px;cursor:pointer" onclick="closeShiftsPlaceholder()">✕</button>
   </div>
-
-  <div style="display:flex;flex-direction:column;gap:10px">
-    <div id="cleanersList"></div>
-  </div>
-
+  <p style="color:#6b7280">This area will be the cleaner dashboard (coming soon).</p>
   <div style="margin-top:14px;display:flex;gap:10px;justify-content:flex-end">
-    <button class="btn-primary" onclick="closeShifts()">Close</button>
+    <button class="btn-primary" onclick="closeShiftsPlaceholder()">Close</button>
   </div>
 </div>
-
-<footer class="text-center py-12 text-gray-500 text-sm" id="footer">
-  © 2025 LustroLindo — The future of living.
-</footer>
 
 <script>
 const text = {
@@ -171,8 +190,7 @@ const text = {
     duration: 'Duration',
     timeslot: 'Time slot',
     confirm: 'Confirm',
-    shiftsTitle: 'Available cleaners',
-    footer: '© 2025 LustroLindo — The future of living.'
+    shiftsTitle: 'Available cleaners'
   },
   it: {
     hero: 'Prenditi cura di te.<br>Noi ci occupiamo del resto.',
@@ -186,8 +204,7 @@ const text = {
     duration: 'Durata',
     timeslot: 'Fascia oraria',
     confirm: 'Conferma',
-    shiftsTitle: 'Cleaner disponibili',
-    footer: '© 2025 LustroLindo — Il vivere del futuro.'
+    shiftsTitle: 'Cleaner disponibili'
   }
 };
 
@@ -207,8 +224,6 @@ function setLang(lang){
   document.getElementById('lbl-duration').innerText = text[lang].duration;
   document.getElementById('lbl-timeslot').innerText = text[lang].timeslot;
   document.getElementById('confirmBtn').innerText = text[lang].confirm;
-  document.getElementById('shiftsTitle').innerText = text[lang].shiftsTitle;
-  document.getElementById('footer').innerText = text[lang].footer;
 
   if(lang === 'it'){
     document.getElementById('kpi-bookings-text').innerText = 'Prenotazioni oggi';
@@ -218,6 +233,7 @@ function setLang(lang){
     document.getElementById('cta-client-sub').innerText = 'Prenota, gestisci e rilassati.';
     document.getElementById('cta-cleaner').innerText = 'Per cleaner';
     document.getElementById('cta-cleaner-sub').innerText = 'Turni ultra-ottimizzati con AI.';
+    document.getElementById('footer').innerText = '© 2025 LustroLindo — Il vivere del futuro.';
   } else {
     document.getElementById('kpi-bookings-text').innerText = 'Bookings today';
     document.getElementById('kpi-sat-text').innerText = 'Satisfied clients';
@@ -226,31 +242,9 @@ function setLang(lang){
     document.getElementById('cta-client-sub').innerText = 'Book, manage and relax.';
     document.getElementById('cta-cleaner').innerText = 'For cleaners';
     document.getElementById('cta-cleaner-sub').innerText = 'Ultra-optimized shifts with AI.';
+    document.getElementById('footer').innerText = '© 2025 LustroLindo — The future of living.';
   }
 }
-
-// booking + shifts logic untouched
-document.addEventListener('DOMContentLoaded', ()=> {
-  document.getElementById('confirmBtn').addEventListener('click', function(){
-    const n = document.getElementById('fldName').value.trim();
-    const e = document.getElementById('fldEmail').value.trim();
-    const s = document.getElementById('fldService').value;
-    const d = document.getElementById('fldDate').value;
-    const dur = document.getElementById('fldDuration').value;
-    const ts = document.getElementById('fldTimeslot').value;
-    if(!n || !e || !s || !d || !dur || !ts){
-      alert(currentLang==='it' ? 'Compila tutti i campi prima di confermare.' : 'Please fill all fields before confirming.');
-      return;
-    }
-    const parts = d.split('-');
-    const formatted = parts.length===3 ? `${parts[2]}-${parts[1]}-${parts[0]}` : d;
-    const msg = currentLang==='it' 
-      ? `Prenotazione simulata: ${n} — ${s} — ${formatted} — ${dur}h — ${ts}`
-      : `Simulated booking: ${n} — ${s} — ${formatted} — ${dur}h — ${ts}`;
-    alert(msg);
-    closeBooking();
-  });
-});
 
 function openBooking(){ 
   document.getElementById('bookingPanel').classList.add('open');
@@ -261,45 +255,93 @@ function closeBooking(){
   document.body.style.overflow = '';
 }
 
+function openShifts(){
+  document.getElementById('shiftsPlaceholder').classList.add('show');
+}
+function closeShiftsPlaceholder(){
+  document.getElementById('shiftsPlaceholder').classList.remove('show');
+}
+
 const sampleCleaners = [
-  { name:'Giulia R.', rating:4.9, price:18, status:'Available', note:'2h away', dist:'1.2km', badge:'Top Rated' },
-  { name:'Marco V.', rating:4.7, price:20, status:'On job', note:'busy — 14:00', dist:'3.8km' },
-  { name:'Sara L.', rating:4.8, price:17, status:'Available', note:'nearby', dist:'0.9km', badge:'Fast' }
+  { name:'Giulia R.', rating:4.9, price:18, status:'Available', note:'2h away', dist:'1.2km', badge:'Top Rated', emoji:'🧼' },
+  { name:'Marco V.', rating:4.7, price:20, status:'On job', note:'busy — 14:00', dist:'3.8km', emoji:'✨' },
+  { name:'Sara L.', rating:4.8, price:17, status:'Available', note:'nearby', dist:'0.9km', emoji:'🧽' }
 ];
 
-function openShifts(){
-  const list = document.getElementById('cleanersList');
-  list.innerHTML = '';
-  sampleCleaners.forEach(c => {
-    const div = document.createElement('div');
-    div.className = 'cleaner card';
-    div.innerHTML = `
-      <div class="avatar">${c.name.split(' ')[0].charAt(0)}${c.name.split(' ')[1] ? c.name.split(' ')[1].charAt(0) : ''}</div>
-      <div style="flex:1">
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <div style="font-weight:700;color:var(--navy)">${c.name} ${c.badge?`• <span style="font-size:12px;color:#c59b00;font-weight:700">${c.badge}</span>`:''}</div>
-          <div style="font-size:13px;color:#6b7280">⭐ ${c.rating}</div>
-        </div>
-        <div style="display:flex;gap:8px;align-items:center;margin-top:6px">
-          <div style="font-size:13px;color:${c.status==='Available'?'green':'#c59b00'};font-weight:700">${c.status}</div>
-          <div style="font-size:13px;color:#6b7280">${c.note} • ${c.dist}</div>
-          <div style="font-size:13px;color:#111;font-weight:700">€${c.price}/h</div>
-        </div>
-      </div>
-      <div><button class="btn-primary" onclick="alert('${currentLang==='it'?'Assegna a ':'Assign to '} ${c.name}')">${currentLang==='it'?'Assegna':'Assign'}</button></div>
-    `;
-    list.appendChild(div);
-  });
-  document.getElementById('shiftsModal').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-function closeShifts(){
-  document.getElementById('shiftsModal').classList.remove('open');
-  document.body.style.overflow = '';
+let selectedCleanerIndex = null;
+
+function formatToDDMMYYYY(isoDate){
+  if(!isoDate) return '';
+  const p = isoDate.split('-');
+  return `${p[2]}-${p[1]}-${p[0]}`;
 }
 
+function checkAndRenderCleaners(){
+  const allFilled =
+    document.getElementById('fldName').value.trim() &&
+    document.getElementById('fldEmail').value.trim() &&
+    document.getElementById('fldService').value &&
+    document.getElementById('fldDate').value &&
+    document.getElementById('fldDuration').value &&
+    document.getElementById('fldTimeslot').value;
+
+  const wrapper = document.getElementById('cleanersWrapper');
+  const list = document.getElementById('cleanersList');
+
+  if(allFilled){
+    wrapper.style.display = 'block';
+    list.innerHTML = '';
+    sampleCleaners.forEach((c, idx) => {
+      const div = document.createElement('div');
+      div.className = 'cleaner-card';
+      div.dataset.idx = idx;
+      div.innerHTML = `
+        <div class="avatar">${c.emoji}</div>
+        <div style="flex:1">
+          <div style="display:flex;justify-content:space-between;align-items:center;font-weight:700;color:var(--navy);">
+            <div>${c.name} ${c.badge?`• <span style="font-size:12px;color:#c59b00;font-weight:700">${c.badge}</span>`:''}</div>
+            <div style="font-size:13px;color:#6b7280">⭐ ${c.rating}</div>
+          </div>
+          <div style="display:flex;gap:10px;margin-top:6px;font-size:13px;color:#374151;">
+            <div style="font-weight:700;color:${c.status==='Available'?'green':'#c59b00'}">${c.status}</div>
+            <div>${c.dist}</div>
+            <div>€${c.price}/h</div>
+          </div>
+        </div>
+      `;
+      div.addEventListener('click', () => {
+        document.querySelectorAll('#cleanersList .cleaner-card').forEach(n=>n.classList.remove('cleaner-selected'));
+        div.classList.add('cleaner-selected');
+        selectedCleanerIndex = idx;
+      });
+      list.appendChild(div);
+    });
+  } else {
+    wrapper.style.display = 'none';
+    list.innerHTML = '';
+    selectedCleanerIndex = null;
+  }
+}
+
+['fldName','fldEmail','fldService','fldDate','fldDuration','fldTimeslot'].forEach(id=>{
+  const el = document.getElementById(id);
+  el.addEventListener('input', checkAndRenderCleaners);
+  el.addEventListener('change', checkAndRenderCleaners);
+});
+
+document.addEventListener('DOMContentLoaded', ()=>{
+  document.getElementById('confirmBtn').addEventListener('click', function(){
+    if(selectedCleanerIndex === null){
+      alert(currentLang==='it' ? 'Seleziona un cleaner disponibile prima di confermare.' : 'Please select an available cleaner before confirming.');
+      return;
+    }
+    closeBooking();
+  });
+});
+
 setLang('en');
-document.addEventListener('keydown', e => { if(e.key==='Escape'){ closeBooking(); closeShifts(); }});
+
+document.addEventListener('keydown', e => { if(e.key==='Escape'){ closeBooking(); closeShiftsPlaceholder(); } });
 </script>
 
 </body>
