@@ -59,7 +59,21 @@
 
 <!-- NAV -->
 <header class="flex justify-between items-center p-6 bg-white shadow">
-  <div class="text-2xl font-bold navy tracking-tight">LustroLindo</div>
+  <div class="tracking-tight flex items-center">
+  <!-- LOGO SVG -->
+  <svg width="180" height="32" viewBox="0 0 320 48" xmlns="http://www.w3.org/2000/svg" aria-label="LustroLindo logo">
+    <defs>
+      <style>
+        .t{font-family:Inter,system-ui; font-weight:800; font-size:24px; fill:#0A2342;}
+        .a{fill:#00A3FF}
+      </style>
+    </defs>
+    <text class="t" x="0" y="32">LustroLindo</text>
+    <g transform="translate(210,3)" class="a">
+      <polygon points="8,0 10.5,6 16,8 10.5,10 8,16 5.5,10 0,8 5.5,6" opacity="0.95"/>
+    </g>
+  </svg>
+</div>
   <div class="flex gap-4 items-center">
     <span class="lang-toggle" onclick="setLang('it')">🇮🇹</span>
     <span class="lang-toggle" onclick="setLang('en')">🇬🇧</span>
