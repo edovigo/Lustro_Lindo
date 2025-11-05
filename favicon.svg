@@ -1,4 +1,4 @@
-<!-- Favicon L*L luxury static -->
+<!-- Favicon L*L luxury static, L blu -->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" width="32" height="32">
   <defs>
     <linearGradient id="champagneGrad" x1="0" y1="0" x2="0" y2="1">
@@ -18,8 +18,8 @@
   <rect width="200" height="60" fill="url(#champagneGrad)"/>
 
   <!-- L letters -->
-  <text x="0" y="48" font-family="Poppins" font-weight="700" font-size="48" fill="url(#goldGrad)" filter="url(#shadow)">L</text>
-  <text x="120" y="48" font-family="Poppins" font-weight="700" font-size="48" fill="url(#goldGrad)" filter="url(#shadow)">L</text>
+  <text x="0" y="48" font-family="Poppins" font-weight="700" font-size="48" fill="#0A2342" filter="url(#shadow)">L</text>
+  <text x="120" y="48" font-family="Poppins" font-weight="700" font-size="48" fill="#0A2342" filter="url(#shadow)">L</text>
 
   <!-- sparkle -->
   <polygon points="95,20 100,30 110,35 100,40 95,50 90,40 80,35 90,30" fill="url(#goldGrad)"/>
