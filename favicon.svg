@@ -1,18 +1,26 @@
-<!-- Favicon L*L statico -->
+<!-- Favicon L*L luxury static -->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" width="32" height="32">
-  <rect width="200" height="60" fill="#F7E7C6"/> <!-- champagne background -->
-  
-  <style>
-    .letter { fill:#0A2342; font-family: 'Poppins', sans-serif; font-weight:700; font-size:48px; }
-    .sparkle { fill:#FFD700; } /* dorato */
-  </style>
+  <defs>
+    <linearGradient id="champagneGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FCEFCF"/>
+      <stop offset="100%" stop-color="#F7E7C6"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FFD700"/>
+      <stop offset="100%" stop-color="#FFC107"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="1" flood-color="#000" flood-opacity="0.2"/>
+    </filter>
+  </defs>
 
-  <!-- L -->
-  <text x="0" y="48" class="letter">L</text>
+  <!-- background -->
+  <rect width="200" height="60" fill="url(#champagneGrad)"/>
 
-  <!-- Sparkle -->
-  <polygon class="sparkle" points="95,20 100,30 110,35 100,40 95,50 90,40 80,35 90,30" />
+  <!-- L letters -->
+  <text x="0" y="48" font-family="Poppins" font-weight="700" font-size="48" fill="url(#goldGrad)" filter="url(#shadow)">L</text>
+  <text x="120" y="48" font-family="Poppins" font-weight="700" font-size="48" fill="url(#goldGrad)" filter="url(#shadow)">L</text>
 
-  <!-- L -->
-  <text x="120" y="48" class="letter">L</text>
+  <!-- sparkle -->
+  <polygon points="95,20 100,30 110,35 100,40 95,50 90,40 80,35 90,30" fill="url(#goldGrad)"/>
 </svg>
