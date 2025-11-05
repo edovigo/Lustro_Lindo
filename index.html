@@ -61,18 +61,33 @@
 <header class="flex justify-between items-center p-6 bg-white shadow">
   <div class="tracking-tight flex items-center">
   <!-- LOGO SVG -->
-  <svg width="180" height="32" viewBox="0 0 320 48" xmlns="http://www.w3.org/2000/svg" aria-label="LustroLindo logo">
-    <defs>
-      <style>
-        .t{font-family:Inter,system-ui; font-weight:800; font-size:24px; fill:#0A2342;}
-        .a{fill:#00A3FF}
-      </style>
-    </defs>
-    <text class="t" x="0" y="32">LustroLindo</text>
-    <g transform="translate(210,3)" class="a">
-      <polygon points="8,0 10.5,6 16,8 10.5,10 8,16 5.5,10 0,8 5.5,6" opacity="0.95"/>
-    </g>
-  </svg>
+  <!-- ✅ Logo LustroLindo con sparkle animata -->
+<style>
+@keyframes sparklePulse {
+  0%, 100% { transform: scale(1); opacity: .9; }
+  50% { transform: scale(1.45); opacity: 1; }
+}
+#lustroSparkle {
+  animation: sparklePulse 1.4s ease-in-out infinite;
+  transform-origin:center;
+}
+</style>
+
+<svg width="270" height="55" viewBox="0 0 320 55" xmlns="http://www.w3.org/2000/svg" aria-label="LustroLindo logo">
+  <defs>
+    <style>
+      .t{font-family:Inter,system-ui; font-weight:800; font-size:30px; fill:#0A2342;}
+    </style>
+  </defs>
+
+  <!-- Wordmark -->
+  <text class="t" x="0" y="35">LustroLindo</text>
+
+  <!-- Sparkle animata -->
+  <g transform="translate(225,5)" fill="#00A3FF">
+    <polygon id="lustroSparkle" points="8,0 11,6 17,8 11,10 8,17 5,10 0,8 5,6"/>
+  </g>
+</svg>
 </div>
   <div class="flex gap-4 items-center">
     <span class="lang-toggle" onclick="setLang('it')">🇮🇹</span>
