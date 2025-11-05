@@ -1,0 +1,15 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- bubble circle -->
+  <circle cx="32" cy="32" r="26" stroke="#00A3FF" stroke-width="4" fill="none" />
+  
+  <!-- inner shine -->
+  <circle cx="26" cy="26" r="6" fill="#00A3FF" opacity="0.35" />
+  
+  <!-- sparkle -->
+  <g transform="translate(42,12)">
+    <polygon points="6,0 8,4 12,6 8,8 6,12 4,8 0,6 4,4" fill="#00A3FF">
+      <animate attributeName="opacity" values="0.3;1;0.3" dur="2.2s" repeatCount="indefinite"/>
+      <animateTransform attributeName="transform" attributeType="XML" type="scale" values="1;1.25;1" dur="2.2s" repeatCount="indefinite" additive="sum"/>
+    </polygon>
+  </g>
+</svg>
