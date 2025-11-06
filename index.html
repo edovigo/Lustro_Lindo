@@ -286,7 +286,7 @@ function checkAndRenderCleaners(){
         </div>
         <div style="display:flex;gap:10px;margin-top:6px;font-size:13px;color:#374151;">
           <div style="font-weight:700;color:${c.status==='Available'?'green':'#c59b00'}">${c.status}</div>
-          <div>$${c.price}/h</div>
+          <div>€${c.price}/h</div>
         </div>
       </div>`;
       div.onclick = ()=>{ selectedCleanerIndex = idx; document.querySelectorAll('.cleaner-card').forEach(d=>d.classList.remove('cleaner-selected')); div.classList.add('cleaner-selected'); };
