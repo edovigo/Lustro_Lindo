@@ -63,267 +63,68 @@
     50% { transform: scale(1.45); opacity: 1; }
   }
   #lustroSparkle { animation: sparklePulse 1.4s ease-in-out infinite; transform-origin:center; }
+
+  /* --- Login modal (glassmorphism) --- */
+  .ll-overlay {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 120;
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    background: rgba(10,16,30,0.28); /* subtle darkening behind glass */
+  }
+  .ll-card {
+    width: 920px;
+    max-width: 94vw;
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    box-shadow: 0 30px 80px rgba(8,12,20,.25);
+    background: linear-gradient(180deg, rgba(255,255,255,0.86), rgba(250,250,252,0.78));
+    border: 1px solid rgba(255,255,255,0.6);
+    transform: translateY(12px) scale(.98);
+    opacity: 0;
+    transition: transform .28s cubic-bezier(.2,.9,.32,1), opacity .25s ease;
+  }
+  .ll-card.show { transform: translateY(0) scale(1); opacity: 1; }
+  .ll-left { width: 42%; min-width: 300px; padding: 36px; background: linear-gradient(180deg, rgba(247,251,255,0.85), rgba(242,248,255,0.6)); display:flex; flex-direction:column; gap:14px; align-items:flex-start; justify-content:center; }
+  .ll-right{ width:58%; padding:36px; display:flex; flex-direction:column; gap:14px; }
+  .social-btn { width:100%; display:flex; gap:10px; align-items:center; justify-content:center; padding:10px 12px; border-radius:10px; border:1px solid rgba(10,20,40,.06); background:rgba(255,255,255,0.9); cursor:pointer; font-weight:600; }
+  .divider { display:flex; align-items:center; gap:12px; color:#9aa4b2; font-size:13px; }
+  .divider::before, .divider::after { content:""; flex:1; height:1px; background:rgba(10,20,40,.04); display:block; border-radius:2px; }
+  .input-ll { padding:12px 14px; border-radius:10px; border:1px solid rgba(10,20,40,.06); font-size:15px; background:rgba(255,255,255,0.9); }
+  .input-ll:focus{ box-shadow:0 6px 22px rgba(10,163,255,0.08); border-color:var(--ll-accent); outline:none; }
+  .btn-ll { background: #0A2342; color:white; padding:12px 16px; border-radius:12px; font-weight:700; cursor:pointer; border:none; box-shadow: 0 10px 30px rgba(10,35,66,0.12); }
+  .close-ll { background:none;border:none;font-size:20px;color:#334155;cursor:pointer; }
+  @media (max-width:900px) {
+    .ll-card { flex-direction:column; width:92vw; }
+    .ll-left{ width:100%; padding:20px; text-align:center; align-items:center;}
+    .ll-right{ width:100%; padding:20px;}
+  }
+
+  /* success toast */
+  .ll-toast {
+    position: fixed;
+    right: 20px;
+    top: 20px;
+    z-index: 150;
+    background: linear-gradient(90deg,#00a3ff,#00eda8);
+    color: white;
+    padding: 12px 16px;
+    border-radius: 10px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+    display:none;
+    font-weight:700;
+  }
+
 </style>
 </head>
 
 <body>
-<!-- Login panel: paste this whole block before </body> -->
-<style>
-  /* Scoped styles to avoid collisions */
-  #loginComponent { font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; --ll-navy: #0A2342; --ll-accent:#00A3FF; --glass: rgba(255,255,255,0.7); }
-  #loginOverlay { position: fixed; inset: 0; background: rgba(6,10,15,0.45); display: none; align-items: center; justify-content: center; z-index: 120; }
-  #loginCard { width: 920px; max-width: 94vw; border-radius: 16px; overflow: hidden; display: flex; box-shadow: 0 30px 80px rgba(8,12,20,.25); background: linear-gradient(180deg,#ffffff,#fbfdff); }
-  .ll-left { width: 42%; min-width: 300px; padding: 36px; background: linear-gradient(180deg,#f7fbff,#f2f8ff); display:flex; flex-direction:column; gap:14px; align-items:flex-start; justify-content:center; }
-  .ll-right { width: 58%; padding: 36px; display:flex; flex-direction:column; gap:14px; }
-  .ll-h1 { font-size:20px; font-weight:800; color:var(--ll-navy); margin:0; }
-  .ll-p { color:#475569; font-size:14px; margin:0; }
-  .social-btn { width:100%; display:flex; gap:10px; align-items:center; justify-content:center; padding:10px 12px; border-radius:10px; border:1px solid #e6eef9; background:white; cursor:pointer; font-weight:600; }
-  .divider { display:flex; align-items:center; gap:12px; color:#9aa4b2; font-size:13px; }
-  .divider::before, .divider::after { content:""; flex:1; height:1px; background:#e6eef9; display:block; border-radius:2px; }
-  .field { display:flex; flex-direction:column; gap:8px; margin-bottom:6px; }
-  .input { padding:12px 14px; border-radius:10px; border:1px solid #e6eef9; font-size:15px; outline:none; }
-  .input:focus{ box-shadow:0 4px 18px rgba(10,163,255,0.12); border-color:var(--ll-accent); }
-  .muted { font-size:13px; color:#6b7280; }
-  .btn-cta { background:var(--ll-navy); color:white; padding:12px 16px; border-radius:12px; font-weight:700; cursor:pointer; border:none; }
-  .small-link { color:var(--ll-accent); font-weight:600; cursor:pointer; }
-  .flex-row { display:flex; gap:10px; align-items:center; }
-  .forgot { color:#6b7280; font-size:13px; cursor:pointer; }
-  .checkbox { width:16px; height:16px; }
-  .success-check { width:80px; height:80px; border-radius:999px; background:linear-gradient(90deg,#00a3ff,#00eda8); display:flex; align-items:center; justify-content:center; color:white; font-weight:800; font-size:20px; margin:auto; }
-  .visually-hidden { position:absolute!important; left:-9999px!important; top:auto!important; width:1px!important; height:1px!important; overflow:hidden!important;}
-  @media (max-width:900px) {
-    #loginCard { flex-direction:column; width: 92vw; }
-    .ll-left{ width:100%; padding:20px; text-align:center; align-items:center;}
-    .ll-right{ width:100%; padding:20px;}
-  }
-</style>
 
-<div id="loginComponent" aria-hidden="true">
-  <div id="loginOverlay" role="dialog" aria-modal="true" aria-labelledby="loginTitle" tabindex="-1">
-    <div id="loginCard" role="document" aria-describedby="loginSubtitle">
-      <!-- Left: brand + USP -->
-      <div class="ll-left">
-        <!-- Logo small -->
-        <div style="display:flex;align-items:center;gap:12px;">
-          <svg width="140" height="30" viewBox="0 0 320 55" xmlns="http://www.w3.org/2000/svg" aria-hidden>
-            <defs><style>.t{font-family:Inter,system-ui;font-weight:800;font-size:28px;fill:var(--ll-navy)}</style></defs>
-            <text class="t" x="0" y="30">LustroLindo</text>
-            <g transform="translate(215,3)" fill="#00A3FF"><polygon id="lustroSparkleMini" points="8,0 11,6 17,8 11,10 8,17 5,10 0,8 5,6"/></g>
-          </svg>
-        </div>
-
-        <h3 class="ll-h1" id="loginTitle">Welcome back — let’s get you sparkling ✨</h3>
-        <p class="ll-p" id="loginSubtitle">Secure access to your dashboard. Sign in quickly using password, magic link, or continue with Google / Apple.</p>
-
-        <div style="margin-top:8px; width:100%;">
-          <div class="divider">Secure • Fast • Scalable</div>
-        </div>
-
-        <div style="margin-top:18px; display:flex; gap:10px; width:100%;">
-          <div style="flex:1; display:flex; gap:8px; align-items:center;">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 12a4 4 0 100-8 4 4 0 000 8zM3 20v-1c0-2.5 4-5 9-5s9 2.5 9 5v1H3z" fill="#0A2342"/></svg>
-            <div style="font-size:14px;color:#334155;"><strong>Team</strong> accounts ready</div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Right: form -->
-      <div class="ll-right">
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-          <div>
-            <div style="font-size:14px;color:#94a3b8;font-weight:700;">Sign in to</div>
-            <div style="font-size:18px;font-weight:800;color:var(--ll-navy);">Dashboard</div>
-          </div>
-          <button aria-label="Close login" id="closeLogin" style="background:none;border:none;font-size:22px;color:#374151;cursor:pointer">✕</button>
-        </div>
-
-        <!-- Social -->
-        <div style="display:grid; gap:10px; margin-top:8px;">
-          <button class="social-btn" id="btnGoogle" title="Continue with Google">
-            <svg width="18" height="18" viewBox="0 0 533.5 544.3" aria-hidden><path fill="#4285F4" d="M533.5 278.4c0-17.6-1.6-34.6-4.6-51.1H272v96.8h146.9c-6.3 34-25.4 62.9-54.2 82.3v68.4h87.6c51.3-47.2 80.2-116.8 80.2-196.4z"/></svg>
-            Continue with Google
-          </button>
-          <div style="display:flex; gap:10px;">
-            <button class="social-btn" id="btnApple" style="flex:1" title="Continue with Apple">
-              <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden><path fill="currentColor" d="M16.365 1.43c-.9.02-2.04.62-2.7 1.37-.58.68-1.1 1.74-.91 2.76 1.02.07 2.18-.58 2.8-1.35.57-.71 1.06-1.8.81-2.78zM12 6.6c-2.7 0-4.9 2.22-4.9 4.9 0 2.7 2.2 4.9 4.9 4.9 2.7 0 4.9-2.2 4.9-4.9C16.9 8.8 14.7 6.6 12 6.6z"/></svg>
-              Apple
-            </button>
-            <button class="social-btn" id="btnDemo" style="flex:1" title="Demo login">
-              🚀 Demo
-            </button>
-          </div>
-        </div>
-
-        <div style="height:6px"></div>
-        <div class="divider">or sign in with email</div>
-
-        <!-- Form -->
-        <form id="loginForm" novalidate style="margin-top:10px;">
-          <div class="field">
-            <label class="field-label" for="loginEmail">Email</label>
-            <input id="loginEmail" class="input" type="email" autocomplete="email" placeholder="you@company.com" required>
-            <div id="emailError" class="muted" style="display:none;color:#ef4444;font-weight:600;"></div>
-          </div>
-
-          <div class="field">
-            <label class="field-label" for="loginPassword">Password</label>
-            <div style="position:relative; display:flex;">
-              <input id="loginPassword" class="input" type="password" autocomplete="current-password" placeholder="Your password" required style="flex:1;">
-              <button type="button" id="togglePwd" aria-label="Show password" style="position:absolute; right:8px; top:8px; background:none; border:none; cursor:pointer; font-weight:700; color:#64748b">show</button>
-            </div>
-          </div>
-
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
-            <label class="flex-row muted"><input id="rememberMe" class="checkbox" type="checkbox"> Remember me</label>
-            <div class="forgot" id="forgotLink">Forgot?</div>
-          </div>
-
-          <button id="submitLogin" class="btn-cta" type="button" style="width:100%; margin-top:6px;">Sign in</button>
-        </form>
-
-        <div style="display:flex; align-items:center; gap:8px; margin-top:10px;">
-          <div class="muted">New here?</div>
-          <div class="small-link" id="signupLink">Create an account</div>
-        </div>
-
-        <!-- Footer microcopy -->
-        <div style="margin-top:14px;font-size:13px;color:#94a3b8;">
-          <div>Two-factor authentication supported • <span class="small-link" id="security">Security</span></div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Forgot / Magic link modal (simple) -->
-<div id="magicOverlay" style="display:none; position:fixed; inset:0; z-index:130; align-items:center; justify-content:center; background:rgba(6,10,15,0.45);">
-  <div style="background:white;border-radius:12px;padding:20px;width:420px;max-width:92vw;box-shadow:0 20px 60px rgba(8,12,20,.12);">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-      <div style="font-weight:800;color:var(--ll-navy)">Send a magic link</div>
-      <button onclick="closeMagic()" style="background:none;border:none;font-size:18px;cursor:pointer">✕</button>
-    </div>
-    <div style="margin-bottom:8px;color:#475569">Enter your email and we'll send a one-time sign-in link.</div>
-    <input id="magicEmail" class="input" placeholder="you@company.com" type="email">
-    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:12px;">
-      <button onclick="closeMagic()" class="small-link">Cancel</button>
-      <button onclick="sendMagic()" class="btn-cta">Send link</button>
-    </div>
-  </div>
-</div>
-
-<!-- Success feedback (small centered card) -->
-<div id="loginSuccess" style="display:none; position:fixed; inset:0; z-index:140; align-items:center; justify-content:center;">
-  <div style="background:linear-gradient(180deg,#ffffff,#f7fffb); border-radius:14px;padding:28px; width:420px; max-width:92vw; text-align:center; box-shadow:0 30px 90px rgba(8,12,20,.18);">
-    <div class="success-check">✓</div>
-    <h3 style="margin-top:12px;font-weight:800;color:var(--ll-navy)">Welcome back</h3>
-    <p style="color:#475569;margin-top:8px">Sei dentro — ti mando alla dashboard demo.</p>
-    <div style="margin-top:18px;"><button class="btn-cta" onclick="closeSuccess()">Go to dashboard</button></div>
-  </div>
-</div>
-
-<script>
-/* Login panel JS: behaviour, validation, demo flows */
-(function(){
-  const overlay = document.getElementById('loginOverlay');
-  const btn = document.getElementById('loginBtn');
-  const closeBtn = document.getElementById('closeLogin');
-  const submit = document.getElementById('submitLogin');
-  const togglePwd = document.getElementById('togglePwd');
-  const emailInput = document.getElementById('loginEmail');
-  const pwdInput = document.getElementById('loginPassword');
-  const emailErr = document.getElementById('emailError');
-  const demoBtn = document.getElementById('btnDemo');
-  const magicOverlay = document.getElementById('magicOverlay');
-  const magicEmail = document.getElementById('magicEmail');
-  const success = document.getElementById('loginSuccess');
-  const closeMagicBtn = window.closeMagic = ()=>{ magicOverlay.style.display='none'; }
-  window.sendMagic = ()=> {
-    const e = magicEmail.value.trim();
-    if(!e || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)){ alert('Insert a valid email'); return; }
-    // simulazione invio link
-    closeMagicBtn();
-    alert((currentLang==='it'?'Link inviato a ':'Link sent to ') + e);
-  };
-
-  function open(){ overlay.style.display='flex'; overlay.focus(); btn.setAttribute('aria-expanded','true'); }
-  function close(){ overlay.style.display='none'; btn.setAttribute('aria-expanded','false'); }
-  btn.addEventListener('click', ()=> { open(); setTimeout(()=>emailInput.focus(),140); });
-
-  closeBtn.addEventListener('click', close);
-  overlay.addEventListener('click', (e)=>{ if(e.target===overlay) close(); });
-
-  // toggle password visibility
-  togglePwd.addEventListener('click', ()=> {
-    if(pwdInput.type==='password'){ pwdInput.type='text'; togglePwd.innerText='hide'; }
-    else { pwdInput.type='password'; togglePwd.innerText='show'; }
-    pwdInput.focus();
-  });
-
-  // quick demo login
-  demoBtn.addEventListener('click', ()=> {
-    emailInput.value = 'demo@lustrolindo.test';
-    pwdInput.value = 'demo1234';
-    document.getElementById('rememberMe').checked = true;
-    animateSignin();
-  });
-
-  // simple validation & simulate spinner -> success
-  function validate(){
-    const e = emailInput.value.trim();
-    const p = pwdInput.value;
-    if(!e || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)){ emailErr.style.display='block'; emailErr.innerText = (currentLang==='it' ? 'Inserisci una email valida.' : 'Enter a valid email.'); return false; }
-    emailErr.style.display='none';
-    if(!p || p.length < 4){ alert(currentLang==='it' ? 'Password troppo corta.' : 'Password too short.'); return false; }
-    return true;
-  }
-
-  function animateSignin(){
-    if(!validate()) return;
-    // micro-spinner on button
-    const orig = submit.innerHTML;
-    submit.disabled = true;
-    submit.innerHTML = 'Signing in…';
-    setTimeout(()=> {
-      submit.disabled = false;
-      submit.innerHTML = orig;
-      close();
-      showSuccess();
-      // persist email if remember checked
-      try{ if(document.getElementById('rememberMe').checked) localStorage.setItem('ll_last_email', emailInput.value.trim()); else localStorage.removeItem('ll_last_email'); }catch(e){}
-    }, 900);
-  }
-
-  submit.addEventListener('click', animateSignin);
-
-  // Enter key submit
-  [emailInput, pwdInput].forEach(i=> i.addEventListener('keypress', (ev)=> { if(ev.key==='Enter'){ ev.preventDefault(); animateSignin(); } }));
-
-  // Forgot -> magic link
-  document.getElementById('forgotLink').addEventListener('click', ()=> { magicOverlay.style.display='flex'; setTimeout(()=>magicEmail.focus(),80); });
-
-  // Social stubs
-  document.getElementById('btnGoogle').addEventListener('click', ()=> alert((currentLang==='it'?'Google login (simulato)':'Google login (simulated)')));
-  document.getElementById('btnApple').addEventListener('click', ()=> alert((currentLang==='it'?'Apple login (simulato)':'Apple login (simulated)')));
-
-  // success modal controls
-  window.showSuccess = ()=> { success.style.display='flex'; document.body.style.overflow='hidden'; }
-  window.closeSuccess = ()=> { success.style.display='none'; document.body.style.overflow=''; /* redirect simulation */ console.log('redirect to dashboard (simulated)'); }
-
-  // Prefill remembered email
-  try{ const last = localStorage.getItem('ll_last_email'); if(last){ emailInput.value = last; document.getElementById('rememberMe').checked = true; } }catch(e){}
-
-  // Accessibility: trap focus inside overlay when open (simple)
-  document.addEventListener('keydown', (e)=>{
-    if(e.key === 'Escape'){ if(overlay.style.display==='flex'){ close(); } else if(success.style.display==='flex'){ closeSuccess(); } else if(magicOverlay && magicOverlay.style.display==='flex'){ closeMagic(); } }
-  });
-
-  // Expose closeMagic for button
-  window.closeMagic = closeMagicBtn;
-
-})();
-</script>
 <!-- NAV -->
 <header class="flex justify-between items-center p-6 bg-white shadow relative">
   <div class="text-2xl font-bold navy tracking-tight">
@@ -338,16 +139,15 @@
     <span class="lang-toggle" onclick="setLang('it')">🇮🇹</span>
     <span class="lang-toggle" onclick="setLang('en')">🇬🇧</span>
   </div>
-  <!-- Header: Login button (replace previous button) -->
-<div class="relative">
-  <button id="loginBtn" class="btn-primary flex items-center gap-2" aria-haspopup="dialog" aria-controls="loginModal" aria-expanded="false">
-    <!-- small user icon -->
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden class="inline-block">
-      <path d="M12 12a4 4 0 100-8 4 4 0 000 8zm0 2c-5 0-9 2.5-9 5v1h18v-1c0-2.5-4-5-9-5z" fill="currentColor"/>
-    </svg>
-    Login
-  </button>
-</div>
+  <!-- Header: Login button -->
+  <div class="relative">
+    <button id="loginBtn" class="btn-primary flex items-center gap-2" aria-haspopup="dialog" aria-expanded="false">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden class="inline-block">
+        <path d="M12 12a4 4 0 100-8 4 4 0 000 8zm0 2c-5 0-9 2.5-9 5v1h18v-1c0-2.5-4-5-9-5z" fill="currentColor"/>
+      </svg>
+      Login
+    </button>
+  </div>
 </header>
 
 <!-- HERO -->
@@ -355,9 +155,11 @@
   <h1 class="text-5xl font-extrabold navy mb-4 tracking-tight" id="hero-text">
     You take care of yourself.<br>We take care of the rest.
   </h1>
+
   <p class="text-lg text-gray-600 mb-8" id="hero-subtext">
     It’s not magic. It’s LustroLindo.
   </p>
+
   <button class="btn-primary text-lg px-8 py-3" onclick="openBooking()">Book now</button>
 </section>
 
@@ -384,7 +186,7 @@
 
 <footer class="text-center py-12 text-gray-500 text-sm" id="footer">© 2025 LustroLindo — The future of living.</footer>
 
-<!-- BOOKING PANEL -->
+<!-- BOOKING PANEL (unchanged) -->
 <div id="bookingPanel" aria-hidden="true">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
     <div>
@@ -393,10 +195,13 @@
     </div>
     <button id="closePanelBtn" style="background:none;border:none;font-size:20px;cursor:pointer" onclick="closeBooking()">✕</button>
   </div>
+
   <label class="block mb-2 font-semibold" id="lbl-name">Name</label>
   <input id="fldName" class="w-full p-3 border rounded-lg mb-4" placeholder="Your name">
+
   <label class="block mb-2 font-semibold" id="lbl-email">Email</label>
   <input id="fldEmail" type="email" class="w-full p-3 border rounded-lg mb-4" placeholder="Email">
+
   <label class="block mb-2 font-semibold" id="lbl-service">Service</label>
   <select id="fldService" class="w-full p-3 border rounded-lg mb-4">
     <option value="">-- Select service --</option>
@@ -405,6 +210,7 @@
     <option>Move-In / Move-Out</option>
     <option>Airbnb turnover</option>
   </select>
+
   <div style="display:flex;gap:12px">
     <div style="flex:1">
       <label class="block mb-2 font-semibold" id="lbl-date">Date</label>
@@ -421,6 +227,7 @@
       </select>
     </div>
   </div>
+
   <label class="block mb-2 font-semibold" id="lbl-timeslot">Time slot</label>
   <select id="fldTimeslot" class="w-full p-3 border rounded-lg mb-4">
     <option value="">-- Select time --</option>
@@ -430,15 +237,18 @@
     <option>15:00</option>
     <option>17:00</option>
   </select>
+
+  <!-- Cleaners list: hidden until all fields are filled -->
   <div id="cleanersWrapper" style="display:none;margin-top:6px">
     <h4 class="text-md font-semibold mb-2">Available cleaners</h4>
     <div id="cleanersList"></div>
   </div>
+
   <button class="btn-primary w-full py-3" id="confirmBtn">Confirm</button>
   <button class="mt-4 w-full py-2 text-gray-600" onclick="closeBooking()">Close</button>
 </div>
 
-<!-- SHIFTS PLACEHOLDER -->
+<!-- SHIFTS PLACEHOLDER (unchanged) -->
 <div id="shiftsPlaceholder" role="dialog" aria-hidden="true">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
     <h3 class="text-xl font-bold navy">Cleaner Dashboard</h3>
@@ -450,7 +260,99 @@
   </div>
 </div>
 
+<!-- LOGIN: glass modal (single clean implementation) -->
+<div id="llOverlay" class="ll-overlay" role="dialog" aria-modal="true" aria-labelledby="llTitle">
+  <div id="llCard" class="ll-card" role="document" aria-describedby="llSubtitle">
+    <!-- Left (brand & USP) -->
+    <div class="ll-left">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <svg width="140" height="30" viewBox="0 0 320 55" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+          <defs><style>.t{font-family:Inter,system-ui;font-weight:800;font-size:28px;fill:#0A2342}</style></defs>
+          <text class="t" x="0" y="30">LustroLindo</text>
+          <g transform="translate(215,3)" fill="#00A3FF"><polygon id="lustroSparkleMini" points="8,0 11,6 17,8 11,10 8,17 5,10 0,8 5,6"/></g>
+        </svg>
+      </div>
+
+      <h3 id="llTitle" style="font-size:20px;font-weight:800;color:#0A2342;margin:0">Welcome back — let’s get you sparkling ✨</h3>
+      <p id="llSubtitle" style="color:#475569;font-size:14px;margin:0">Secure access to your dashboard. Mock login — no backend required.</p>
+
+      <div style="margin-top:12px;width:100%"><div class="divider">Secure • Fast • Scalable</div></div>
+
+      <div style="margin-top:18px; display:flex; gap:10px; width:100%;">
+        <div style="flex:1; display:flex; gap:8px; align-items:center;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 12a4 4 0 100-8 4 4 0 000 8zM3 20v-1c0-2.5 4-5 9-5s9 2.5 9 5v1H3z" fill="#0A2342"/></svg>
+          <div style="font-size:14px;color:#334155;"><strong>Team</strong> accounts ready</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right (form) -->
+    <div class="ll-right">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <div style="font-size:14px;color:#94a3b8;font-weight:700;">Sign in to</div>
+          <div style="font-size:18px;font-weight:800;color:#0A2342;">Dashboard</div>
+        </div>
+        <button id="llCloseBtn" class="close-ll" aria-label="Close login">✕</button>
+      </div>
+
+      <div style="display:grid; gap:10px; margin-top:8px;">
+        <button class="social-btn" id="llGoogle">
+          <svg width="18" height="18" viewBox="0 0 533.5 544.3" aria-hidden><path fill="#4285F4" d="M533.5 278.4c0-17.6-1.6-34.6-4.6-51.1H272v96.8h146.9c-6.3 34-25.4 62.9-54.2 82.3v68.4h87.6c51.3-47.2 80.2-116.8 80.2-196.4z"/></svg>
+          Continue with Google
+        </button>
+
+        <div style="display:flex; gap:10px;">
+          <button class="social-btn" id="llApple" style="flex:1">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden><path fill="currentColor" d="M16.365 1.43c-.9.02-2.04.62-2.7 1.37-.58.68-1.1 1.74-.91 2.76 1.02.07 2.18-.58 2.8-1.35.57-.71 1.06-1.8.81-2.78zM12 6.6c-2.7 0-4.9 2.22-4.9 4.9 0 2.7 2.2 4.9 4.9 4.9 2.7 0 4.9-2.2 4.9-4.9C16.9 8.8 14.7 6.6 12 6.6z"/></svg>
+            Apple
+          </button>
+          <button class="social-btn" id="llDemo" style="flex:1">🚀 Demo</button>
+        </div>
+      </div>
+
+      <div style="height:6px"></div>
+      <div class="divider">or sign in with email</div>
+
+      <form id="llForm" novalidate style="margin-top:10px;">
+        <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:6px;">
+          <label style="font-weight:700;color:#374151;">Email</label>
+          <input id="llEmail" class="input-ll" type="email" autocomplete="email" placeholder="you@company.com" required>
+          <div id="llEmailErr" style="display:none;color:#ef4444;font-weight:600;font-size:13px;"></div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:6px;">
+          <label style="font-weight:700;color:#374151;">Password</label>
+          <input id="llPassword" class="input-ll" type="password" autocomplete="current-password" placeholder="Your password" required>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <label style="display:flex;align-items:center;gap:8px;color:#6b7280;font-size:13px;"><input id="llRemember" type="checkbox" class="checkbox"> Remember me</label>
+          <button type="button" id="llForgot" class="small-link">Forgot?</button>
+        </div>
+
+        <button type="button" id="llSubmit" class="btn-ll" style="width:100%; margin-top:6px;">Sign in</button>
+      </form>
+
+      <div style="display:flex; align-items:center; gap:8px; margin-top:10px;">
+        <div style="font-size:13px;color:#94a3b8;">New here?</div>
+        <div class="small-link" id="llSignup">Create an account</div>
+      </div>
+
+      <div style="margin-top:14px;font-size:13px;color:#94a3b8;">
+        <div>Two-factor authentication supported • <span class="small-link" id="llSecurity">Security</span></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- success toast -->
+<div id="llToast" class="ll-toast">✅ Login effettuato</div>
+
+<!-- rest of scripts (booking etc) - left intact as before -->
 <script>
+/* translations + booking & cleaners (left identical to previous logic) */
 const text = {
   en: {
     hero: 'You take care of yourself.<br>We take care of the rest.',
@@ -499,6 +401,7 @@ function setLang(lang){
   document.getElementById('confirmBtn').innerText = text[lang].confirm;
 }
 
+/* booking panel control */
 function openBooking(){ 
   document.getElementById('bookingPanel').classList.add('open');
   document.getElementById('bookingPanel').setAttribute('aria-hidden','false');
@@ -512,6 +415,7 @@ function closeBooking(){
 function openShifts(){document.getElementById('shiftsPlaceholder').classList.add('show');}
 function closeShiftsPlaceholder(){document.getElementById('shiftsPlaceholder').classList.remove('show');}
 
+/* sample cleaners */
 const sampleCleaners = [
   { name:'Giulia R.', rating:4.9, price:18, status:'Available', emoji:'🧼' },
   { name:'Marco V.', rating:4.7, price:20, status:'On job', emoji:'✨' },
@@ -559,111 +463,137 @@ function checkAndRenderCleaners(){
     });
   } else {
     wrapper.style.display = 'none';
+    selectedCleanerIndex = null;
   }
 }
 
-// Event listeners
+// Event listeners for booking fields
 ['fldName','fldEmail','fldService','fldDate','fldDuration','fldTimeslot'].forEach(id=>{
-  document.getElementById(id).addEventListener('input', checkAndRenderCleaners);
-  document.getElementById(id).addEventListener('change', checkAndRenderCleaners);
+  const el = document.getElementById(id);
+  if(el){
+    el.addEventListener('input', checkAndRenderCleaners);
+    el.addEventListener('change', checkAndRenderCleaners);
+  }
 });
 
-// Confirm button
+// Confirm button behavior
 document.getElementById('confirmBtn').addEventListener('click',()=>{
   if(selectedCleanerIndex===null){
-    alert('Please select a cleaner first');
+    alert(currentLang==='it' ? 'Seleziona un cleaner prima di confermare' : 'Please select a cleaner first');
     return;
   }
   const c = sampleCleaners[selectedCleanerIndex];
-  alert(`Booking confirmed with ${c.name}!`);
+  alert((currentLang==='it' ? 'Prenotazione confermata con ' : 'Booking confirmed with ') + c.name + '!');
   closeBooking();
 });
 
 setLang('en'); // default
 </script>
-  <script>
-  // Mostra il pannello di login al click del pulsante “Login”
-  const loginBtn = document.getElementById("loginBtn");
-  const loginOverlay = document.getElementById("loginOverlay");
-  const closeLogin = document.getElementById("closeLogin");
 
-  loginBtn.addEventListener("click", () => {
-    loginOverlay.style.display = "flex";
+<!-- LOGIN modal script (glass, mock login) -->
+<script>
+(function(){
+  const overlay = document.getElementById('llOverlay');
+  const card = document.getElementById('llCard');
+  const openBtn = document.getElementById('loginBtn');
+  const closeBtn = document.getElementById('llCloseBtn');
+  const submitBtn = document.getElementById('llSubmit');
+  const demoBtn = document.getElementById('llDemo');
+  const googleBtn = document.getElementById('llGoogle');
+  const appleBtn = document.getElementById('llApple');
+  const emailInput = document.getElementById('llEmail');
+  const pwdInput = document.getElementById('llPassword');
+  const emailErr = document.getElementById('llEmailErr');
+  const toast = document.getElementById('llToast');
+
+  // open modal
+  function open(){
+    overlay.style.display = 'flex';
+    // small delay to trigger card animation
+    setTimeout(()=> card.classList.add('show'), 20);
+    openBtn.setAttribute('aria-expanded','true');
+    // focus first input after animation
+    setTimeout(()=> emailInput.focus(), 220);
+    document.body.style.overflow = 'hidden';
+  }
+  // close modal
+  function close(){
+    card.classList.remove('show');
+    openBtn.setAttribute('aria-expanded','false');
+    setTimeout(()=> {
+      overlay.style.display = 'none';
+      document.body.style.overflow = '';
+    }, 260);
+  }
+
+  openBtn.addEventListener('click', open);
+  closeBtn.addEventListener('click', close);
+
+  // close clicking outside card
+  overlay.addEventListener('click', (e) => {
+    if(e.target === overlay) close();
   });
 
-  closeLogin.addEventListener("click", () => {
-    loginOverlay.style.display = "none";
-  });
-
-  // Chiudi cliccando fuori dal riquadro
-  loginOverlay.addEventListener("click", (e) => {
-    if (e.target === loginOverlay) {
-      loginOverlay.style.display = "none";
+  // simple validation + mock login
+  function validate(){
+    const e = emailInput.value.trim();
+    const p = pwdInput.value;
+    if(!e || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)){
+      emailErr.style.display = 'block';
+      emailErr.innerText = currentLang==='it' ? 'Inserisci una email valida.' : 'Enter a valid email.';
+      return false;
     }
-  });
-</script>
-  <!-- Luxury SaaS Login Modal -->
-<div id="loginModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40 backdrop-blur-sm transition-opacity duration-300">
-  <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-md p-8 transform scale-95 opacity-0 transition-all duration-300" id="loginBox">
-    <button id="closeLogin" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 transition">
-      ✕
-    </button>
-    <div class="text-center mb-6">
-      <h2 class="text-3xl font-bold text-[#0A2342]">Welcome Back</h2>
-      <p class="text-gray-500 text-sm mt-2">Login to continue with LustroLindo</p>
-    </div>
-    <form class="space-y-5">
-      <div>
-        <label class="block text-sm font-semibold text-gray-700 mb-1">Email</label>
-        <input type="email" placeholder="you@example.com"
-               class="w-full border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-[#00A3FF] focus:outline-none transition" />
-      </div>
-      <div>
-        <label class="block text-sm font-semibold text-gray-700 mb-1">Password</label>
-        <input type="password" placeholder="••••••••"
-               class="w-full border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-[#00A3FF] focus:outline-none transition" />
-      </div>
-      <button type="submit"
-              class="w-full bg-[#00A3FF] hover:bg-[#0092e6] text-white font-semibold rounded-xl p-3 shadow-md transition">
-        Sign in
-      </button>
-    </form>
-    <div class="mt-6 flex justify-between text-sm text-gray-600">
-      <button id="forgotPass" class="hover:text-[#00A3FF] transition">Forgot password?</button>
-      <button id="createAccount" class="hover:text-[#00A3FF] transition">Create account</button>
-    </div>
-  </div>
-</div>
-  <script>
-  const openBtn = document.querySelector('#loginButton');
-  const modal = document.querySelector('#loginModal');
-  const box = document.querySelector('#loginBox');
-  const closeBtn = document.querySelector('#closeLogin');
-
-  // Apri
-  openBtn?.addEventListener('click', () => {
-    modal.classList.remove('hidden');
-    setTimeout(() => {
-      box.classList.remove('opacity-0', 'scale-95');
-      box.classList.add('opacity-100', 'scale-100');
-    }, 20);
-  });
-
-  // Chiudi
-  closeBtn?.addEventListener('click', () => {
-    box.classList.add('opacity-0', 'scale-95');
-    setTimeout(() => {
-      modal.classList.add('hidden');
-    }, 250);
-  });
-
-  // Chiudi cliccando l'overlay
-  modal?.addEventListener('click', (e) => {
-    if (e.target === modal) {
-      box.classList.add('opacity-0', 'scale-95');
-      setTimeout(() => modal.classList.add('hidden'), 250);
+    emailErr.style.display = 'none';
+    if(!p || p.length < 4){
+      alert(currentLang==='it' ? 'Password troppo corta.' : 'Password too short.');
+      return false;
     }
+    return true;
+  }
+
+  function showToast(msg){
+    toast.innerText = msg;
+    toast.style.display = 'block';
+    setTimeout(()=> {
+      toast.style.opacity = '1';
+    },20);
+    setTimeout(()=> {
+      toast.style.display = 'none';
+      toast.style.opacity = '';
+    }, 2200);
+  }
+
+  submitBtn.addEventListener('click', ()=>{
+    if(!validate()) return;
+    // micro animation + mock success
+    const orig = submitBtn.innerText;
+    submitBtn.disabled = true;
+    submitBtn.innerText = currentLang==='it' ? 'Accesso in corso…' : 'Signing in…';
+    setTimeout(()=> {
+      submitBtn.disabled = false;
+      submitBtn.innerText = orig;
+      close();
+      showToast(currentLang==='it' ? '✅ Login effettuato (mock)' : '✅ Login successful (mock)');
+    }, 900);
   });
+
+  // demo/social stubs
+  demoBtn.addEventListener('click', ()=> {
+    emailInput.value = 'demo@lustrolindo.test';
+    pwdInput.value = 'demo1234';
+    document.getElementById('llRemember').checked = true;
+    submitBtn.click();
+  });
+  googleBtn.addEventListener('click', ()=> alert(currentLang==='it' ? 'Google login (simulato)' : 'Google login (simulated)'));
+  appleBtn.addEventListener('click', ()=> alert(currentLang==='it' ? 'Apple login (simulato)' : 'Apple login (simulated)'));
+
+  // keyboard accessibility: close on ESC
+  document.addEventListener('keydown', (e)=>{
+    if(e.key === 'Escape' && overlay.style.display === 'flex'){ close(); }
+  });
+
+})();
 </script>
+
 </body>
 </html>
