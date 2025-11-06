@@ -581,6 +581,28 @@ document.getElementById('confirmBtn').addEventListener('click',()=>{
 
 setLang('en'); // default
 </script>
+  <script>
+  // Mostra il pannello di login al click del pulsante
+  document.addEventListener('DOMContentLoaded', () => {
+    const loginButton = document.getElementById('loginButton');
+    const loginPanel = document.getElementById('loginPanel');
+    const closeButton = document.getElementById('closeLogin');
+
+    if (loginButton && loginPanel) {
+      loginButton.addEventListener('click', () => {
+        loginPanel.style.display = 'flex';
+        setTimeout(() => loginPanel.classList.add('opacity-100', 'scale-100'), 10);
+      });
+    }
+
+    if (closeButton) {
+      closeButton.addEventListener('click', () => {
+        loginPanel.classList.remove('opacity-100', 'scale-100');
+        setTimeout(() => (loginPanel.style.display = 'none'), 300);
+      });
+    }
+  });
+</script>
 
 </body>
 </html>
