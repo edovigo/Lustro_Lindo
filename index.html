@@ -582,27 +582,25 @@ document.getElementById('confirmBtn').addEventListener('click',()=>{
 setLang('en'); // default
 </script>
   <script>
-  // Mostra il pannello di login al click del pulsante
-  document.addEventListener('DOMContentLoaded', () => {
-    const loginButton = document.getElementById('loginButton');
-    const loginPanel = document.getElementById('loginPanel');
-    const closeButton = document.getElementById('closeLogin');
+  // Mostra il pannello di login al click del pulsante “Login”
+  const loginBtn = document.getElementById("loginBtn");
+  const loginOverlay = document.getElementById("loginOverlay");
+  const closeLogin = document.getElementById("closeLogin");
 
-    if (loginButton && loginPanel) {
-      loginButton.addEventListener('click', () => {
-        loginPanel.style.display = 'flex';
-        setTimeout(() => loginPanel.classList.add('opacity-100', 'scale-100'), 10);
-      });
-    }
+  loginBtn.addEventListener("click", () => {
+    loginOverlay.style.display = "flex";
+  });
 
-    if (closeButton) {
-      closeButton.addEventListener('click', () => {
-        loginPanel.classList.remove('opacity-100', 'scale-100');
-        setTimeout(() => (loginPanel.style.display = 'none'), 300);
-      });
+  closeLogin.addEventListener("click", () => {
+    loginOverlay.style.display = "none";
+  });
+
+  // Chiudi cliccando fuori dal riquadro
+  loginOverlay.addEventListener("click", (e) => {
+    if (e.target === loginOverlay) {
+      loginOverlay.style.display = "none";
     }
   });
 </script>
-
 </body>
 </html>
