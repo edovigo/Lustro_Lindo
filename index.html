@@ -4,10 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LustroLindo</title>
-
-<!-- Favicon L*L -->
-<link rel="icon" href="favicon.svg" type="image/svg+xml">
-
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
 <style>
@@ -55,46 +52,36 @@
     position: fixed; left:50%; top:50%; transform:translate(-50%,-50%); width:520px; max-width:94vw; background:white; border-radius:12px; padding:20px; box-shadow:0 20px 60px rgba(8,12,20,0.12); z-index:80; display:none;
   }
   #shiftsPlaceholder.show { display:block; }
+
   @media (max-width:880px){
     #bookingPanel { width: 92vw; right: -100vw; }
   }
 
-  /* LustroLindo sparkle animation */
+  /* ✅ Logo LustroLindo con sparkle animata */
   @keyframes sparklePulse {
     0%, 100% { transform: scale(1); opacity: .9; }
     50% { transform: scale(1.45); opacity: 1; }
   }
-  #lustroSparkle {
-    animation: sparklePulse 1.4s ease-in-out infinite;
-    transform-origin:center;
-  }
+  #lustroSparkle { animation: sparklePulse 1.4s ease-in-out infinite; transform-origin:center; }
 </style>
 </head>
+
 <body>
 
 <!-- NAV -->
-<header class="flex justify-between items-center p-6 bg-white shadow">
-  <!-- Logo LustroLindo animato -->
-  <div>
+<header class="flex justify-between items-center p-6 bg-white shadow relative">
+  <div class="text-2xl font-bold navy tracking-tight">
+    <!-- Logo LustroLindo -->
     <svg width="270" height="55" viewBox="0 0 320 55" xmlns="http://www.w3.org/2000/svg" aria-label="LustroLindo logo">
-      <defs>
-        <style>
-          .t{font-family:Inter,system-ui; font-weight:800; font-size:30px; fill:#0A2342;}
-        </style>
-      </defs>
+      <defs><style>.t{font-family:Inter,system-ui;font-weight:800;font-size:30px;fill:#0A2342;}</style></defs>
       <text class="t" x="0" y="35">LustroLindo</text>
-      <g transform="translate(225,5)" fill="#00A3FF">
-        <polygon id="lustroSparkle" points="8,0 11,6 17,8 11,10 8,17 5,10 0,8 5,6"/>
-      </g>
+      <g transform="translate(225,5)" fill="#00A3FF"><polygon id="lustroSparkle" points="8,0 11,6 17,8 11,10 8,17 5,10 0,8 5,6"/></g>
     </svg>
   </div>
-
-  <!-- Lingue -->
-  <div class="flex gap-4 items-center">
+  <div class="flex gap-4 items-center absolute left-1/2 transform -translate-x-1/2">
     <span class="lang-toggle" onclick="setLang('it')">🇮🇹</span>
     <span class="lang-toggle" onclick="setLang('en')">🇬🇧</span>
   </div>
-
   <button class="btn-primary">Login</button>
 </header>
 
@@ -132,7 +119,71 @@
 
 <footer class="text-center py-12 text-gray-500 text-sm" id="footer">© 2025 LustroLindo — The future of living.</footer>
 
-<!-- Booking Panel and Shifts Placeholder omitted for brevity; rimangono identici al tuo codice precedente -->
+<!-- BOOKING PANEL -->
+<div id="bookingPanel" aria-hidden="true">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+    <div>
+      <div style="font-size:12px;color:#6b7280" id="panel-kicker">Booking</div>
+      <h3 class="text-2xl font-bold navy" id="panel-title">Book a Cleaning</h3>
+    </div>
+    <button id="closePanelBtn" style="background:none;border:none;font-size:20px;cursor:pointer" onclick="closeBooking()">✕</button>
+  </div>
+  <label class="block mb-2 font-semibold" id="lbl-name">Name</label>
+  <input id="fldName" class="w-full p-3 border rounded-lg mb-4" placeholder="Your name">
+  <label class="block mb-2 font-semibold" id="lbl-email">Email</label>
+  <input id="fldEmail" type="email" class="w-full p-3 border rounded-lg mb-4" placeholder="Email">
+  <label class="block mb-2 font-semibold" id="lbl-service">Service</label>
+  <select id="fldService" class="w-full p-3 border rounded-lg mb-4">
+    <option value="">-- Select service --</option>
+    <option>Home cleaning</option>
+    <option>Deep cleaning</option>
+    <option>Move-In / Move-Out</option>
+    <option>Airbnb turnover</option>
+  </select>
+  <div style="display:flex;gap:12px">
+    <div style="flex:1">
+      <label class="block mb-2 font-semibold" id="lbl-date">Date</label>
+      <input id="fldDate" type="date" class="w-full p-3 border rounded-lg mb-4">
+      <div id="formattedDate" style="font-size:13px;color:#6b7280;margin-top:-8px;margin-bottom:8px;display:none"></div>
+    </div>
+    <div style="width:140px">
+      <label class="block mb-2 font-semibold" id="lbl-duration">Duration</label>
+      <select id="fldDuration" class="w-full p-3 border rounded-lg mb-4">
+        <option value="">--</option>
+        <option value="2">2h</option>
+        <option value="4">4h</option>
+        <option value="6">6h</option>
+      </select>
+    </div>
+  </div>
+  <label class="block mb-2 font-semibold" id="lbl-timeslot">Time slot</label>
+  <select id="fldTimeslot" class="w-full p-3 border rounded-lg mb-4">
+    <option value="">-- Select time --</option>
+    <option>09:00</option>
+    <option>11:00</option>
+    <option>13:00</option>
+    <option>15:00</option>
+    <option>17:00</option>
+  </select>
+  <div id="cleanersWrapper" style="display:none;margin-top:6px">
+    <h4 class="text-md font-semibold mb-2">Available cleaners</h4>
+    <div id="cleanersList"></div>
+  </div>
+  <button class="btn-primary w-full py-3" id="confirmBtn">Confirm</button>
+  <button class="mt-4 w-full py-2 text-gray-600" onclick="closeBooking()">Close</button>
+</div>
+
+<!-- SHIFTS PLACEHOLDER -->
+<div id="shiftsPlaceholder" role="dialog" aria-hidden="true">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+    <h3 class="text-xl font-bold navy">Cleaner Dashboard</h3>
+    <button style="background:none;border:none;font-size:20px;cursor:pointer" onclick="closeShiftsPlaceholder()">✕</button>
+  </div>
+  <p style="color:#6b7280">This area will be the cleaner dashboard (coming soon).</p>
+  <div style="margin-top:14px;display:flex;gap:10px;justify-content:flex-end">
+    <button class="btn-primary" onclick="closeShiftsPlaceholder()">Close</button>
+  </div>
+</div>
 
 <script>
 const text = {
@@ -171,40 +222,99 @@ function setLang(lang){
   currentLang = lang;
   document.getElementById('hero-text').innerHTML = text[lang].hero;
   document.getElementById('hero-subtext').innerText = text[lang].slogan;
-  document.getElementById('panel-title')?.innerText = text[lang].panelTitle;
-  document.getElementById('panel-kicker')?.innerText = text[lang].kicker;
-  document.getElementById('lbl-name')?.innerText = text[lang].name;
-  document.getElementById('fldName')?.setAttribute('placeholder', (lang==='it'?'Nome':'Your name'));
-  document.getElementById('lbl-email')?.innerText = text[lang].email;
-  document.getElementById('lbl-service')?.innerText = text[lang].service;
-  document.getElementById('lbl-date')?.innerText = text[lang].date;
-  document.getElementById('lbl-duration')?.innerText = text[lang].duration;
-  document.getElementById('lbl-timeslot')?.innerText = text[lang].timeslot;
-  document.getElementById('confirmBtn')?.innerText = text[lang].confirm;
-  document.getElementById('shiftsTitle')?.innerText = text[lang].shiftsTitle;
+  document.getElementById('panel-title').innerText = text[lang].panelTitle;
+  document.getElementById('panel-kicker').innerText = text[lang].kicker;
+  document.getElementById('lbl-name').innerText = text[lang].name;
+  document.getElementById('fldName').placeholder = (lang==='it'?'Nome':'Your name');
+  document.getElementById('lbl-email').innerText = text[lang].email;
+  document.getElementById('lbl-service').innerText = text[lang].service;
+  document.getElementById('lbl-date').innerText = text[lang].date;
+  document.getElementById('lbl-duration').innerText = text[lang].duration;
+  document.getElementById('lbl-timeslot').innerText = text[lang].timeslot;
+  document.getElementById('confirmBtn').innerText = text[lang].confirm;
+}
 
-  if(lang==='it'){
-    document.getElementById('kpi-bookings-text').innerText = 'Prenotazioni oggi';
-    document.getElementById('kpi-sat-text').innerText = 'Clienti soddisfatti';
-    document.getElementById('kpi-cleaners-text').innerText = 'Cleaner attivi';
-    document.getElementById('cta-client').innerText = 'Per clienti';
-    document.getElementById('cta-client-sub').innerText = 'Prenota, gestisci e rilassati.';
-    document.getElementById('cta-cleaner').innerText = 'Per cleaner';
-    document.getElementById('cta-cleaner-sub').innerText = 'Turni ultra-ottimizzati con AI.';
-    document.getElementById('footer').innerText = '© 2025 LustroLindo — Il vivere del futuro.';
+function openBooking(){ 
+  document.getElementById('bookingPanel').classList.add('open');
+  document.getElementById('bookingPanel').setAttribute('aria-hidden','false');
+  document.body.style.overflow = 'hidden';
+}
+function closeBooking(){ 
+  document.getElementById('bookingPanel').classList.remove('open');
+  document.getElementById('bookingPanel').setAttribute('aria-hidden','true');
+  document.body.style.overflow = '';
+}
+function openShifts(){document.getElementById('shiftsPlaceholder').classList.add('show');}
+function closeShiftsPlaceholder(){document.getElementById('shiftsPlaceholder').classList.remove('show');}
+
+const sampleCleaners = [
+  { name:'Giulia R.', rating:4.9, price:18, status:'Available', emoji:'🧼' },
+  { name:'Marco V.', rating:4.7, price:20, status:'On job', emoji:'✨' },
+  { name:'Sara L.', rating:4.8, price:17, status:'Available', emoji:'🧽' }
+];
+let selectedCleanerIndex = null;
+
+function formatToDDMMYYYY(isoDate){
+  if(!isoDate) return '';
+  const p = isoDate.split('-');
+  if(p.length!==3) return isoDate;
+  return `${p[2]}-${p[1]}-${p[0]}`;
+}
+
+function checkAndRenderCleaners(){
+  const name = document.getElementById('fldName').value.trim();
+  const email = document.getElementById('fldEmail').value.trim();
+  const service = document.getElementById('fldService').value;
+  const date = document.getElementById('fldDate').value;
+  const duration = document.getElementById('fldDuration').value;
+  const timeslot = document.getElementById('fldTimeslot').value;
+  const allFilled = name && email && service && date && duration && timeslot;
+  const wrapper = document.getElementById('cleanersWrapper');
+  const list = document.getElementById('cleanersList');
+  if(allFilled){
+    wrapper.style.display = 'block';
+    list.innerHTML = '';
+    sampleCleaners.forEach((c, idx) => {
+      const div = document.createElement('div');
+      div.className = 'cleaner-card';
+      div.dataset.idx = idx;
+      div.innerHTML = `<div class="avatar">${c.emoji}</div>
+      <div style="flex:1">
+        <div style="display:flex;justify-content:space-between;align-items:center;font-weight:700;color:var(--navy);">
+          <div>${c.name}</div>
+          <div style="font-size:13px;color:#6b7280">⭐ ${c.rating}</div>
+        </div>
+        <div style="display:flex;gap:10px;margin-top:6px;font-size:13px;color:#374151;">
+          <div style="font-weight:700;color:${c.status==='Available'?'green':'#c59b00'}">${c.status}</div>
+          <div>$${c.price}/h</div>
+        </div>
+      </div>`;
+      div.onclick = ()=>{ selectedCleanerIndex = idx; document.querySelectorAll('.cleaner-card').forEach(d=>d.classList.remove('cleaner-selected')); div.classList.add('cleaner-selected'); };
+      list.appendChild(div);
+    });
   } else {
-    document.getElementById('kpi-bookings-text').innerText = 'Bookings today';
-    document.getElementById('kpi-sat-text').innerText = 'Satisfied clients';
-    document.getElementById('kpi-cleaners-text').innerText = 'Active cleaners';
-    document.getElementById('cta-client').innerText = 'For clients';
-    document.getElementById('cta-client-sub').innerText = 'Book, manage and relax.';
-    document.getElementById('cta-cleaner').innerText = 'For cleaners';
-    document.getElementById('cta-cleaner-sub').innerText = 'Ultra-optimized shifts with AI.';
-    document.getElementById('footer').innerText = '© 2025 LustroLindo — Built for elegance & efficiency.';
+    wrapper.style.display = 'none';
   }
 }
 
-setLang('en');
+// Event listeners
+['fldName','fldEmail','fldService','fldDate','fldDuration','fldTimeslot'].forEach(id=>{
+  document.getElementById(id).addEventListener('input', checkAndRenderCleaners);
+  document.getElementById(id).addEventListener('change', checkAndRenderCleaners);
+});
+
+// Confirm button
+document.getElementById('confirmBtn').addEventListener('click',()=>{
+  if(selectedCleanerIndex===null){
+    alert('Please select a cleaner first');
+    return;
+  }
+  const c = sampleCleaners[selectedCleanerIndex];
+  alert(`Booking confirmed with ${c.name}!`);
+  closeBooking();
+});
+
+setLang('en'); // default
 </script>
 
 </body>
