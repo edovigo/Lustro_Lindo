@@ -60,8 +60,17 @@
 <body>
 
 <!-- NAV -->
-<header class="flex justify-between items-center p-6 bg-white shadow">
-  <div class="tracking-tight flex items-center">
+<header class="flex flex-col items-center p-6 bg-white shadow">
+  <div class="flex justify-between items-center w-full max-w-6xl">
+    <div class="text-2xl font-bold navy tracking-tight">LustroLindo</div>
+    <button class="btn-primary">Login</button>
+  </div>
+  <!-- Flags centered under navbar, visually aligned with hero -->
+  <div class="flex gap-4 mt-6">
+    <span class="lang-toggle cursor-pointer" onclick="setLang('it')">🇮🇹</span>
+    <span class="lang-toggle cursor-pointer" onclick="setLang('en')">🇬🇧</span>
+  </div>
+</header>
   <!-- LOGO SVG -->
   <!-- ✅ Logo LustroLindo con sparkle animata -->
 <style>
