@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LustroLindo — Cleaner Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body { background:#F7F4EB; font-family:system-ui, sans-serif; color:#0A2342; }
+    .card { background:white; border-radius:22px; box-shadow:0 10px 25px rgba(0,0,0,.08); transition:transform .2s; }
+    .card:hover { transform:translateY(-4px); }
+    .btn-primary { background:#0A2342; color:white; border-radius:12px; padding:10px 18px; font-weight:600; transition:.2s; }
+    .btn-primary:hover { opacity:.85; }
+    @keyframes sparklePulse {
+      0%,100% { transform: scale(1); opacity:.9; }
+      50% { transform: scale(1.45); opacity:1; }
+    }
+    #lustroSparkle {
+      animation: sparklePulse 1.4s ease-in-out infinite;
+      transform-origin:center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="flex justify-between items-center p-6 bg-white shadow">
+    <!-- Logo LustroLindo -->
+    <svg width="170" height="38" viewBox="0 0 320 55" xmlns="http://www.w3.org/2000/svg" aria-label="LustroLindo logo">
+      <defs>
+        <style>.t{font-family:Inter,system-ui; font-weight:800; font-size:28px; fill:#0A2342;}</style>
+      </defs>
+      <text class="t" x="0" y="35">LustroLindo</text>
+      <g transform="translate(205,5)" fill="#00A3FF">
+        <polygon id="lustroSparkle" points="8,0 11,6 17,8 11,10 8,17 5,10 0,8 5,6"/>
+      </g>
+    </svg>
+
+    <button class="btn-primary" onclick="logout()">Logout</button>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="max-w-4xl mx-auto mt-16 px-6">
+    <h1 class="text-3xl font-extrabold mb-6 text-center">Cleaner Dashboard</h1>
+    <p class="text-center text-gray-600 mb-12">Visualizza e gestisci i tuoi turni disponibili.</p>
+
+    <div class="grid md:grid-cols-3 gap-8">
+      <!-- TURNO 1 -->
+      <div class="card p-6 text-center">
+        <div class="text-xl font-bold mb-2">🏠 Milano Centro</div>
+        <div class="text-gray-600 mb-3">08:00 - 12:00</div>
+        <div class="text-lg font-semibold mb-4">€ 60</div>
+        <button class="btn-primary w-full" onclick="acceptShift(this)">Accetta turno</button>
+      </div>
+
+      <!-- TURNO 2 -->
+      <div class="card p-6 text-center">
+        <div class="text-xl font-bold mb-2">🏢 Porta Romana</div>
+        <div class="text-gray-600 mb-3">13:00 - 17:00</div>
+        <div class="text-lg font-semibold mb-4">€ 55</div>
+        <button class="btn-primary w-full" onclick="acceptShift(this)">Accetta turno</button>
+      </div>
+
+      <!-- TURNO 3 -->
+      <div class="card p-6 text-center">
+        <div class="text-xl font-bold mb-2">🏡 CityLife</div>
+        <div class="text-gray-600 mb-3">18:00 - 22:00</div>
+        <div class="text-lg font-semibold mb-4">€ 70</div>
+        <button class="btn-primary w-full" onclick="acceptShift(this)">Accetta turno</button>
+      </div>
+    </div>
+
+    <!-- Feedback mock -->
+    <div id="feedback" class="text-center mt-12 text-lg font-semibold text-green-700 hidden">
+      ✅ Turno accettato con successo!
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="text-center py-10 text-gray-500 text-sm mt-20">
+    © 2025 LustroLindo — the future of living.
+  </footer>
+
+  <script>
+    function acceptShift(btn) {
+      btn.disabled = true;
+      btn.innerText = "Turno accettato ✅";
+      document.getElementById('feedback').classList.remove('hidden');
+      setTimeout(()=> document.getElementById('feedback').classList.add('hidden'), 2500);
+    }
+
+    function logout() {
+      alert("Logout simulato. Tornerai alla landing page.");
+      window.location.href = "index.html";
+    }
+  </script>
+
+</body>
+</html>
