@@ -1,99 +1,215 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LustroLindo — Cleaner Dashboard</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LustroLindo • Cleaner Dashboard</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <style>
-    body { background:#F7F4EB; font-family:system-ui, sans-serif; color:#0A2342; }
-    .card { background:white; border-radius:22px; box-shadow:0 10px 25px rgba(0,0,0,.08); transition:transform .2s; }
-    .card:hover { transform:translateY(-4px); }
-    .btn-primary { background:#0A2342; color:white; border-radius:12px; padding:10px 18px; font-weight:600; transition:.2s; }
-    .btn-primary:hover { opacity:.85; }
-    @keyframes sparklePulse {
-      0%,100% { transform: scale(1); opacity:.9; }
-      50% { transform: scale(1.45); opacity:1; }
+    body {
+      margin: 0;
+      font-family: "Inter", system-ui, sans-serif;
+      background-color: #f8fafc;
+      color: #0a2342;
     }
-    #lustroSparkle {
-      animation: sparklePulse 1.4s ease-in-out infinite;
-      transform-origin:center;
+
+    header {
+      position: sticky;
+      top: 0;
+      background: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 24px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      z-index: 1000;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 800;
+      font-size: 20px;
+      color: #0a2342;
+    }
+
+    .sparkle {
+      fill: #00a3ff;
+      animation: pulse 1.4s ease-in-out infinite;
+      transform-origin: center;
+    }
+    @keyframes pulse {
+      0%,100% { transform: scale(1); opacity:.9; }
+      50% { transform: scale(1.4); opacity:1; }
+    }
+
+    main {
+      padding: 24px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    h2 {
+      margin-top: 32px;
+      font-size: 22px;
+      border-bottom: 2px solid #00a3ff;
+      display: inline-block;
+      padding-bottom: 4px;
+    }
+
+    .job-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .job-card {
+      background: white;
+      border-radius: 14px;
+      padding: 16px 20px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .job-info {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .job-info span:first-child {
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .job-info small {
+      color: #555;
+    }
+
+    button {
+      background-color: #00a3ff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 14px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #0088d6;
+    }
+
+    .earnings {
+      background: white;
+      border-radius: 14px;
+      padding: 20px;
+      margin-top: 24px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .progress {
+      height: 10px;
+      background: #e5e7eb;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 65%;
+      background: #00a3ff;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 13px;
+      color: #666;
+      margin-top: 40px;
+      padding-bottom: 20px;
     }
   </style>
 </head>
+
 <body>
-
-  <!-- NAVBAR -->
-  <header class="flex justify-between items-center p-6 bg-white shadow">
-    <!-- Logo LustroLindo -->
-    <svg width="170" height="38" viewBox="0 0 320 55" xmlns="http://www.w3.org/2000/svg" aria-label="LustroLindo logo">
-      <defs>
-        <style>.t{font-family:Inter,system-ui; font-weight:800; font-size:28px; fill:#0A2342;}</style>
-      </defs>
-      <text class="t" x="0" y="35">LustroLindo</text>
-      <g transform="translate(205,5)" fill="#00A3FF">
-        <polygon id="lustroSparkle" points="8,0 11,6 17,8 11,10 8,17 5,10 0,8 5,6"/>
-      </g>
-    </svg>
-
-    <button class="btn-primary" onclick="logout()">Logout</button>
+  <header>
+    <div class="logo">
+      LustroLindo
+      <svg width="20" height="20" viewBox="0 0 20 20">
+        <polygon class="sparkle" points="8,0 11,6 17,8 11,10 8,17 5,10 0,8 5,6"/>
+      </svg>
+    </div>
+    <div>Ciao, <strong>Maria</strong> 👋 | <a href="#" style="color:#00a3ff;text-decoration:none;">Logout</a></div>
   </header>
 
-  <!-- MAIN CONTENT -->
-  <main class="max-w-4xl mx-auto mt-16 px-6">
-    <h1 class="text-3xl font-extrabold mb-6 text-center">Cleaner Dashboard</h1>
-    <p class="text-center text-gray-600 mb-12">Visualizza e gestisci i tuoi turni disponibili.</p>
+  <main>
+    <section>
+      <h2>Turni disponibili</h2>
+      <div class="job-list">
+        <div class="job-card">
+          <div class="job-info">
+            <span>Appartamento Milano Centro</span>
+            <small>Domani • 9:00 – 12:00 • €45</small>
+          </div>
+          <button onclick="mockAction('Turno accettato!')">Accetta</button>
+        </div>
 
-    <div class="grid md:grid-cols-3 gap-8">
-      <!-- TURNO 1 -->
-      <div class="card p-6 text-center">
-        <div class="text-xl font-bold mb-2">🏠 Milano Centro</div>
-        <div class="text-gray-600 mb-3">08:00 - 12:00</div>
-        <div class="text-lg font-semibold mb-4">€ 60</div>
-        <button class="btn-primary w-full" onclick="acceptShift(this)">Accetta turno</button>
+        <div class="job-card">
+          <div class="job-info">
+            <span>Ufficio Corso Buenos Aires</span>
+            <small>Martedì • 14:00 – 17:30 • €50</small>
+          </div>
+          <button onclick="mockAction('Turno accettato!')">Accetta</button>
+        </div>
       </div>
+    </section>
 
-      <!-- TURNO 2 -->
-      <div class="card p-6 text-center">
-        <div class="text-xl font-bold mb-2">🏢 Porta Romana</div>
-        <div class="text-gray-600 mb-3">13:00 - 17:00</div>
-        <div class="text-lg font-semibold mb-4">€ 55</div>
-        <button class="btn-primary w-full" onclick="acceptShift(this)">Accetta turno</button>
+    <section>
+      <h2>I miei appuntamenti</h2>
+      <div class="job-list">
+        <div class="job-card">
+          <div class="job-info">
+            <span>Lunedì • Via Torino 22</span>
+            <small>09:00 – 12:00 • Cliente: Rossi</small>
+          </div>
+          <button disabled style="background:#d1d5db;color:#333;">Accettato</button>
+        </div>
+
+        <div class="job-card">
+          <div class="job-info">
+            <span>Giovedì • Via Garibaldi 12</span>
+            <small>10:30 – 13:00 • Cliente: Bianchi</small>
+          </div>
+          <button disabled style="background:#d1d5db;color:#333;">Accettato</button>
+        </div>
       </div>
+    </section>
 
-      <!-- TURNO 3 -->
-      <div class="card p-6 text-center">
-        <div class="text-xl font-bold mb-2">🏡 CityLife</div>
-        <div class="text-gray-600 mb-3">18:00 - 22:00</div>
-        <div class="text-lg font-semibold mb-4">€ 70</div>
-        <button class="btn-primary w-full" onclick="acceptShift(this)">Accetta turno</button>
+    <section>
+      <h2>Guadagni settimanali</h2>
+      <div class="earnings">
+        <strong>€185 / €300</strong>
+        <div class="progress">
+          <div class="progress-bar"></div>
+        </div>
       </div>
-    </div>
+    </section>
 
-    <!-- Feedback mock -->
-    <div id="feedback" class="text-center mt-12 text-lg font-semibold text-green-700 hidden">
-      ✅ Turno accettato con successo!
-    </div>
+    <footer>
+      © 2025 LustroLindo • Cleaner Dashboard (mock)
+    </footer>
   </main>
 
-  <!-- FOOTER -->
-  <footer class="text-center py-10 text-gray-500 text-sm mt-20">
-    © 2025 LustroLindo — the future of living.
-  </footer>
-
   <script>
-    function acceptShift(btn) {
-      btn.disabled = true;
-      btn.innerText = "Turno accettato ✅";
-      document.getElementById('feedback').classList.remove('hidden');
-      setTimeout(()=> document.getElementById('feedback').classList.add('hidden'), 2500);
-    }
-
-    function logout() {
-      alert("Logout simulato. Tornerai alla landing page.");
-      window.location.href = "index.html";
+    function mockAction(msg) {
+      alert(msg);
     }
   </script>
-
 </body>
 </html>
