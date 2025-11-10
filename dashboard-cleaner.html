@@ -31,14 +31,8 @@
       align-items: center;
       gap: 8px;
     }
-    .sparkle {
-      color: #0077CC;
-      animation: sparklePulse 1.4s ease-in-out infinite;
-    }
-    @keyframes sparklePulse {
-      0%,100% { transform: scale(1); opacity: .8; }
-      50% { transform: scale(1.3); opacity: 1; }
-    }
+    .sparkle { color: #0077CC; animation: sparklePulse 1.4s ease-in-out infinite; }
+    @keyframes sparklePulse { 0%,100% { transform: scale(1); opacity: .8; } 50% { transform: scale(1.3); opacity: 1; } }
     .logout-btn {
       background: #0A2342;
       color: #fff;
@@ -49,72 +43,30 @@
       cursor: pointer;
       transition: all 0.3s;
     }
-    .logout-btn:hover {
-      background: rgba(10,35,66,0.85);
-    }
-    main {
-      max-width: 1100px;
-      margin: 40px auto;
-      padding: 0 20px;
-    }
+    .logout-btn:hover { background: rgba(10,35,66,0.85); }
+    main { max-width: 1100px; margin: 40px auto; padding: 0 20px; }
     h1 { font-size: 28px; margin-bottom: 10px; }
-    .section {
-      background: #ffffff;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-      padding: 25px;
-      margin-top: 25px;
-    }
+    .section { background: #ffffff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); padding: 25px; margin-top: 25px; }
     .section h2 { font-size: 20px; margin-bottom: 15px; color: #0A2342; }
     .job-list { display: grid; gap: 15px; }
-    .job-item {
-      background: #F4F6FB;
-      border: 1px solid #E3E8F2;
-      padding: 15px;
-      border-radius: 10px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+    .job-item { background: #F4F6FB; border: 1px solid #E3E8F2; padding: 15px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; }
     .job-info { display: flex; flex-direction: column; gap: 4px; }
     .job-title { font-weight: 600; }
     .job-meta { font-size: 14px; color: #4b5563; }
-    .accept-btn {
-      background: #0A2342;
-      color: white;
-      border: none;
-      padding: 8px 14px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: 600;
-      transition: all 0.3s;
-    }
+    .accept-btn { background: #0A2342; color: white; border: none; padding: 8px 14px; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 600; transition: all 0.3s; }
     .accept-btn:hover { background: rgba(10,35,66,0.85); }
 
-    /* Guadagni settimanali */
-    .earnings-grid { display:flex; align-items:center; gap:20px; }
-    .chart-container { flex:1; max-width:250px; }
-    .summary { display:flex; flex-direction:column; gap:6px; }
-    .total { font-size:24px; font-weight:700; color:#0A2342; }
-    .delta.positive { color:green; font-weight:600; }
-    .meta { color:#4b5563; font-size:14px; }
+    /* Mini grafico + dati */
+    .earnings-grid { display: flex; align-items: center; gap: 20px; }
+    .chart-container { flex: 1; max-width: 400px; } /* più largo ma non alto */
+    .summary { display: flex; flex-direction: column; gap: 6px; }
+    .total { font-size: 24px; font-weight: 700; color: #0A2342; }
+    .delta.positive { color: green; font-weight: 600; }
+    .meta { color: #4b5563; font-size: 14px; }
 
     /* Griglia calendario settimanale */
-    .calendar-grid {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 12px;
-    }
-    .calendar-day {
-      background: #F4F6FB;
-      border-radius: 10px;
-      padding: 12px;
-      cursor: pointer;
-      transition: all 0.2s;
-      font-size: 14px;
-      border: 1px solid #E3E8F2;
-    }
+    .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 12px; }
+    .calendar-day { background: #F4F6FB; border-radius: 10px; padding: 12px; cursor: pointer; transition: all 0.2s; font-size: 14px; border: 1px solid #E3E8F2; }
     .calendar-day:hover { background: rgba(10,35,66,0.08); }
     .calendar-day h3 { margin: 0 0 6px 0; font-weight: 600; }
     .calendar-day .event { font-size: 13px; color: #4b5563; margin-top: 4px; }
@@ -122,39 +74,13 @@
     footer { text-align: center; color: #6b7280; font-size: 13px; margin-top: 40px; padding: 20px 0; }
 
     /* Popup dettagli lavoro */
-    #popup {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.5);
-      backdrop-filter: blur(4px);
-      justify-content: center;
-      align-items: center;
-      z-index: 10000;
-    }
-    #popup div {
-      background: #ffffff;
-      padding: 30px;
-      border-radius: 12px;
-      text-align: center;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-      animation: fadeIn 0.3s ease;
-      max-width: 90%;
-      white-space: pre-line;
-    }
+    #popup { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); justify-content: center; align-items: center; z-index: 10000; }
+    #popup div { background: #ffffff; padding: 30px; border-radius: 12px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.2); animation: fadeIn 0.3s ease; max-width: 90%; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-    #popup button {
-      background: #0077CC;
-      border: none;
-      color: #fff;
-      padding: 8px 14px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 600;
-      margin-top: 10px;
-    }
+    #popup button { background: #0077CC; border: none; color: #fff; padding: 8px 14px; border-radius: 8px; cursor: pointer; font-weight: 600; margin-top: 10px; }
   </style>
 </head>
+
 <body>
   <header>
     <div class="logo">LustroLindo <span class="sparkle">✦</span></div>
@@ -165,18 +91,16 @@
     <h1>Benvenuto, 👋 Cleaner!</h1>
     <p>Qui trovi i tuoi turni, guadagni e appuntamenti confermati.</p>
 
-    <!-- Prossimi lavori -->
     <div class="section">
       <h2>I tuoi prossimi lavori</h2>
       <div class="job-list" id="jobList"></div>
     </div>
 
-    <!-- Guadagni settimanali -->
     <div class="section earnings-section">
       <h2>Guadagni settimanali</h2>
       <div class="earnings-grid">
         <div class="chart-container">
-          <canvas id="earningsChart" width="250" height="80"></canvas>
+          <canvas id="earningsChart" width="400" height="80"></canvas>
         </div>
         <div class="summary">
           <div class="total">€410</div>
@@ -186,7 +110,6 @@
       </div>
     </div>
 
-    <!-- Calendario lavori -->
     <div class="section">
       <h2>Calendario lavori</h2>
       <div class="calendar-grid" id="calendarGrid"></div>
@@ -218,7 +141,7 @@
       { title: "🏡 Villetta – San Siro", date: "11 Nov", time: "10:00 - 16:00", location: "San Siro", details: "Pulizia generale + giardino" }
     ];
 
-    // Popola prossimi lavori
+    // Popola prossimi lavori con popup corretto
     const jobList = document.getElementById("jobList");
     jobs.forEach(job => {
       const div = document.createElement("div");
@@ -228,15 +151,16 @@
           <div class="job-title">${job.title}</div>
           <div class="job-meta">${job.date}, ${job.time}</div>
         </div>
-        <button class="accept-btn" onclick="acceptJob('${job.title}')">Accetta</button>
+        <button class="accept-btn">Accetta</button>
       `;
+      div.querySelector(".accept-btn").addEventListener("click", () => {
+        document.getElementById("popupTitle").innerText = job.title;
+        document.getElementById("popupText").innerText = `${job.date}, ${job.time}\nDettagli: ${job.details}`;
+        document.getElementById("popup").style.display = "flex";
+      });
       jobList.appendChild(div);
     });
 
-    function acceptJob(name) {
-      document.getElementById("popupText").innerText = "Hai accettato: " + name + " 🎉";
-      document.getElementById("popup").style.display = "flex";
-    }
     function closePopup() { document.getElementById("popup").style.display = "none"; }
 
     // Grafico guadagni
@@ -245,16 +169,12 @@
       type: 'bar',
       data: {
         labels: ['Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab', 'Dom'],
-        datasets: [{
-          label: 'Guadagni (€)',
-          data: [50, 60, 40, 70, 30, 50, 40],
-          backgroundColor: '#0077CC'
-        }]
+        datasets: [{ label: 'Guadagni (€)', data: [50, 60, 40, 70, 30, 50, 40], backgroundColor: '#0077CC' }]
       },
       options: {
-        responsive: false,
+        responsive: false, // rispettare dimensioni canvas
         plugins: { legend: { display: false } },
-        scales: { y: { beginAtZero: true } }
+        scales: { y: { beginAtZero: true }, x: { grid: { display: false } } }
       }
     });
 
