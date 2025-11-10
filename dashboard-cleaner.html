@@ -157,7 +157,7 @@ const jobList = document.getElementById("jobList");
 function renderJobs() {
   jobList.innerHTML = "";
   if(jobs.length===0){
-    jobList.innerHTML=`<div style="color:#4b5563; font-style:italic;">✨ Nessun nuovo ingaggio al momento, torna presto per nuove opportunità! ✨</div>`;
+    jobList.innerHTML=`<div style="color:#4b5563; font-style:italic;">✨ Tutti i lavori sono già stati assegnati. 🚀 Preparati per i prossimi! ✨</div>`;
     return;
   }
   jobs.forEach((job,idx)=>{
