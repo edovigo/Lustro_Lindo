@@ -5,16 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>LustroLindo – Dashboard Cleaner</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
+    :root {
+      --bg-color: #F7F4EB;
+      --text-color: #0A2342;
+      --accent-color: #0077CC;
+      --card-bg: #FFFFFF;
+      --soft-bg: #F4F6FB;
+    }
+
     body {
       margin: 0;
       font-family: 'Inter', system-ui, sans-serif;
-      background-color: #F7F4EB; 
-      color: #0A2342;
+      background-color: var(--bg-color);
+      color: var(--text-color);
     }
 
     header {
-      background: #ffffff;
+      background: var(--card-bg);
       padding: 15px 40px;
       display: flex;
       justify-content: space-between;
@@ -28,14 +37,14 @@
     .logo {
       font-weight: 800;
       font-size: 22px;
-      color: #0A2342;
+      color: var(--text-color);
       display: flex;
       align-items: center;
       gap: 8px;
     }
 
     .sparkle {
-      color: #0077CC; /* ✅ blu meno acceso, più elegante */
+      color: var(--accent-color);
       animation: sparklePulse 1.4s ease-in-out infinite;
     }
 
@@ -45,7 +54,7 @@
     }
 
     .logout-btn {
-      background: #0A2342;
+      background: var(--text-color);
       color: #fff;
       font-weight: 600;
       border: none;
@@ -54,8 +63,9 @@
       cursor: pointer;
       transition: background 0.3s;
     }
+
     .logout-btn:hover {
-      background: #0A2342;
+      background: var(--accent-color);
     }
 
     main {
@@ -70,7 +80,7 @@
     }
 
     .section {
-      background: #ffffff;
+      background: var(--card-bg);
       border-radius: 12px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.04);
       padding: 25px;
@@ -80,16 +90,17 @@
     .section h2 {
       font-size: 20px;
       margin-bottom: 15px;
-      color: #0A2342;
+      color: var(--text-color);
     }
 
+    /* Lista lavori */
     .job-list {
       display: grid;
       gap: 15px;
     }
 
     .job-item {
-      background: #F4F6FB;
+      background: var(--soft-bg);
       border: 1px solid #E3E8F2;
       padding: 15px;
       border-radius: 10px;
@@ -114,7 +125,7 @@
     }
 
     .accept-btn {
-      background: #0A2342;
+      background: var(--text-color);
       color: white;
       border: none;
       padding: 8px 14px;
@@ -126,22 +137,48 @@
     }
 
     .accept-btn:hover {
-      background: #0A2342;
+      background: var(--accent-color);
     }
 
-    .calendar {
-      background: #F4F6FB;
-      padding: 10px;
+    /* Grafico */
+    .chart-container {
+      position: relative;
+      height: 200px;
+      width: 100%;
+    }
+
+    /* Calendario griglia */
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 10px;
+      text-align: center;
+    }
+
+    .day {
+      background: var(--soft-bg);
+      padding: 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .day:hover {
+      background: var(--accent-color);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    .tooltip {
+      position: absolute;
+      background: var(--card-bg);
+      color: var(--text-color);
+      padding: 10px 12px;
       border-radius: 8px;
-      font-size: 14px;
-      color: #0A2342;
-      line-height: 1.8;
-    }
-
-    .earnings {
-      font-size: 28px;
-      font-weight: 700;
-      color: #0077CC;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      font-size: 13px;
+      display: none;
+      z-index: 10;
     }
 
     footer {
@@ -152,7 +189,7 @@
       padding: 20px 0;
     }
 
-    /* ✅ popup di conferma */
+    /* Popup demo */
     #popup {
       display: none;
       position: fixed;
@@ -178,7 +215,7 @@
     }
 
     #popup button {
-      background: #0077CC;
+      background: var(--accent-color);
       border: none;
       color: #fff;
       padding: 8px 14px;
@@ -206,21 +243,21 @@
         <div class="job-item">
           <div class="job-info">
             <div class="job-title">🏠 Appartamento – Milano Centro</div>
-            <div class="job-meta">8 Nov, 09:00 - 13:00</div>
+            <div class="job-meta">Lunedì, 10 Nov · 09:00 - 13:00</div>
           </div>
           <button class="accept-btn" onclick="acceptJob('Appartamento – Milano Centro')">Accetta</button>
         </div>
         <div class="job-item">
           <div class="job-info">
             <div class="job-title">🏢 Ufficio – Porta Romana</div>
-            <div class="job-meta">9 Nov, 14:00 - 18:00</div>
+            <div class="job-meta">Martedì, 11 Nov · 14:00 - 18:00</div>
           </div>
           <button class="accept-btn" onclick="acceptJob('Ufficio – Porta Romana')">Accetta</button>
         </div>
         <div class="job-item">
           <div class="job-info">
             <div class="job-title">🏡 Villetta – San Siro</div>
-            <div class="job-meta">11 Nov, 10:00 - 16:00</div>
+            <div class="job-meta">Giovedì, 13 Nov · 10:00 - 16:00</div>
           </div>
           <button class="accept-btn" onclick="acceptJob('Villetta – San Siro')">Accetta</button>
         </div>
@@ -229,17 +266,23 @@
 
     <div class="section">
       <h2>Guadagni settimanali</h2>
-      <div class="earnings">€340</div>
-      <div class="job-meta">+10% rispetto alla settimana scorsa</div>
+      <div class="chart-container">
+        <canvas id="earningsChart"></canvas>
+      </div>
     </div>
 
     <div class="section">
       <h2>Calendario lavori</h2>
-      <div class="calendar" id="calendar">
-        🗓️ 8 Nov — Milano Centro (09:00 - 13:00)<br>
-        🗓️ 9 Nov — Porta Romana (14:00 - 18:00)<br>
-        🗓️ 11 Nov — San Siro (10:00 - 16:00)
+      <div class="calendar-grid" id="calendar">
+        <div class="day" data-info="Appartamento – Milano Centro (09:00-13:00)">Lun</div>
+        <div class="day" data-info="Ufficio – Porta Romana (14:00-18:00)">Mar</div>
+        <div class="day" data-info="—">Mer</div>
+        <div class="day" data-info="Villetta – San Siro (10:00-16:00)">Gio</div>
+        <div class="day" data-info="—">Ven</div>
+        <div class="day" data-info="—">Sab</div>
+        <div class="day" data-info="—">Dom</div>
       </div>
+      <div class="tooltip" id="tooltip"></div>
     </div>
   </main>
 
@@ -247,7 +290,7 @@
     © 2025 LustroLindo. The future of living.
   </footer>
 
-  <!-- ✅ Popup demo -->
+  <!-- Popup demo -->
   <div id="popup">
     <div>
       <h3>✅ Lavoro accettato!</h3>
@@ -257,21 +300,63 @@
   </div>
 
   <script>
-    // Logout → torna alla landing
+    // Logout
     document.getElementById("logoutBtn").addEventListener("click", () => {
       window.location.href = "index.html";
     });
 
-    // Demo: accetta lavoro
+    // Popup accettazione demo
     function acceptJob(jobName) {
       document.getElementById("popupText").innerText =
         "Hai accettato: " + jobName + " 🎉";
       document.getElementById("popup").style.display = "flex";
     }
-
     function closePopup() {
       document.getElementById("popup").style.display = "none";
     }
+
+    // Tooltip calendario
+    const tooltip = document.getElementById("tooltip");
+    document.querySelectorAll(".day").forEach(day => {
+      day.addEventListener("mouseenter", (e) => {
+        const info = e.target.getAttribute("data-info");
+        tooltip.innerText = info;
+        tooltip.style.display = "block";
+        tooltip.style.left = e.pageX + "px";
+        tooltip.style.top = (e.pageY - 40) + "px";
+      });
+      day.addEventListener("mousemove", (e) => {
+        tooltip.style.left = e.pageX + "px";
+        tooltip.style.top = (e.pageY - 40) + "px";
+      });
+      day.addEventListener("mouseleave", () => {
+        tooltip.style.display = "none";
+      });
+    });
+
+    // Grafico guadagni mock
+    const ctx = document.getElementById("earningsChart");
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab', 'Dom'],
+        datasets: [{
+          label: 'Guadagni (€)',
+          data: [60, 80, 70, 100, 50, 0, 0],
+          borderColor: '#0077CC',
+          backgroundColor: 'rgba(0, 119, 204, 0.15)',
+          fill: true,
+          tension: 0.4,
+          pointRadius: 5,
+          pointBackgroundColor: '#0077CC'
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: { y: { beginAtZero: true } }
+      }
+    });
   </script>
 </body>
 </html>
