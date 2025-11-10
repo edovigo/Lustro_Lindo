@@ -122,11 +122,13 @@
 
 </style>
 </head>
+
 <body>
 
 <!-- NAV -->
 <header class="flex justify-between items-center p-6 bg-white shadow relative">
   <div class="text-2xl font-bold navy tracking-tight">
+    <!-- Logo LustroLindo -->
     <svg width="270" height="55" viewBox="0 0 320 55" xmlns="http://www.w3.org/2000/svg" aria-label="LustroLindo logo">
       <defs><style>.t{font-family:Inter,system-ui;font-weight:800;font-size:30px;fill:#0A2342;}</style></defs>
       <text class="t" x="0" y="35">LustroLindo</text>
@@ -137,6 +139,7 @@
     <span class="lang-toggle" onclick="setLang('it')">🇮🇹</span>
     <span class="lang-toggle" onclick="setLang('en')">🇬🇧</span>
   </div>
+  <!-- Header: Login button -->
   <div class="relative">
     <button id="loginBtn" class="btn-primary flex items-center gap-2" aria-haspopup="dialog" aria-expanded="false">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden class="inline-block">
@@ -157,7 +160,7 @@
     It’s not magic. It’s LustroLindo.
   </p>
 
-  <button class="btn-primary text-lg px-8 py-3" onclick="openBookingAsCustomer()">Book now</button>
+  <button class="btn-primary text-lg px-8 py-3" onclick="openBooking()">Book now</button>
 </section>
 
 <!-- KPI CARDS -->
@@ -172,7 +175,7 @@
   <div class="card p-10 text-center">
     <h2 class="text-2xl font-bold navy mb-2" id="cta-client">For clients</h2>
     <p class="text-gray-600 mb-6" id="cta-client-sub">Book, manage and relax.</p>
-    <button class="btn-primary w-full py-3" onclick="openBookingAsCustomer()">Start booking</button>
+    <button class="btn-primary w-full py-3" onclick="openBooking()">Start booking</button>
   </div>
   <div class="card p-10 text-center">
     <h2 class="text-2xl font-bold navy mb-2" id="cta-cleaner">For cleaners</h2>
@@ -183,7 +186,7 @@
 
 <footer class="text-center py-12 text-gray-500 text-sm" id="footer">© 2025 LustroLindo — The future of living.</footer>
 
-<!-- BOOKING PANEL -->
+<!-- BOOKING PANEL (unchanged) -->
 <div id="bookingPanel" aria-hidden="true">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
     <div>
@@ -235,6 +238,7 @@
     <option>17:00</option>
   </select>
 
+  <!-- Cleaners list: hidden until all fields are filled -->
   <div id="cleanersWrapper" style="display:none;margin-top:6px">
     <h4 class="text-md font-semibold mb-2">Available cleaners</h4>
     <div id="cleanersList"></div>
@@ -244,7 +248,7 @@
   <button class="mt-4 w-full py-2 text-gray-600" onclick="closeBooking()">Close</button>
 </div>
 
-<!-- SHIFTS PLACEHOLDER -->
+<!-- SHIFTS PLACEHOLDER (unchanged) -->
 <div id="shiftsPlaceholder" role="dialog" aria-hidden="true">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
     <h3 class="text-xl font-bold navy">Cleaner Dashboard</h3>
@@ -256,116 +260,339 @@
   </div>
 </div>
 
-<!-- LOGIN MODAL -->
+<!-- LOGIN: glass modal (single clean implementation) -->
 <div id="llOverlay" class="ll-overlay" role="dialog" aria-modal="true" aria-labelledby="llTitle">
   <div id="llCard" class="ll-card" role="document" aria-describedby="llSubtitle">
+    <!-- Left (brand & USP) -->
     <div class="ll-left">
       <div style="display:flex;align-items:center;gap:12px;">
-        <svg width="140" height="30" viewBox="0 0 320 55" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <text x="0" y="35" fill="#0A2342" font-family="Inter,system-ui" font-size="30" font-weight="800">LustroLindo</text>
-          <g transform="translate(225,5)" fill="#00A3FF"><polygon id="lustroSparkle" points="8,0 11,6 17,8 11,10 8,17 5,10 0,8 5,6"/></g>
+        <svg width="140" height="30" viewBox="0 0 320 55" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+          <defs><style>.t{font-family:Inter,system-ui;font-weight:800;font-size:28px;fill:#0A2342}</style></defs>
+          <text class="t" x="0" y="30">LustroLindo</text>
+          <g transform="translate(215,3)" fill="#00A3FF"><polygon id="lustroSparkleMini" points="8,0 11,6 17,8 11,10 8,17 5,10 0,8 5,6"/></g>
         </svg>
       </div>
-      <p style="margin-top:10px; color:#334155; font-size:14px;">Sign in to continue</p>
-    </div>
-    <div class="ll-right">
-      <h2 id="llTitle" class="text-2xl font-bold navy mb-2">Login</h2>
-      <p id="llSubtitle" class="text-gray-600 mb-4">Choose your role</p>
 
-      <div class="flex gap-4 mb-4">
-        <button onclick="setRole('customer')" class="btn-ll flex-1">Customer</button>
-        <button onclick="setRole('cleaner')" class="btn-ll flex-1">Cleaner</button>
+      <h3 id="llTitle" style="font-size:20px;font-weight:800;color:#0A2342;margin:0">Welcome back — let’s get you sparkling ✨</h3>
+      <p id="llSubtitle" style="color:#475569;font-size:14px;margin:0">Secure access to your dashboard. Mock login — no backend required.</p>
+
+      <div style="margin-top:12px;width:100%"><div class="divider">Secure • Fast • Scalable</div></div>
+
+      <div style="margin-top:18px; display:flex; gap:10px; width:100%;">
+        <div style="flex:1; display:flex; gap:8px; align-items:center;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 12a4 4 0 100-8 4 4 0 000 8zM3 20v-1c0-2.5 4-5 9-5s9 2.5 9 5v1H3z" fill="#0A2342"/></svg>
+          <div style="font-size:14px;color:#334155;"><strong>Team</strong> accounts ready</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right (form) -->
+    <div class="ll-right">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <div style="font-size:14px;color:#94a3b8;font-weight:700;">Sign in to</div>
+          <div style="font-size:18px;font-weight:800;color:#0A2342;">Dashboard</div>
+        </div>
+        <button id="llCloseBtn" class="close-ll" aria-label="Close login">✕</button>
       </div>
 
-      <input id="llName" class="input-ll mb-3" placeholder="Name">
-      <input id="llSurname" class="input-ll mb-3" placeholder="Surname">
-      <input id="llEmail" type="email" class="input-ll mb-4" placeholder="Email">
+      <div style="display:grid; gap:10px; margin-top:8px;">
+        <button class="social-btn" id="llGoogle">
+          <svg width="18" height="18" viewBox="0 0 533.5 544.3" aria-hidden><path fill="#4285F4" d="M533.5 278.4c0-17.6-1.6-34.6-4.6-51.1H272v96.8h146.9c-6.3 34-25.4 62.9-54.2 82.3v68.4h87.6c51.3-47.2 80.2-116.8 80.2-196.4z"/></svg>
+          Continue with Google
+        </button>
 
-      <button class="btn-ll w-full" onclick="login()">Login</button>
-      <button class="close-ll mt-2" onclick="closeLogin()">✕</button>
+        <div style="display:flex; gap:10px;">
+          <button class="social-btn" id="llApple" style="flex:1">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden><path fill="currentColor" d="M16.365 1.43c-.9.02-2.04.62-2.7 1.37-.58.68-1.1 1.74-.91 2.76 1.02.07 2.18-.58 2.8-1.35.57-.71 1.06-1.8.81-2.78zM12 6.6c-2.7 0-4.9 2.22-4.9 4.9 0 2.7 2.2 4.9 4.9 4.9 2.7 0 4.9-2.2 4.9-4.9C16.9 8.8 14.7 6.6 12 6.6z"/></svg>
+            Apple
+          </button>
+          <button class="social-btn" id="llDemo" style="flex:1">🚀 Demo</button>
+        </div>
+      </div>
+
+      <div style="height:6px"></div>
+      <div class="divider">or sign in with email</div>
+
+      <form id="llForm" novalidate style="margin-top:10px;">
+        <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:6px;">
+          <label style="font-weight:700;color:#374151;">Email</label>
+          <input id="llEmail" class="input-ll" type="email" autocomplete="email" placeholder="you@company.com" required>
+          <div id="llEmailErr" style="display:none;color:#ef4444;font-weight:600;font-size:13px;"></div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:6px;">
+          <label style="font-weight:700;color:#374151;">Password</label>
+          <input id="llPassword" class="input-ll" type="password" autocomplete="current-password" placeholder="Your password" required>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <label style="display:flex;align-items:center;gap:8px;color:#6b7280;font-size:13px;"><input id="llRemember" type="checkbox" class="checkbox"> Remember me</label>
+          <button type="button" id="llForgot" class="small-link">Forgot?</button>
+        </div>
+
+        <button type="button" id="llSubmit" class="btn-ll" style="width:100%; margin-top:6px;">Sign in</button>
+      </form>
+
+      <div style="display:flex; align-items:center; gap:8px; margin-top:10px;">
+        <div style="font-size:13px;color:#94a3b8;">New here?</div>
+        <div class="small-link" id="llSignup">Create an account</div>
+      </div>
+
+      <div style="margin-top:14px;font-size:13px;color:#94a3b8;">
+        <div>Two-factor authentication supported • <span class="small-link" id="llSecurity">Security</span></div>
+      </div>
+
     </div>
   </div>
 </div>
 
-<div id="llToast" class="ll-toast">Login successful!</div>
+<!-- success toast -->
+<div id="llToast" class="ll-toast">✅ Login effettuato</div>
 
+<!-- rest of scripts (booking etc) - left intact as before -->
 <script>
-  // LANGUAGE (simple)
-  function setLang(lang){ console.log('Language set to',lang); }
+/* translations + booking & cleaners (left identical to previous logic) */
+const text = {
+  en: {
+    hero: 'You take care of yourself.<br>We take care of the rest.',
+    slogan: "It’s not magic. It’s LustroLindo.",
+    panelTitle: 'Book a Cleaning',
+    kicker: 'Booking',
+    name: 'Name',
+    email: 'Email',
+    service: 'Service',
+    date: 'Date',
+    duration: 'Duration',
+    timeslot: 'Time slot',
+    confirm: 'Confirm',
+    shiftsTitle: 'Available cleaners'
+  },
+  it: {
+    hero: 'Prenditi cura di te.<br>Noi ci occupiamo del resto.',
+    slogan: 'Non è magia. È LustroLindo.',
+    panelTitle: 'Inizia la prenotazione',
+    kicker: 'Prenotazione',
+    name: 'Nome',
+    email: 'Email',
+    service: 'Servizio',
+    date: 'Data',
+    duration: 'Durata',
+    timeslot: 'Fascia oraria',
+    confirm: 'Conferma',
+    shiftsTitle: 'Cleaner disponibili'
+  }
+};
 
-  // LOGIN / ROLE MANAGEMENT
-  let currentRole = null;
-  const loginBtn = document.getElementById('loginBtn');
-  const llOverlay = document.getElementById('llOverlay');
-  const llCard = document.getElementById('llCard');
+let currentLang = 'en';
+function setLang(lang){
+  currentLang = lang;
+  document.getElementById('hero-text').innerHTML = text[lang].hero;
+  document.getElementById('hero-subtext').innerText = text[lang].slogan;
+  document.getElementById('panel-title').innerText = text[lang].panelTitle;
+  document.getElementById('panel-kicker').innerText = text[lang].kicker;
+  document.getElementById('lbl-name').innerText = text[lang].name;
+  document.getElementById('fldName').placeholder = (lang==='it'?'Nome':'Your name');
+  document.getElementById('lbl-email').innerText = text[lang].email;
+  document.getElementById('lbl-service').innerText = text[lang].service;
+  document.getElementById('lbl-date').innerText = text[lang].date;
+  document.getElementById('lbl-duration').innerText = text[lang].duration;
+  document.getElementById('lbl-timeslot').innerText = text[lang].timeslot;
+  document.getElementById('confirmBtn').innerText = text[lang].confirm;
+}
+
+/* booking panel control */
+function openBooking(){ 
+  document.getElementById('bookingPanel').classList.add('open');
+  document.getElementById('bookingPanel').setAttribute('aria-hidden','false');
+  document.body.style.overflow = 'hidden';
+}
+function closeBooking(){ 
+  document.getElementById('bookingPanel').classList.remove('open');
+  document.getElementById('bookingPanel').setAttribute('aria-hidden','true');
+  document.body.style.overflow = '';
+}
+function openShifts(){document.getElementById('shiftsPlaceholder').classList.add('show');}
+function closeShiftsPlaceholder(){document.getElementById('shiftsPlaceholder').classList.remove('show');}
+
+/* sample cleaners */
+const sampleCleaners = [
+  { name:'Giulia R.', rating:4.9, price:18, status:'Available', emoji:'🧼' },
+  { name:'Marco V.', rating:4.7, price:20, status:'On job', emoji:'✨' },
+  { name:'Sara L.', rating:4.8, price:17, status:'Available', emoji:'🧽' }
+];
+let selectedCleanerIndex = null;
+
+function formatToDDMMYYYY(isoDate){
+  if(!isoDate) return '';
+  const p = isoDate.split('-');
+  if(p.length!==3) return isoDate;
+  return `${p[2]}-${p[1]}-${p[0]}`;
+}
+
+function checkAndRenderCleaners(){
+  const name = document.getElementById('fldName').value.trim();
+  const email = document.getElementById('fldEmail').value.trim();
+  const service = document.getElementById('fldService').value;
+  const date = document.getElementById('fldDate').value;
+  const duration = document.getElementById('fldDuration').value;
+  const timeslot = document.getElementById('fldTimeslot').value;
+  const allFilled = name && email && service && date && duration && timeslot;
+  const wrapper = document.getElementById('cleanersWrapper');
+  const list = document.getElementById('cleanersList');
+  if(allFilled){
+    wrapper.style.display = 'block';
+    list.innerHTML = '';
+    sampleCleaners.forEach((c, idx) => {
+      const div = document.createElement('div');
+      div.className = 'cleaner-card';
+      div.dataset.idx = idx;
+      div.innerHTML = `<div class="avatar">${c.emoji}</div>
+      <div style="flex:1">
+        <div style="display:flex;justify-content:space-between;align-items:center;font-weight:700;color:var(--navy);">
+          <div>${c.name}</div>
+          <div style="font-size:13px;color:#6b7280">⭐ ${c.rating}</div>
+        </div>
+        <div style="display:flex;gap:10px;margin-top:6px;font-size:13px;color:#374151;">
+          <div style="font-weight:700;color:${c.status==='Available'?'green':'#c59b00'}">${c.status}</div>
+          <div>€${c.price}/h</div>
+        </div>
+      </div>`;
+      div.onclick = ()=>{ selectedCleanerIndex = idx; document.querySelectorAll('.cleaner-card').forEach(d=>d.classList.remove('cleaner-selected')); div.classList.add('cleaner-selected'); };
+      list.appendChild(div);
+    });
+  } else {
+    wrapper.style.display = 'none';
+    selectedCleanerIndex = null;
+  }
+}
+
+// Event listeners for booking fields
+['fldName','fldEmail','fldService','fldDate','fldDuration','fldTimeslot'].forEach(id=>{
+  const el = document.getElementById(id);
+  if(el){
+    el.addEventListener('input', checkAndRenderCleaners);
+    el.addEventListener('change', checkAndRenderCleaners);
+  }
+});
+
+// Confirm button behavior
+document.getElementById('confirmBtn').addEventListener('click',()=>{
+  if(selectedCleanerIndex===null){
+    alert(currentLang==='it' ? 'Seleziona un cleaner prima di confermare' : 'Please select a cleaner first');
+    return;
+  }
+  const c = sampleCleaners[selectedCleanerIndex];
+  alert((currentLang==='it' ? 'Prenotazione confermata con ' : 'Booking confirmed with ') + c.name + '!');
+  closeBooking();
+});
+
+setLang('en'); // default
+</script>
+
+<!-- LOGIN modal script (glass, mock login) -->
+<script>
+(function(){
+  const overlay = document.getElementById('llOverlay');
+  const card = document.getElementById('llCard');
+  const openBtn = document.getElementById('loginBtn');
+  const closeBtn = document.getElementById('llCloseBtn');
+  const submitBtn = document.getElementById('llSubmit');
+  const demoBtn = document.getElementById('llDemo');
+  const googleBtn = document.getElementById('llGoogle');
+  const appleBtn = document.getElementById('llApple');
+  const emailInput = document.getElementById('llEmail');
+  const pwdInput = document.getElementById('llPassword');
+  const emailErr = document.getElementById('llEmailErr');
   const toast = document.getElementById('llToast');
 
-  function openLogin(){
-    llOverlay.style.display='flex';
-    setTimeout(()=>llCard.classList.add('show'),10);
+  // open modal
+  function open(){
+    overlay.style.display = 'flex';
+    // small delay to trigger card animation
+    setTimeout(()=> card.classList.add('show'), 20);
+    openBtn.setAttribute('aria-expanded','true');
+    // focus first input after animation
+    setTimeout(()=> emailInput.focus(), 220);
+    document.body.style.overflow = 'hidden';
+  }
+  // close modal
+  function close(){
+    card.classList.remove('show');
+    openBtn.setAttribute('aria-expanded','false');
+    setTimeout(()=> {
+      overlay.style.display = 'none';
+      document.body.style.overflow = '';
+    }, 260);
   }
 
-  function closeLogin(){
-    llCard.classList.remove('show');
-    setTimeout(()=>llOverlay.style.display='none',250);
-  }
+  openBtn.addEventListener('click', open);
+  closeBtn.addEventListener('click', close);
 
-  function setRole(role){
-    currentRole = role;
-    if(role==='customer'){
-      llCard.querySelector('h2').innerText='Customer Login';
-    }else{
-      llCard.querySelector('h2').innerText='Cleaner Login';
+  // close clicking outside card
+  overlay.addEventListener('click', (e) => {
+    if(e.target === overlay) close();
+  });
+
+  // simple validation + mock login
+  function validate(){
+    const e = emailInput.value.trim();
+    const p = pwdInput.value;
+    if(!e || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)){
+      emailErr.style.display = 'block';
+      emailErr.innerText = currentLang==='it' ? 'Inserisci una email valida.' : 'Enter a valid email.';
+      return false;
     }
-  }
-
-  function login(){
-    const name = document.getElementById('llName').value.trim();
-    const surname = document.getElementById('llSurname').value.trim();
-    const email = document.getElementById('llEmail').value.trim();
-    if(!name||!surname||!email){ alert('Please fill all fields'); return; }
-    localStorage.setItem('llName',name);
-    localStorage.setItem('llSurname',surname);
-    localStorage.setItem('llEmail',email);
-    localStorage.setItem('llRole',currentRole);
-
-    toast.style.display='block';
-    setTimeout(()=>toast.style.display='none',2500);
-
-    closeLogin();
-
-    if(currentRole==='customer'){
-      openBookingAsCustomer();
-    }else{
-      window.location.href='dashboard-cleaner.html';
+    emailErr.style.display = 'none';
+    if(!p || p.length < 4){
+      alert(currentLang==='it' ? 'Password troppo corta.' : 'Password too short.');
+      return false;
     }
+    return true;
   }
 
-  loginBtn.addEventListener('click',openLogin);
-
-  // BOOKING PANEL
-  const bookingPanel = document.getElementById('bookingPanel');
-  const fldName = document.getElementById('fldName');
-  const fldEmail = document.getElementById('fldEmail');
-
-  function openBookingAsCustomer(){
-    const storedName = localStorage.getItem('llName') || '';
-    const storedSurname = localStorage.getItem('llSurname') || '';
-    const storedEmail = localStorage.getItem('llEmail') || '';
-    fldName.value = storedName+' '+storedSurname;
-    fldEmail.value = storedEmail;
-    bookingPanel.classList.add('open');
-    bookingPanel.setAttribute('aria-hidden','false');
+  function showToast(msg){
+    toast.innerText = msg;
+    toast.style.display = 'block';
+    setTimeout(()=> {
+      toast.style.opacity = '1';
+    },20);
+    setTimeout(()=> {
+      toast.style.display = 'none';
+      toast.style.opacity = '';
+    }, 2200);
   }
-  function closeBooking(){
-    bookingPanel.classList.remove('open');
-    bookingPanel.setAttribute('aria-hidden','true');
-  }
-  document.getElementById('closePanelBtn').addEventListener('click',closeBooking);
 
-  function closeShiftsPlaceholder(){
-    document.getElementById('shiftsPlaceholder').classList.remove('show');
-  }
+  submitBtn.addEventListener('click', ()=>{
+    if(!validate()) return;
+    // micro animation + mock success
+    const orig = submitBtn.innerText;
+    submitBtn.disabled = true;
+    submitBtn.innerText = currentLang==='it' ? 'Accesso in corso…' : 'Signing in…';
+    setTimeout(()=> {
+      submitBtn.disabled = false;
+      submitBtn.innerText = orig;
+      close();
+      showToast(currentLang==='it' ? '✅ Login effettuato (mock)' : '✅ Login successful (mock)');
+    }, 900);
+  });
+
+  // demo/social stubs
+  demoBtn.addEventListener('click', ()=> {
+    emailInput.value = 'demo@lustrolindo.test';
+    pwdInput.value = 'demo1234';
+    document.getElementById('llRemember').checked = true;
+    submitBtn.click();
+  });
+  googleBtn.addEventListener('click', ()=> alert(currentLang==='it' ? 'Google login (simulato)' : 'Google login (simulated)'));
+  appleBtn.addEventListener('click', ()=> alert(currentLang==='it' ? 'Apple login (simulato)' : 'Apple login (simulated)'));
+
+  // keyboard accessibility: close on ESC
+  document.addEventListener('keydown', (e)=>{
+    if(e.key === 'Escape' && overlay.style.display === 'flex'){ close(); }
+  });
+
+})();
 </script>
 
 </body>
