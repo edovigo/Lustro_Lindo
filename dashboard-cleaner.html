@@ -92,10 +92,13 @@
     }
     .accept-btn:hover { background: rgba(10,35,66,0.85); }
 
-    /* Mini grafico + dati */
-    .earnings-container { display: flex; align-items: center; gap: 20px; }
-    .earnings { font-size: 28px; font-weight: 700; color: #0077CC; }
-    .earnings-details { font-size: 14px; color: #4b5563; }
+    /* Guadagni settimanali */
+    .earnings-grid { display:flex; align-items:center; gap:20px; }
+    .chart-container { flex:1; max-width:250px; }
+    .summary { display:flex; flex-direction:column; gap:6px; }
+    .total { font-size:24px; font-weight:700; color:#0A2342; }
+    .delta.positive { color:green; font-weight:600; }
+    .meta { color:#4b5563; font-size:14px; }
 
     /* Griglia calendario settimanale */
     .calendar-grid {
@@ -112,9 +115,7 @@
       font-size: 14px;
       border: 1px solid #E3E8F2;
     }
-    .calendar-day:hover {
-      background: rgba(10,35,66,0.08);
-    }
+    .calendar-day:hover { background: rgba(10,35,66,0.08); }
     .calendar-day h3 { margin: 0 0 6px 0; font-weight: 600; }
     .calendar-day .event { font-size: 13px; color: #4b5563; margin-top: 4px; }
 
@@ -139,6 +140,7 @@
       box-shadow: 0 2px 10px rgba(0,0,0,0.2);
       animation: fadeIn 0.3s ease;
       max-width: 90%;
+      white-space: pre-line;
     }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     #popup button {
@@ -153,7 +155,6 @@
     }
   </style>
 </head>
-
 <body>
   <header>
     <div class="logo">LustroLindo <span class="sparkle">✦</span></div>
@@ -164,58 +165,28 @@
     <h1>Benvenuto, 👋 Cleaner!</h1>
     <p>Qui trovi i tuoi turni, guadagni e appuntamenti confermati.</p>
 
+    <!-- Prossimi lavori -->
     <div class="section">
       <h2>I tuoi prossimi lavori</h2>
       <div class="job-list" id="jobList"></div>
     </div>
 
+    <!-- Guadagni settimanali -->
     <div class="section earnings-section">
-  <h2>Guadagni settimanali</h2>
-  <div class="earnings-grid" style="display:flex; align-items:center; gap:20px;">
-    
-    <!-- grafico -->
-    <div class="chart-container" style="flex:1; max-width:250px;">
-      <canvas id="earningsChart" width="250" height="80"></canvas>
-    </div>
-    
-    <!-- dettagli -->
-    <div class="summary" style="display:flex; flex-direction:column; gap:6px;">
-      <div class="total" style="font-size:24px; font-weight:700; color:#0A2342;">€410</div>
-      <div class="delta positive" style="color:green; font-weight:600;">▲ +8% rispetto a settimana scorsa</div>
-      <div class="meta" style="color:#4b5563; font-size:14px;">5 lavori completati</div>
+      <h2>Guadagni settimanali</h2>
+      <div class="earnings-grid">
+        <div class="chart-container">
+          <canvas id="earningsChart" width="250" height="80"></canvas>
+        </div>
+        <div class="summary">
+          <div class="total">€410</div>
+          <div class="delta positive">▲ +8% rispetto a settimana scorsa</div>
+          <div class="meta">5 lavori completati</div>
+        </div>
+      </div>
     </div>
 
-  </div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-const ctx = document.getElementById('earningsChart').getContext('2d');
-const earningsChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-        labels: ['Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab', 'Dom'],
-        datasets: [{
-            label: 'Guadagni',
-            data: [40, 55, 60, 50, 70, 65, 80],
-            backgroundColor: 'rgba(0,115,204,0.2)',
-            borderColor: '#0077CC',
-            borderWidth: 2,
-            fill: true,
-            tension: 0.3
-        }]
-    },
-    options: {
-        responsive: false, // ✨ importante per rispettare width/height del canvas
-        plugins: { legend: { display: false } },
-        scales: {
-            y: { beginAtZero: true, display: false },
-            x: { display: false }
-        }
-    }
-});
-</script>
-
+    <!-- Calendario lavori -->
     <div class="section">
       <h2>Calendario lavori</h2>
       <div class="calendar-grid" id="calendarGrid"></div>
@@ -247,6 +218,7 @@ const earningsChart = new Chart(ctx, {
       { title: "🏡 Villetta – San Siro", date: "11 Nov", time: "10:00 - 16:00", location: "San Siro", details: "Pulizia generale + giardino" }
     ];
 
+    // Popola prossimi lavori
     const jobList = document.getElementById("jobList");
     jobs.forEach(job => {
       const div = document.createElement("div");
@@ -267,7 +239,7 @@ const earningsChart = new Chart(ctx, {
     }
     function closePopup() { document.getElementById("popup").style.display = "none"; }
 
-    // Demo grafico guadagni
+    // Grafico guadagni
     const ctx = document.getElementById('earningsChart').getContext('2d');
     new Chart(ctx, {
       type: 'bar',
@@ -280,13 +252,13 @@ const earningsChart = new Chart(ctx, {
         }]
       },
       options: {
-        responsive: true,
+        responsive: false,
         plugins: { legend: { display: false } },
         scales: { y: { beginAtZero: true } }
       }
     });
 
-    // Demo calendario settimanale
+    // Calendario settimanale
     const calendarGrid = document.getElementById("calendarGrid");
     const weekDays = ['Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab', 'Dom'];
     weekDays.forEach((day, idx) => {
