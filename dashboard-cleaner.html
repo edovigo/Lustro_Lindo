@@ -1,260 +1,303 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>LustroLindo – Dashboard Cleaner</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-<style>
-body {
-  margin: 0;
-  font-family: 'Inter', system-ui, sans-serif;
-  background-color: #F7F4EB; 
-  color: #0A2342;
-}
-header {
-  background: #ffffff;
-  padding: 15px 40px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-}
-.logo {
-  font-weight: 800;
-  font-size: 22px;
-  color: #0A2342;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.sparkle { color: #0077CC; animation: sparklePulse 1.4s ease-in-out infinite; }
-@keyframes sparklePulse {
-  0%,100% { transform: scale(1); opacity: .8; }
-  50% { transform: scale(1.3); opacity: 1; }
-}
-.logout-btn {
-  background: #0A2342;
-  color: #fff;
-  font-weight: 600;
-  border: none;
-  padding: 10px 18px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-.logout-btn:hover { background: rgba(10,35,66,0.85); }
-main {
-  max-width: 1100px;
-  margin: 40px auto;
-  padding: 0 20px;
-}
-h1 { font-size: 28px; margin-bottom: 10px; }
-.section {
-  background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-  padding: 25px;
-  margin-top: 25px;
-}
-.section h2 { font-size: 20px; margin-bottom: 15px; color: #0A2342; }
-.job-list { display: grid; gap: 15px; }
-.job-item {
-  background: #F4F6FB;
-  border: 1px solid #E3E8F2;
-  padding: 15px;
-  border-radius: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.job-info { display: flex; flex-direction: column; gap: 4px; }
-.job-title { font-weight: 600; }
-.job-meta { font-size: 14px; color: #4b5563; }
-.accept-btn, .view-btn {
-  background: #0A2342;
-  color: white;
-  border: none;
-  padding: 8px 14px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 600;
-  transition: all 0.3s;
-}
-.accept-btn:hover, .view-btn:hover { background: rgba(10,35,66,0.85); }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LustroLindo – Dashboard Cleaner</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, sans-serif;
+      background-color: #F7F4EB; 
+      color: #0A2342;
+    }
+    header {
+      background: #ffffff;
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .logo {
+      font-weight: 800;
+      font-size: 22px;
+      color: #0A2342;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .sparkle {
+      color: #0077CC;
+      animation: sparklePulse 1.4s ease-in-out infinite;
+    }
+    @keyframes sparklePulse {
+      0%,100% { transform: scale(1); opacity: .8; }
+      50% { transform: scale(1.3); opacity: 1; }
+    }
+    .logout-btn {
+      background: #0A2342;
+      color: #fff;
+      font-weight: 600;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .logout-btn:hover { background: rgba(10,35,66,0.85); }
+    main {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    h1 { font-size: 28px; margin-bottom: 10px; }
+    .section {
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      padding: 25px;
+      margin-top: 25px;
+    }
+    .section h2 { font-size: 20px; margin-bottom: 15px; color: #0A2342; }
+    .job-list { display: grid; gap: 15px; }
+    .job-item {
+      background: #F4F6FB;
+      border: 1px solid #E3E8F2;
+      padding: 15px;
+      border-radius: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .job-info { display: flex; flex-direction: column; gap: 4px; }
+    .job-title { font-weight: 600; }
+    .job-meta { font-size: 14px; color: #4b5563; }
+    .view-btn, .accept-btn, .reject-btn {
+      background: #0A2342;
+      color: white;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+    .view-btn:hover, .accept-btn:hover, .reject-btn:hover { background: rgba(10,35,66,0.85); }
 
-/* Mini grafico + dati */
-.earnings-container { display: flex; align-items: center; gap: 20px; }
-.earnings { font-size: 28px; font-weight: 700; color: #0077CC; }
-.earnings-details { font-size: 14px; color: #4b5563; }
+    /* Mini grafico + dati */
+    .earnings-container { display: flex; align-items: center; gap: 20px; }
+    .earnings { font-size: 28px; font-weight: 700; color: #0077CC; }
+    .earnings-details { font-size: 14px; color: #4b5563; }
 
-/* Griglia calendario settimanale */
-.calendar-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 12px;
-}
-.calendar-day {
-  background: #F4F6FB;
-  border-radius: 10px;
-  padding: 12px;
-  cursor: pointer;
-  transition: all 0.2s;
-  font-size: 14px;
-  border: 1px solid #E3E8F2;
-}
-.calendar-day:hover { background: rgba(10,35,66,0.08); }
-.calendar-day h3 { margin: 0 0 6px 0; font-weight: 600; }
-.calendar-day .event { font-size: 13px; color: #4b5563; margin-top: 4px; }
+    /* Griglia calendario settimanale */
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 12px;
+    }
+    .calendar-day {
+      background: #F4F6FB;
+      border-radius: 10px;
+      padding: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 14px;
+      border: 1px solid #E3E8F2;
+    }
+    .calendar-day:hover { background: rgba(10,35,66,0.08); }
+    .calendar-day h3 { margin: 0 0 6px 0; font-weight: 600; }
+    .calendar-day .event { font-size: 13px; color: #4b5563; margin-top: 4px; }
 
-footer { text-align: center; color: #6b7280; font-size: 13px; margin-top: 40px; padding: 20px 0; }
+    footer { text-align: center; color: #6b7280; font-size: 13px; margin-top: 40px; padding: 20px 0; }
 
-/* Popup */
-#popup { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); justify-content: center; align-items: center; z-index: 10000; }
-#popup div { background: #ffffff; padding: 30px; border-radius: 12px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.2); animation: fadeIn 0.3s ease; max-width: 90%; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-#popup button { background: #0077CC; border: none; color: #fff; padding: 8px 14px; border-radius: 8px; cursor: pointer; font-weight: 600; margin-top: 10px; }
-
-</style>
+    /* Popup dettagli lavoro */
+    #popup {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(4px);
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+    }
+    #popup div {
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      animation: fadeIn 0.3s ease;
+      max-width: 90%;
+    }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    #popup button { margin-top:10px; }
+    #popup .accept-btn, #popup .reject-btn { margin:5px; }
+  </style>
 </head>
+
 <body>
-<header>
-  <div class="logo">LustroLindo <span class="sparkle">✦</span></div>
-  <button class="logout-btn" id="logoutBtn">Logout</button>
-</header>
-<main>
-<h1>Benvenuto, 👋 Cleaner!</h1>
-<p>Qui trovi i tuoi turni, guadagni e appuntamenti confermati.</p>
+  <header>
+    <div class="logo">LustroLindo <span class="sparkle">✦</span></div>
+    <button class="logout-btn" id="logoutBtn">Logout</button>
+  </header>
 
-<!-- Lavori nuovi -->
-<div class="section">
-<h2>I tuoi prossimi lavori</h2>
-<div class="job-list" id="jobList"></div>
-</div>
+  <main>
+    <h1>Benvenuto, 👋 Cleaner!</h1>
+    <p>Qui trovi i tuoi turni, guadagni e appuntamenti confermati.</p>
 
-<!-- Guadagni -->
-<div class="section earnings-section">
-<h2>Guadagni settimanali</h2>
-<div class="earnings-grid" style="display:flex; align-items:center; gap:20px;">
-<div class="chart-container" style="flex:1; max-width:300px;">
-<canvas id="earningsChart" width="300" height="80"></canvas>
-</div>
-<div class="summary" style="display:flex; flex-direction:column; gap:6px;">
-<div class="total" style="font-size:24px; font-weight:700; color:#0A2342;">€410</div>
-<div class="delta positive" style="color:green; font-weight:600;">▲ +8% rispetto a settimana scorsa</div>
-<div class="meta" style="color:#4b5563; font-size:14px;">5 lavori completati</div>
-</div>
-</div>
-</div>
-
-<!-- Calendario lavori -->
-<div class="section">
-<h2>Calendario lavori</h2>
-<div class="calendar-grid" id="calendarGrid"></div>
-</div>
-</main>
-
-<footer>© 2025 LustroLindo. The future of living.</footer>
-
-<!-- Popup -->
-<div id="popup">
-<div>
-<h3 id="popupTitle">Dettaglio lavoro</h3>
-<p id="popupText"></p>
-<div id="popupActions"></div>
-<button onclick="closePopup()">Chiudi</button>
-</div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-// Logout
-document.getElementById("logoutBtn").addEventListener("click",()=>{window.location.href="index.html";});
-
-// Demo lavori
-const newJobs = [
-  { title:"🏠 Appartamento – Milano Centro", date:"8 Nov", time:"09:00 - 13:00", location:"Milano Centro", details:"Pulizia completa cucina, bagno e soggiorno" },
-  { title:"🏢 Ufficio – Porta Romana", date:"9 Nov", time:"14:00 - 18:00", location:"Porta Romana", details:"Pulizia scrivanie, pavimenti e sala riunioni" },
-  { title:"🏡 Villetta – San Siro", date:"11 Nov", time:"10:00 - 16:00", location:"San Siro", details:"Pulizia generale + giardino" }
-];
-const acceptedJobs = [];
-
-const jobList = document.getElementById("jobList");
-function renderJobs() {
-  jobList.innerHTML="";
-  newJobs.forEach((job,idx)=>{
-    const div=document.createElement("div");
-    div.className="job-item";
-    div.innerHTML=`
-      <div class="job-info">
-        <div class="job-title">${job.title}</div>
-        <div class="job-meta">${job.date}, ${job.time}</div>
+    <div class="section">
+      <h2>I tuoi prossimi lavori</h2>
+      <div class="job-list" id="jobList"></div>
+      <div id="noJobsMessage" style="display:none; font-size:14px; color:#4b5563; margin-top:10px;">
+        🎉 Nessun lavoro disponibile al momento. 🚀 Preparati per i prossimi!
       </div>
-      <button class="view-btn" onclick="viewJob(${idx})">Vedi</button>
-    `;
-    jobList.appendChild(div);
-  });
-}
-renderJobs();
+    </div>
 
-// Popup interattivo
-function viewJob(idx){
-  const job=newJobs[idx];
-  const popup=document.getElementById("popup");
-  document.getElementById("popupTitle").innerText=job.title;
-  document.getElementById("popupText").innerText=`${job.date}, ${job.time}\nDettagli: ${job.details}`;
-  const actions=document.getElementById("popupActions");
-  actions.innerHTML=`<button class="accept-btn" onclick="acceptJob(${idx})">Accetta</button>
-                     <button class="accept-btn" style="background:#ccc;color:#0A2342;margin-left:10px;" onclick="rejectJob(${idx})">Rifiuta</button>`;
-  popup.style.display="flex";
-}
+    <div class="section earnings-section">
+      <h2>Guadagni settimanali</h2>
+      <div class="earnings-grid" style="display:flex; align-items:center; gap:20px;">
+        <div class="chart-container" style="flex:1; max-width:300px;">
+          <canvas id="earningsChart" width="300" height="80"></canvas>
+        </div>
+        <div class="summary" style="display:flex; flex-direction:column; gap:6px;">
+          <div class="total" style="font-size:24px; font-weight:700; color:#0A2342;">€410</div>
+          <div class="delta positive" style="color:green; font-weight:600;">▲ +8% rispetto a settimana scorsa</div>
+          <div class="meta" style="color:#4b5563; font-size:14px;">5 lavori completati</div>
+        </div>
+      </div>
+    </div>
 
-function acceptJob(idx){
-  const job=newJobs.splice(idx,1)[0];
-  acceptedJobs.push(job);
-  closePopup();
-  renderJobs();
-  renderCalendar();
-}
+    <div class="section">
+      <h2>Calendario lavori</h2>
+      <div class="calendar-grid" id="calendarGrid"></div>
+    </div>
+  </main>
 
-function rejectJob(idx){
-  newJobs.splice(idx,1);
-  closePopup();
-  renderJobs();
-}
+  <footer>© 2025 LustroLindo. The future of living.</footer>
 
-function closePopup(){ document.getElementById("popup").style.display="none"; }
+  <!-- Popup -->
+  <div id="popup">
+    <div>
+      <h3 id="popupTitle">Dettaglio lavoro</h3>
+      <p id="popupText"></p>
+      <button class="accept-btn" id="popupAccept">Accetta</button>
+      <button class="reject-btn" id="popupReject">Rifiuta</button>
+      <button onclick="closePopup()">Chiudi</button>
+    </div>
+  </div>
 
-// Grafico guadagni
-const ctx=document.getElementById('earningsChart').getContext('2d');
-new Chart(ctx,{type:'bar',data:{labels:['Lun','Mar','Mer','Gio','Ven','Sab','Dom'],datasets:[{label:'Guadagni (€)',data:[50,60,40,70,30,50,40],backgroundColor:'#0077CC'}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true}}}});
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    // Logout
+    document.getElementById("logoutBtn").addEventListener("click", () => { window.location.href = "index.html"; });
 
-// Calendario settimanale
-const calendarGrid=document.getElementById("calendarGrid");
-const weekDays=['Lun','Mar','Mer','Gio','Ven','Sab','Dom'];
-function renderCalendar(){
-  calendarGrid.innerHTML="";
-  weekDays.forEach((day,idx)=>{
-    const dayDiv=document.createElement("div");
-    dayDiv.className="calendar-day";
-    const job=acceptedJobs[idx]||null;
-    dayDiv.innerHTML=`<h3>${day}</h3>${job?`<div class="event">${job.title}<br>${job.time}</div>`:`<div class="event">Nessun lavoro</div>`}`;
-    dayDiv.onclick=()=>{
-      if(job){
-        document.getElementById("popupTitle").innerText=job.title;
-        document.getElementById("popupText").innerText=`${job.date}, ${job.time}\nDettagli: ${job.details}`;
-        document.getElementById("popupActions").innerHTML="";
-        document.getElementById("popup").style.display="flex";
+    // Demo lavori
+    let jobs = [
+      { title: "🏠 Appartamento – Milano Centro", date: "8 Nov", time: "09:00 - 13:00", location: "Milano Centro", details: "Pulizia completa cucina, bagno e soggiorno" },
+      { title: "🏢 Ufficio – Porta Romana", date: "9 Nov", time: "14:00 - 18:00", location: "Porta Romana", details: "Pulizia scrivanie, pavimenti e sala riunioni" },
+      { title: "🏡 Villetta – San Siro", date: "11 Nov", time: "10:00 - 16:00", location: "San Siro", details: "Pulizia generale + giardino" }
+    ];
+
+    const acceptedJobs = [];
+
+    const jobList = document.getElementById("jobList");
+    const noJobsMessage = document.getElementById("noJobsMessage");
+
+    function refreshJobList() {
+      jobList.innerHTML = '';
+      if(jobs.length === 0){
+        noJobsMessage.style.display = 'block';
+        return;
+      } else { noJobsMessage.style.display = 'none'; }
+
+      jobs.forEach((job, idx) => {
+        const div = document.createElement("div");
+        div.className = "job-item";
+        div.innerHTML = `
+          <div class="job-info">
+            <div class="job-title">${job.title}</div>
+            <div class="job-meta">${job.date}, ${job.time}</div>
+          </div>
+          <button class="view-btn" onclick="viewJob(${idx})">Vedi</button>
+        `;
+        jobList.appendChild(div);
+      });
+    }
+
+    function viewJob(idx){
+      const job = jobs[idx];
+      document.getElementById("popupTitle").innerText = job.title;
+      document.getElementById("popupText").innerText = `${job.date}, ${job.time}\nDettagli: ${job.details}`;
+      document.getElementById("popup").style.display = 'flex';
+
+      document.getElementById("popupAccept").onclick = () => {
+        acceptedJobs.push(job);
+        jobs.splice(idx,1);
+        refreshJobList();
+        refreshCalendar();
+        closePopup();
+      };
+      document.getElementById("popupReject").onclick = () => {
+        jobs.splice(idx,1);
+        refreshJobList();
+        closePopup();
+      };
+    }
+
+    function closePopup(){ document.getElementById("popup").style.display='none'; }
+
+    refreshJobList();
+
+    // Grafico guadagni
+    const ctx = document.getElementById('earningsChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab', 'Dom'],
+        datasets: [{
+          label: 'Guadagni (€)',
+          data: [50, 60, 40, 70, 30, 50, 40],
+          backgroundColor: '#0077CC'
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: { y: { beginAtZero: true } }
       }
-    };
-    calendarGrid.appendChild(dayDiv);
-  });
-}
-renderCalendar();
-</script>
+    });
+
+    // Calendario
+    const calendarGrid = document.getElementById("calendarGrid");
+    const weekDays = ['Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab', 'Dom'];
+    function refreshCalendar(){
+      calendarGrid.innerHTML='';
+      weekDays.forEach((day, idx)=>{
+        const dayDiv = document.createElement("div");
+        dayDiv.className = "calendar-day";
+        const jobForDay = acceptedJobs[idx] || null;
+        dayDiv.innerHTML = `<h3>${day}</h3>${jobForDay?`<div class="event">${jobForDay.title}<br>${jobForDay.time}</div>`:'<div class="event">Nessun lavoro</div>'}`;
+        dayDiv.onclick = () => {
+          if(jobForDay){
+            document.getElementById("popupTitle").innerText = jobForDay.title;
+            document.getElementById("popupText").innerText = `${jobForDay.date}, ${jobForDay.time}\nDettagli: ${jobForDay.details}`;
+            document.getElementById("popup").style.display='flex';
+            document.getElementById("popupAccept").style.display='none';
+            document.getElementById("popupReject").style.display='none';
+          }
+        };
+        calendarGrid.appendChild(dayDiv);
+      });
+    }
+
+    refreshCalendar();
+  </script>
 </body>
 </html>
