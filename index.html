@@ -173,7 +173,7 @@
     <span class="lang-toggle" onclick="setLang('en')">🇬🇧</span>
     
     <!-- Header: Login dropdown or Logout (updated dynamically) -->
-    <div class="relative" id="authContainer">
+    <div id="authContainer">
       <!-- content injected by JS -->
     </div>
   </div>
@@ -562,10 +562,11 @@ function renderAuthButton(){
   const user = getUserFromStorage();
   container.innerHTML = '';
   if(user){
+    // ✅ Se loggato: mostra solo Logout
     const btn = document.createElement('button');
     btn.className = 'btn-primary';
     btn.id = 'logoutBtn';
-    btn.innerText = `Logout`;
+    btn.innerText = 'Logout';
     btn.onclick = ()=> {
       clearUserStorage();
       renderAuthButton();
@@ -573,6 +574,7 @@ function renderAuthButton(){
     };
     container.appendChild(btn);
   } else {
+    // ✅ Se NON loggato: mostra dropdown Login con opzioni Customer/Cleaner
     const wrap = document.createElement('div');
     wrap.className = 'dropdown';
     wrap.innerHTML = `
@@ -737,7 +739,7 @@ document.getElementById('accessShiftsBtn').addEventListener('click', ()=>{
     window.location.href = 'dashboard-cleaner.html';
   } else {
     pendingAction = 'accessShiftsAfterLogin';
-    openLogin('cleaner'));
+    openLogin('cleaner');
   }
 });
 
