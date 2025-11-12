@@ -120,11 +120,14 @@ footer { text-align:center; color:#6b7280; font-size:13px; margin-top:40px; padd
 <header>
   <div class="logo">LustroLindo <span class="sparkle">✦</span></div>
   
-  <div style="display:flex; gap:15px; align-items:center;">
+  <!-- Bandierine centrate -->
+  <div style="position: absolute; left: 50%; transform: translateX(-50%); display:flex; gap:15px; align-items:center;">
     <span class="lang-toggle" onclick="setLang('it')">🇮🇹</span>
     <span class="lang-toggle" onclick="setLang('en')">🇬🇧</span>
-    <button class="logout-btn" id="logoutBtn">Logout</button>
   </div>
+  
+  <!-- Logout a destra -->
+  <button class="logout-btn" id="logoutBtn">Logout</button>
 </header>
 
 <main>
