@@ -5,10 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LustroLindo</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
 <style>
-  body { background:#F7F4EB; font-family:system-ui, sans-serif; }
+  body { background:#F7F4EB; font-family:'Inter', system-ui, sans-serif; }
   .navy { color:#0A2342; }
   .bg-navy { background:#0A2342; }
   .btn-primary { background:#0A2342; color:white; border-radius:12px; padding:14px 24px; font-weight:600; transition:.2s; }
@@ -43,7 +44,7 @@
   textarea {
     resize: vertical;
     min-height: 80px;
-    font-family: system-ui, sans-serif;
+    font-family: 'Inter', system-ui, sans-serif;
   }
   .timeslot { width:100%; padding:10px; border:1px solid #e5e7eb; border-radius:8px; margin-bottom:12px; }
 
@@ -742,6 +743,23 @@ window.addEventListener('load', ()=>{
   renderAuthButton();
   if(isLogged()){
     prefillBookingFromUser();
+  }
+});
+
+// ✅ SYNC AUTH quando torni alla pagina
+window.addEventListener('focus', ()=>{
+  renderAuthButton();
+  if(isLogged()){
+    prefillBookingFromUser();
+  }
+});
+
+document.addEventListener('visibilitychange', ()=>{
+  if(!document.hidden){
+    renderAuthButton();
+    if(isLogged()){
+      prefillBookingFromUser();
+    }
   }
 });
 </script>
