@@ -191,8 +191,10 @@ const text = {
     accept: "Accept",
     reject: "Reject",
     close: "Close",
+    view: "View",
     noJobs: "✨ All jobs have been assigned. 🚀 Get ready for the next ones! ✨",
-    noJobsDay: "No jobs"
+    noJobsDay: "No jobs",
+    weekDays: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun']
   },
   it: {
     welcome: "Bentornato, Cleaner! 👋",
@@ -206,8 +208,10 @@ const text = {
     accept: "Accetta",
     reject: "Rifiuta",
     close: "Chiudi",
+    view: "Vedi",
     noJobs: "✨ Tutti i lavori sono stati assegnati. 🚀 Preparati per i prossimi! ✨",
-    noJobsDay: "Nessun lavoro"
+    noJobsDay: "Nessun lavoro",
+    weekDays: ['Lun','Mar','Mer','Gio','Ven','Sab','Dom']
   }
 };
 
@@ -252,12 +256,12 @@ function renderJobs() {
     const div = document.createElement("div");
     div.className="job-item";
     div.innerHTML=`
-      <div class="job-info">
-        <div class="job-title">${job.title}</div>
-        <div class="job-meta">${job.date}, ${job.time}</div>
-      </div>
-      <button class="job-btn view-btn">View</button>
-    `;
+  <div class="job-info">
+    <div class="job-title">${job.title}</div>
+    <div class="job-meta">${job.date}, ${job.time}</div>
+  </div>
+  <button class="job-btn view-btn">${text[currentLang].view}</button>
+`;
     const viewBtn = div.querySelector(".view-btn");
     viewBtn.onclick = ()=>{
       showPopup(job,idx);
@@ -299,7 +303,7 @@ function addToCalendar(job){
 const calendarGrid=document.getElementById("calendarGrid");
 function renderCalendar(){
   calendarGrid.innerHTML="";
-  const weekDays=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+  const weekDays = text[currentLang].weekDays;
   weekDays.forEach((day,idx)=>{
     const dayDiv=document.createElement("div");
     dayDiv.className="calendar-day";
