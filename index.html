@@ -168,14 +168,15 @@
 <header>
   <div class="logo">LustroLindo <span class="sparkle">✦</span></div>
   
-  <div style="display:flex; gap:15px; align-items:center;">
+  <!-- Bandierine centrate -->
+  <div style="position: absolute; left: 50%; transform: translateX(-50%); display:flex; gap:15px; align-items:center;">
     <span class="lang-toggle" onclick="setLang('it')">🇮🇹</span>
     <span class="lang-toggle" onclick="setLang('en')">🇬🇧</span>
-    
-    <!-- Header: Login dropdown or Logout (updated dynamically) -->
-    <div id="authContainer">
-      <!-- content injected by JS -->
-    </div>
+  </div>
+  
+  <!-- Auth container a destra -->
+  <div id="authContainer">
+    <!-- content injected by JS -->
   </div>
 </header>
 
