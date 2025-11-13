@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LustroLindo</title>
+<title>LustroLindo — Il tuo maggiordomo digitale</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
@@ -12,9 +12,10 @@
   body { background:#F7F4EB; font-family:'Inter', system-ui, sans-serif; }
   .navy { color:#0A2342; }
   .bg-navy { background:#0A2342; }
-  .btn-primary { background:#0A2342; color:white; border-radius:12px; padding:10px 18px; font-weight:600; transition:.2s; font-size:14px; }
+  .btn-primary { background:#0A2342; color:white; border-radius:12px; padding:10px 18px; font-weight:600; transition:.2s; font-size:14px; border:none; cursor:pointer; }
   .btn-primary:hover{opacity:.85;}
-  .card{background:white;border-radius:22px;box-shadow:0 10px 25px rgba(0,0,0,.08);}
+  .card{background:white;border-radius:22px;box-shadow:0 10px 25px rgba(0,0,0,.08); transition: transform 0.3s;}
+  .card:hover{transform: translateY(-5px);}
   .lang-toggle {cursor:pointer; font-weight:bold; font-size:20px; transition: transform 0.2s;}
   .lang-toggle:hover { transform: scale(1.1); }
   .dropdown {position:relative; display:inline-block;}
@@ -38,7 +39,6 @@
     overflow-y: auto;
   }
   #bookingPanel.open { right: 0; }
-  .field-label { font-weight:600; margin-bottom:6px; display:block; color:#374151; }
   input[type="text"], input[type="email"], input[type="date"], select, textarea {
     width:100%; padding:12px; border:1px solid #e5e7eb; border-radius:10px; margin-bottom:12px; font-size:15px;
   }
@@ -47,29 +47,22 @@
     min-height: 80px;
     font-family: 'Inter', system-ui, sans-serif;
   }
-  .timeslot { width:100%; padding:10px; border:1px solid #e5e7eb; border-radius:8px; margin-bottom:12px; }
 
   /* cleaners list inside panel */
-  .cleaner-card { display:flex; gap:12px; align-items:center; padding:12px; background:#F8FAFC; border-radius:12px; margin-bottom:10px; border:1px solid #eef2f7; cursor:pointer; }
+  .cleaner-card { display:flex; gap:12px; align-items:center; padding:12px; background:#F8FAFC; border-radius:12px; margin-bottom:10px; border:1px solid #eef2f7; cursor:pointer; transition: all 0.2s; }
+  .cleaner-card:hover { background:#e6f0ff; }
   .cleaner-selected { outline: 3px solid rgba(10, 132, 255, 0.12); background: #eef6ff; }
-  .avatar { width:44px; height:44px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-weight:700; background:linear-gradient(90deg,#e6f0ff,#cfe6ff); color:var(--navy); }
-
-  /* shifts modal placeholder for Access shifts */
-  #shiftsPlaceholder {
-    position: fixed; left:50%; top:50%; transform:translate(-50%,-50%); width:520px; max-width:94vw; background:white; border-radius:12px; padding:20px; box-shadow:0 20px 60px rgba(8,12,20,0.12); z-index:80; display:none;
-  }
-  #shiftsPlaceholder.show { display:block; }
+  .avatar { width:44px; height:44px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-weight:700; background:linear-gradient(90deg,#e6f0ff,#cfe6ff); color:#0A2342; font-size:20px; }
 
   @media (max-width:880px){
     #bookingPanel { width: 92vw; right: -100vw; }
   }
 
-  /* ✅ Logo LustroLindo con sparkle animata */
+  /* Logo sparkle animata */
   @keyframes sparklePulse {
     0%, 100% { transform: scale(1); opacity: .9; }
     50% { transform: scale(1.45); opacity: 1; }
   }
-  #lustroSparkle { animation: sparklePulse 1.4s ease-in-out infinite; transform-origin:center; }
 
   /* --- Login modal (glassmorphism) --- */
   .ll-overlay {
@@ -99,12 +92,14 @@
   .ll-card.show { transform: translateY(0) scale(1); opacity: 1; }
   .ll-left { width: 42%; min-width: 300px; padding: 36px; background: linear-gradient(180deg, rgba(247,251,255,0.85), rgba(242,248,255,0.6)); display:flex; flex-direction:column; gap:14px; align-items:flex-start; justify-content:center; }
   .ll-right{ width:58%; padding:36px; display:flex; flex-direction:column; gap:14px; }
-  .social-btn { width:100%; display:flex; gap:10px; align-items:center; justify-content:center; padding:10px 12px; border-radius:10px; border:1px solid rgba(10,20,40,.06); background:rgba(255,255,255,0.9); cursor:pointer; font-weight:600; }
+  .social-btn { width:100%; display:flex; gap:10px; align-items:center; justify-content:center; padding:10px 12px; border-radius:10px; border:1px solid rgba(10,20,40,.06); background:rgba(255,255,255,0.9); cursor:pointer; font-weight:600; transition: all 0.2s; }
+  .social-btn:hover { background:rgba(10,35,66,0.05); }
   .divider { display:flex; align-items:center; gap:12px; color:#9aa4b2; font-size:13px; }
   .divider::before, .divider::after { content:""; flex:1; height:1px; background:rgba(10,20,40,.04); display:block; border-radius:2px; }
-  .input-ll { padding:12px 14px; border-radius:10px; border:1px solid rgba(10,20,40,.06); font-size:15px; background:rgba(255,255,255,0.9); }
-  .input-ll:focus{ box-shadow:0 6px 22px rgba(10,163,255,0.08); border-color:var(--ll-accent); outline:none; }
-  .btn-ll { background: #0A2342; color:white; padding:12px 16px; border-radius:12px; font-weight:700; cursor:pointer; border:none; box-shadow: 0 10px 30px rgba(10,35,66,0.12); }
+  .input-ll { padding:12px 14px; border-radius:10px; border:1px solid rgba(10,20,40,.06); font-size:15px; background:rgba(255,255,255,0.9); width:100%; }
+  .input-ll:focus{ box-shadow:0 6px 22px rgba(10,163,255,0.08); border-color:#0077CC; outline:none; }
+  .btn-ll { background: #0A2342; color:white; padding:12px 16px; border-radius:12px; font-weight:700; cursor:pointer; border:none; box-shadow: 0 10px 30px rgba(10,35,66,0.12); transition: all 0.2s; }
+  .btn-ll:hover { opacity: 0.9; }
   .close-ll { background:none;border:none;font-size:20px;color:#334155;cursor:pointer;z-index:130; }
   @media (max-width:900px) {
     .ll-card { flex-direction:column; width:92vw; }
@@ -127,15 +122,16 @@
     font-weight:700;
   }
 
-  /* small badge for role inside modal (non-invasive) */
+  /* role badge */
   .ll-role-badge { font-size:13px; font-weight:700; color:#0A2342; background:#eef2ff; padding:6px 10px; border-radius:10px; }
 
-  /* sticky header - STESSO IDENTICO come dashboard */
+  /* sticky header */
   header { 
     position: sticky; 
     top:0; 
     z-index:100;
-    background: #ffffff;
+    background: rgba(255,255,255,0.98);
+    backdrop-filter: blur(10px);
     padding: 15px 40px;
     display: flex;
     justify-content: space-between;
@@ -153,102 +149,383 @@
   }
   
   .sparkle { color: #0077CC; animation: sparklePulse 1.4s ease-in-out infinite; }
-  
-  /* Close button in booking panel - ensure it's always on top */
-  #closePanelBtn {
-    z-index: 70;
-    position: relative;
+
+  /* Premium badge */
+  .premium-badge {
+    display:inline-block; 
+    background: linear-gradient(90deg, #0A2342, #0077CC); 
+    padding: 8px 20px; 
+    border-radius: 50px; 
+    margin-bottom: 20px;
+  }
+
+  /* Trust badges */
+  .trust-badge {
+    display: flex; 
+    align-items: center; 
+    gap: 8px;
+    opacity: 0.8;
+    transition: opacity 0.3s;
+  }
+  .trust-badge:hover {
+    opacity: 1;
+  }
+
+  /* Step cards */
+  .step-card {
+    text-align: center;
+    transition: transform 0.3s;
+  }
+  .step-card:hover {
+    transform: translateY(-10px);
+  }
+  .step-number {
+    width: 80px; 
+    height: 80px; 
+    background: linear-gradient(135deg, #0A2342, #0077CC); 
+    border-radius: 20px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    margin: 0 auto 20px; 
+    box-shadow: 0 10px 30px rgba(10,35,66,0.2);
+    transition: transform 0.3s;
+  }
+  .step-card:hover .step-number {
+    transform: rotate(5deg) scale(1.1);
+  }
+
+  /* Pricing cards */
+  .pricing-card {
+    transition: all 0.3s;
+  }
+  .pricing-card.featured {
+    border: 3px solid #0077CC !important;
+    transform: scale(1.05);
+    box-shadow: 0 20px 50px rgba(0,119,204,0.2);
+  }
+  .pricing-card:not(.featured):hover {
+    transform: translateY(-10px);
+  }
+
+  /* Smooth scroll */
+  html {
+    scroll-behavior: smooth;
   }
 </style>
 </head>
 
 <body>
 
-<!-- NAV - IDENTICO AL DASHBOARD -->
+<!-- NAV -->
 <header>
   <div class="logo">LustroLindo <span class="sparkle">✦</span></div>
   
   <!-- Bandierine centrate -->
   <div style="position: absolute; left: 50%; transform: translateX(-50%); display:flex; gap:15px; align-items:center;">
-    <span class="lang-toggle" onclick="setLang('it')">🇮🇹</span>
-    <span class="lang-toggle" onclick="setLang('en')">🇬🇧</span>
+    <span class="lang-toggle" onclick="setLang('it')" id="flag-it">🇮🇹</span>
+    <span class="lang-toggle" onclick="setLang('en')" id="flag-en">🇬🇧</span>
   </div>
   
-  <!-- Auth container a destra -->
-  <div id="authContainer">
-    <!-- content injected by JS -->
-  </div>
+  <!-- Header: Login dropdown or Logout -->
+  <div id="authContainer"></div>
 </header>
 
 <!-- HERO -->
 <section class="text-center mt-24 mb-20 px-6">
-  <h1 class="text-5xl font-extrabold navy mb-4 tracking-tight" id="hero-text">
-    You take care of yourself.<br>We take care of the rest.
+  <div class="premium-badge">
+    <span style="color: white; font-weight: 700; font-size: 13px; letter-spacing: 1px;" id="badge-text">SOLO PER CHI NON HA TEMPO DA PERDERE</span>
+  </div>
+  
+  <h1 class="text-5xl md:text-6xl font-extrabold navy mb-6 tracking-tight" style="line-height: 1.1;" id="hero-title">
+    Il tuo maggiordomo digitale.<br>
+    <span style="background: linear-gradient(90deg, #0A2342, #0077CC); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Pulizie premium</span>, zero pensieri.
   </h1>
 
-  <p class="text-lg text-gray-600 mb-8" id="hero-subtext">
-    It's not magic. It's LustroLindo.
+  <p class="text-lg md:text-xl text-gray-600 mb-10" style="max-width: 650px; margin: 0 auto 40px;" id="hero-subtitle">
+    Dimentica cleaner inaffidabili, pagamenti in nero e weekend passati a pulire. 
+    <strong>Ci pensiamo noi. Tu vivi.</strong>
   </p>
 
-  <button class="btn-primary text-lg px-8 py-3" id="heroBookBtn">Book now</button>
+  <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 50px;">
+    <button class="btn-primary" id="heroBookBtn" style="padding: 14px 28px; font-size: 16px;">
+      <span id="btn-request">Richiedi accesso</span> →
+    </button>
+    <button class="btn-primary" id="heroLearnBtn" style="background: white; color: #0A2342; border: 2px solid #0A2342; padding: 14px 28px; font-size: 16px;" onclick="document.getElementById('how-it-works').scrollIntoView({behavior: 'smooth'})">
+      <span id="btn-how">Come funziona</span>
+    </button>
+  </div>
+
+  <!-- Trust badges -->
+  <div style="display: flex; gap: 40px; justify-content: center; align-items: center; flex-wrap: wrap; font-size: 14px; color: #6b7280;">
+    <div class="trust-badge">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+      <span id="trust-verified">Cleaner verificati</span>
+    </div>
+    <div class="trust-badge">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+      <span id="trust-payments">Pagamenti sicuri</span>
+    </div>
+    <div class="trust-badge">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+      <span id="trust-insurance">Assicurazione inclusa</span>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how-it-works" class="px-6 mb-24" style="max-width: 1200px; margin: 0 auto 96px;">
+  <div class="text-center mb-16">
+    <h2 class="text-4xl md:text-5xl font-extrabold navy mb-4" id="how-title">Come funziona</h2>
+    <p class="text-lg md:text-xl text-gray-600" id="how-subtitle">3 step. Zero stress. Massima qualità.</p>
+  </div>
+
+  <div class="grid md:grid-cols-3 gap-12">
+    <!-- Step 1 -->
+    <div class="step-card">
+      <div class="step-number">
+        <span style="color: white; font-size: 36px; font-weight: 800;">1</span>
+      </div>
+      <h3 class="text-xl font-bold navy mb-3" id="step1-title">Scegli il tuo piano</h3>
+      <p class="text-gray-600" id="step1-text">Essentials, Premium o Elite. Tutti includono cleaner verificato, assicurazione e concierge dedicato.</p>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="step-card">
+      <div class="step-number">
+        <span style="color: white; font-size: 36px; font-weight: 800;">2</span>
+      </div>
+      <h3 class="text-xl font-bold navy mb-3" id="step2-title">Ti assegniamo il tuo cleaner</h3>
+      <p class="text-gray-600" id="step2-text">Stesso professionista, sempre. Conosce le tue preferenze. Noi gestiamo scheduling, pagamenti e tutto il resto.</p>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="step-card">
+      <div class="step-number">
+        <span style="color: white; font-size: 36px; font-weight: 800;">3</span>
+      </div>
+      <h3 class="text-xl font-bold navy mb-3" id="step3-title">Tu non pensi a niente</h3>
+      <p class="text-gray-600" id="step3-text">Casa sempre impeccabile. Zero preoccupazioni. Se c'è un problema, lo risolviamo noi in &lt;1h.</p>
+    </div>
+  </div>
 </section>
 
 <!-- KPI CARDS -->
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6 px-6 mb-24">
-  <div class="card p-8 text-center"><div class="text-4xl font-bold navy mb-2" id="kpi-bookings">52</div><div class="text-gray-600" id="kpi-bookings-text">Bookings today</div></div>
-  <div class="card p-8 text-center"><div class="text-4xl font-bold navy mb-2" id="kpi-sat">98%</div><div class="text-gray-600" id="kpi-sat-text">Satisfied clients</div></div>
-  <div class="card p-8 text-center"><div class="text-4xl font-bold navy mb-2" id="kpi-cleaners">14</div><div class="text-gray-600" id="kpi-cleaners-text">Active cleaners</div></div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 px-6 mb-24" style="max-width: 1200px; margin: 0 auto 96px;">
+  <div class="card p-8 text-center">
+    <div class="text-5xl font-bold navy mb-3">98%</div>
+    <div class="text-gray-600 font-medium" id="kpi1">Clienti soddisfatti</div>
+  </div>
+  <div class="card p-8 text-center">
+    <div class="text-5xl font-bold navy mb-3">&lt;24h</div>
+    <div class="text-gray-600 font-medium" id="kpi2">Tempo di risposta</div>
+  </div>
+  <div class="card p-8 text-center">
+    <div class="text-5xl font-bold navy mb-3">100%</div>
+    <div class="text-gray-600 font-medium" id="kpi3">Cleaner verificati</div>
+  </div>
 </div>
 
-<!-- TWO MODE CTA -->
-<section class="px-6 mb-20 grid md:grid-cols-2 gap-10">
-  <div class="card p-10 text-center">
-    <h2 class="text-2xl font-bold navy mb-2" id="cta-client">For clients</h2>
-    <p class="text-gray-600 mb-6" id="cta-client-sub">Book, manage and relax.</p>
-    <button class="btn-primary w-full py-3" id="startBookingBtn">Start booking</button>
+<!-- PRICING SECTION -->
+<section id="pricing" class="px-6 mb-24" style="max-width: 1200px; margin: 0 auto 96px;">
+  <div class="text-center mb-16">
+    <h2 class="text-4xl md:text-5xl font-extrabold navy mb-4" id="pricing-title">Piani su misura</h2>
+    <p class="text-lg md:text-xl text-gray-600" id="pricing-subtitle">Scegli il piano perfetto per te. Cambia o cancella quando vuoi.</p>
   </div>
-  <div class="card p-10 text-center">
-    <h2 class="text-2xl font-bold navy mb-2" id="cta-cleaner">For cleaners</h2>
-    <p class="text-gray-600 mb-6" id="cta-cleaner-sub">Ultra-optimized shifts with AI.</p>
-    <button class="btn-primary w-full py-3" id="accessShiftsBtn">Access shifts</button>
+
+  <div class="grid md:grid-cols-3 gap-8">
+    
+    <!-- ESSENTIALS -->
+    <div class="card pricing-card p-8" style="border: 2px solid #e5e7eb;">
+      <div style="margin-bottom: 24px;">
+        <h3 class="text-2xl font-bold navy mb-2">Essentials</h3>
+        <p class="text-gray-600 text-sm" id="plan1-desc">Per chi vuole iniziare</p>
+      </div>
+      
+      <div style="margin-bottom: 32px;">
+        <div style="display: flex; align-items: baseline; gap: 8px;">
+          <span class="text-5xl font-extrabold navy">€149</span>
+          <span class="text-gray-600" id="per-month-1">/mese</span>
+        </div>
+      </div>
+
+      <ul style="list-style: none; padding: 0; margin-bottom: 32px; display: flex; flex-direction: column; gap: 14px;">
+        <li style="display: flex; align-items: start; gap: 10px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0077CC" stroke-width="3" style="flex-shrink: 0; margin-top: 2px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span id="plan1-feat1"><strong>2 cleaning al mese</strong> (4h ciascuno)</span>
+        </li>
+        <li style="display: flex; align-items: start; gap: 10px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0077CC" stroke-width="3" style="flex-shrink: 0; margin-top: 2px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span id="plan1-feat2">Cleaner fisso verificato</span>
+        </li>
+        <li style="display: flex; align-items: start; gap: 10px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0077CC" stroke-width="3" style="flex-shrink: 0; margin-top: 2px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span id="plan1-feat3">Assicurazione inclusa</span>
+        </li>
+        <li style="display: flex; align-items: start; gap: 10px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0077CC" stroke-width="3" style="flex-shrink: 0; margin-top: 2px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span id="plan1-feat4">Concierge via WhatsApp</span>
+        </li>
+        <li style="display: flex; align-items: start; gap: 10px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0077CC" stroke-width="3" style="flex-shrink: 0; margin-top: 2px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span id="plan1-feat5">Cancella quando vuoi</span>
+        </li>
+      </ul>
+
+      <button class="btn-primary w-full py-3" onclick="document.getElementById('heroBookBtn').click()"><span id="btn-start-1">Inizia ora</span></button>
+    </div>
+
+    <!-- PREMIUM (MOST POPULAR) -->
+    <div class="card pricing-card featured p-8" style="position: relative;">
+      <div style="position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: linear-gradient(90deg, #0A2342, #0077CC); color: white; padding: 6px 20px; border-radius: 50px; font-weight: 700; font-size: 12px; letter-spacing: 1px;">
+        <span id="most-popular">PIÙ SCELTO</span>
+      </div>
+      
+      <div style="margin-bottom: 24px;">
+        <h3 class="text-2xl font-bold navy mb-2">Premium</h3>
+        <p class="text-gray-600 text-sm" id="plan2-desc">Per professionisti esigenti</p>
+      </div>
+      
+      <div style="margin-bottom: 32px;">
+        <div style="display: flex; align-items: baseline; gap: 8px;">
+          <span class="text-5xl font-extrabold navy">€299</span>
+          <span class="text-gray-600" id="per-month-2">/mese</span>
+        </div>
+      </div>
+
+      <ul style="list-style: none; padding: 0; margin-bottom: 32px; display: flex; flex-direction: column; gap: 14px;">
+        <li style="display: flex; align-items: start; gap: 10px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0077CC" stroke-width="3" style="flex-shrink: 0; margin-top: 2px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span id="plan2-feat1"><strong>4 cleaning al mese</strong> (4h ciascuno)</span>
+        </li>
+        <li style="display: flex; align-items: start; gap: 10px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0077CC" stroke-width="3" style="flex-shrink: 0; margin-top: 2px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span id="plan2-feat2">Tutto di Essentials +</span>
+        </li>
+        <li style="display: flex; align-items: start; gap: 10px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0077CC" stroke-width="3" style="flex-shrink: 0; margin-top: 2px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span id="plan2-feat3"><strong>Priority booking</strong></span>
+        </li>
+        <li style="display: flex; align-items: start; gap: 10px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0077CC" stroke-width="3" style="flex-shrink: 0; margin-top: 2px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span id="plan2-feat4">1 deep cleaning incluso</span>
+        </li>
+        <li style="display: flex; align-items: start; gap: 10px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0077CC" stroke-width="3" style="flex-shrink: 0; margin-top: 2px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span id="plan2-feat5">Prodotti eco inclusi</span>
+        </li>
+        <li style="display: flex; align-items: start; gap: 10px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0077CC" stroke-width="3" style="flex-shrink: 0; margin-top: 2px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span id="plan2-feat6">Sostituzione in 24h</span>
+        </li>
+      </ul>
+
+      <button class="btn-primary w-full py-3" onclick="document.getElementById('heroBookBtn').click()" style="box-shadow: 0 10px 30px rgba(0,119,204,0.3);"><span id="btn-start-2">Inizia ora</span></button>
+    </div>
+
+    <!-- ELITE -->
+    <div class="card pricing-card p-8" style="border: 2px solid #e5e7eb;">
+      <div style="margin-bottom: 24px;">
+        <h3 class="text-2xl font-bold navy mb-2">Elite</h3>
+        <p class="text-gray-600 text-sm" id="plan3-desc">White-glove service</p>
+      </div>
+      
+      <div style="margin-bottom: 32px;">
+        <div style="display: flex; align-items: baseline; gap: 8px;">
+          <span class="text-5xl font-extrabold navy">€599</span>
+          <span class="text-gray-600" id="per-month-3">/mese</span>
+        </div>
+      </div>
+
+      <ul style="list-style: none; padding: 0; margin-bottom: 32px; display: flex; flex-direction: column; gap: 14px;">
+        <li style="display: flex; align-items: start; gap: 10px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0077CC" stroke-width="3" style="flex-shrink: 0; margin-top: 2px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span id="plan3-feat1"><strong>Unlimited cleaning</strong></span>
+        </li>
+        <li style="display: flex; align-items: start; gap: 10px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0077CC" stroke-width="3" style="flex-shrink: 0; margin-top: 2px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span id="plan3-feat2">Tutto di Premium +</span>
+        </li>
+        <li style="display: flex; align-items: start; gap: 10px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0077CC" stroke-width="3" style="flex-shrink: 0; margin-top: 2px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span id="plan3-feat3"><strong>Concierge 24/7</strong></span>
+        </li>
+        <li style="display: flex; align-items: start; gap: 10px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0077CC" stroke-width="3" style="flex-shrink: 0; margin-top: 2px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span id="plan3-feat4">Stiratura inclusa</span>
+        </li>
+        <li style="display: flex; align-items: start; gap: 10px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0077CC" stroke-width="3" style="flex-shrink: 0; margin-top: 2px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span id="plan3-feat5">Gestione chiavi</span>
+        </li>
+        <li style="display: flex; align-items: start; gap: 10px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0077CC" stroke-width="3" style="flex-shrink: 0; margin-top: 2px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span id="plan3-feat6">Servizi extra su richiesta</span>
+        </li>
+      </ul>
+
+      <button class="btn-primary w-full py-3" onclick="document.getElementById('heroBookBtn').click()"><span id="btn-start-3">Inizia ora</span></button>
+    </div>
+
+  </div>
+
+  <!-- Garanzia -->
+  <div class="text-center mt-16">
+    <div class="card p-8" style="max-width: 700px; margin: 0 auto; background: linear-gradient(135deg, rgba(10,35,66,0.03), rgba(0,119,204,0.03));">
+      <h3 class="text-xl font-bold navy mb-3" id="guarantee-title">💎 Garanzia 30 giorni</h3>
+      <p class="text-gray-600" id="guarantee-text">Non sei soddisfatto? Rimborso completo, senza domande. Punto.</p>
+    </div>
   </div>
 </section>
 
-<footer class="text-center py-12 text-gray-500 text-sm" id="footer">© 2025 LustroLindo — The future of living.</footer>
+<!-- TWO MODE CTA -->
+<section class="px-6 mb-20 grid md:grid-cols-2 gap-10" style="max-width: 1200px; margin: 0 auto 96px;">
+  <div class="card p-10 text-center">
+    <h2 class="text-2xl font-bold navy mb-2" id="cta-client">Per clienti</h2>
+    <p class="text-gray-600 mb-6" id="cta-client-sub">Prenota, gestisci e rilassati.</p>
+    <button class="btn-primary w-full py-3" id="startBookingBtn"><span id="btn-booking">Inizia prenotazione</span></button>
+  </div>
+  <div class="card p-10 text-center">
+    <h2 class="text-2xl font-bold navy mb-2" id="cta-cleaner">Per cleaner</h2>
+    <p class="text-gray-600 mb-6" id="cta-cleaner-sub">Turni ultra-ottimizzati con AI.</p>
+    <button class="btn-primary w-full py-3" id="accessShiftsBtn"><span id="btn-shifts">Accedi ai turni</span></button>
+  </div>
+</section>
+
+<footer class="text-center py-12 text-gray-500 text-sm">© 2025 LustroLindo — The future of living.</footer>
 
 <!-- BOOKING PANEL -->
 <div id="bookingPanel" aria-hidden="true">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
     <div>
-      <div style="font-size:12px;color:#6b7280" id="panel-kicker">Booking</div>
-      <h3 class="text-2xl font-bold navy" id="panel-title">Book a Cleaning</h3>
+      <div style="font-size:12px;color:#6b7280" id="panel-kicker">Prenotazione</div>
+      <h3 class="text-2xl font-bold navy" id="panel-title">Inizia la prenotazione</h3>
     </div>
     <button id="closePanelBtn" style="background:none;border:none;font-size:20px;cursor:pointer" onclick="closeBooking()">✕</button>
   </div>
 
-  <label class="block mb-2 font-semibold" id="lbl-name">Name</label>
-  <input id="fldName" class="w-full p-3 border rounded-lg mb-4" placeholder="Your name">
+  <label class="block mb-2 font-semibold" id="lbl-name">Nome</label>
+  <input id="fldName" class="w-full p-3 border rounded-lg mb-4" placeholder="Il tuo nome">
 
   <label class="block mb-2 font-semibold" id="lbl-email">Email</label>
   <input id="fldEmail" type="email" class="w-full p-3 border rounded-lg mb-4" placeholder="Email">
 
-  <label class="block mb-2 font-semibold" id="lbl-service">Service</label>
+  <label class="block mb-2 font-semibold" id="lbl-service">Servizio</label>
   <select id="fldService" class="w-full p-3 border rounded-lg mb-4">
-    <option value="">-- Select service --</option>
-    <option>Home cleaning</option>
-    <option>Deep cleaning</option>
-    <option>Move-In / Move-Out</option>
-    <option>Airbnb turnover</option>
+    <option value="" id="opt-select">-- Seleziona servizio --</option>
+    <option id="opt-home">Pulizia casa</option>
+    <option id="opt-deep">Pulizia profonda</option>
+    <option id="opt-move">Trasloco</option>
+    <option id="opt-airbnb">Airbnb turnover</option>
   </select>
 
   <div style="display:flex;gap:12px">
     <div style="flex:1">
-      <label class="block mb-2 font-semibold" id="lbl-date">Date</label>
+      <label class="block mb-2 font-semibold" id="lbl-date">Data</label>
       <input id="fldDate" type="date" class="w-full p-3 border rounded-lg mb-4">
-      <div id="formattedDate" style="font-size:13px;color:#6b7280;margin-top:-8px;margin-bottom:8px;display:none"></div>
     </div>
     <div style="width:140px">
-      <label class="block mb-2 font-semibold" id="lbl-duration">Duration</label>
+      <label class="block mb-2 font-semibold" id="lbl-duration">Durata</label>
       <select id="fldDuration" class="w-full p-3 border rounded-lg mb-4">
         <option value="">--</option>
         <option value="2">2h</option>
@@ -258,9 +535,9 @@
     </div>
   </div>
 
-  <label class="block mb-2 font-semibold" id="lbl-timeslot">Time slot</label>
+  <label class="block mb-2 font-semibold" id="lbl-timeslot">Fascia oraria</label>
   <select id="fldTimeslot" class="w-full p-3 border rounded-lg mb-4">
-    <option value="">-- Select time --</option>
+    <option value="" id="opt-time">-- Seleziona orario --</option>
     <option>09:00</option>
     <option>11:00</option>
     <option>13:00</option>
@@ -268,79 +545,65 @@
     <option>17:00</option>
   </select>
 
-  <label class="block mb-2 font-semibold" id="lbl-notes">Notes (optional)</label>
-  <textarea id="fldNotes" class="w-full p-3 border rounded-lg mb-4" placeholder="Add any special requests or notes..."></textarea>
+  <label class="block mb-2 font-semibold" id="lbl-notes">Note (opzionale)</label>
+  <textarea id="fldNotes" class="w-full p-3 border rounded-lg mb-4" placeholder="Aggiungi richieste speciali..."></textarea>
 
-  <!-- Cleaners list: hidden until all fields are filled -->
+  <!-- Cleaners list -->
   <div id="cleanersWrapper" style="display:none;margin-top:6px">
-    <h4 class="text-md font-semibold mb-2">Available cleaners</h4>
+    <h4 class="text-md font-semibold mb-2" id="cleaners-title">Cleaner disponibili</h4>
     <div id="cleanersList"></div>
   </div>
 
-  <button class="btn-primary w-full py-3" id="confirmBtn">Confirm</button>
-  <button class="mt-4 w-full py-2 text-gray-600" onclick="closeBooking()">Close</button>
+  <button class="btn-primary w-full py-3" id="confirmBtn">Conferma</button>
+  <button class="mt-4 w-full py-2 text-gray-600" onclick="closeBooking()" id="btn-close">Chiudi</button>
 </div>
 
-<!-- SHIFTS PLACEHOLDER -->
-<div id="shiftsPlaceholder" role="dialog" aria-hidden="true">
-  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-    <h3 class="text-xl font-bold navy">Cleaner Dashboard</h3>
-    <button style="background:none;border:none;font-size:20px;cursor:pointer" onclick="closeShiftsPlaceholder()">✕</button>
-  </div>
-  <p style="color:#6b7280">This area will be the cleaner dashboard (coming soon).</p>
-  <div style="margin-top:14px;display:flex;gap:10px;justify-content:flex-end">
-    <button class="btn-primary" onclick="closeShiftsPlaceholder()">Close</button>
-  </div>
-</div>
-
-<!-- LOGIN: glass modal -->
-<div id="llOverlay" class="ll-overlay" role="dialog" aria-modal="true" aria-labelledby="llTitle">
-  <div id="llCard" class="ll-card" role="document" aria-describedby="llSubtitle">
-    <!-- Left (brand & USP) -->
+<!-- LOGIN MODAL -->
+<div id="llOverlay" class="ll-overlay" role="dialog" aria-modal="true">
+  <div id="llCard" class="ll-card">
     <div class="ll-left">
       <div style="display:flex;align-items:center;gap:12px;">
-        <svg width="140" height="30" viewBox="0 0 320 55" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+        <svg width="140" height="30" viewBox="0 0 320 55" xmlns="http://www.w3.org/2000/svg">
           <defs><style>.t{font-family:Inter,system-ui;font-weight:800;font-size:28px;fill:#0A2342}</style></defs>
           <text class="t" x="0" y="30">LustroLindo</text>
-          <g transform="translate(215,3)" fill="#00A3FF"><polygon id="lustroSparkleMini" points="8,0 11,6 17,8 11,10 8,17 5,10 0,8 5,6"/></g>
+          <g transform="translate(215,3)" fill="#00A3FF"><polygon points="8,0 11,6 17,8 11,10 8,17 5,10 0,8 5,6"/></g>
         </svg>
       </div>
 
-      <h3 id="llTitle" style="font-size:20px;font-weight:800;color:#0A2342;margin:0">Welcome back — let's get you sparkling ✨</h3>
-      <p id="llSubtitle" style="color:#475569;font-size:14px;margin:0">Secure access to your dashboard. Mock login — no backend required.</p>
+      <h3 style="font-size:20px;font-weight:800;color:#0A2342;margin:0" id="modal-title">Bentornato — facciamo brillare tutto ✨</h3>
+      <p style="color:#475569;font-size:14px;margin:0" id="modal-subtitle">Accesso sicuro alla tua dashboard. Login mock — nessun backend richiesto.</p>
 
-      <div style="margin-top:12px;width:100%"><div class="divider">Secure • Fast • Scalable</div></div>
+      <div style="margin-top:12px;width:100%"><div class="divider" id="modal-secure">Sicuro • Veloce • Scalabile</div></div>
 
       <div style="margin-top:18px; display:flex; gap:10px; width:100%;">
         <div style="flex:1; display:flex; gap:8px; align-items:center;">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 12a4 4 0 100-8 4 4 0 000 8zM3 20v-1c0-2.5 4-5 9-5s9 2.5 9 5v1H3z" fill="#0A2342"/></svg>
-          <div style="font-size:14px;color:#334155;"><strong>Team</strong> accounts ready</div>
+          <div style="font-size:14px;color:#334155;"><strong id="modal-team">Team</strong> <span id="modal-ready">accounts pronti</span></div>
         </div>
       </div>
     </div>
 
-    <!-- Right (form) -->
     <div class="ll-right">
       <div style="display:flex; justify-content:space-between; align-items:center;">
         <div>
-          <div style="font-size:14px;color:#94a3b8;font-weight:700;">Sign in to</div>
+          <div style="font-size:14px;color:#94a3b8;font-weight:700;" id="modal-signin">Accedi a</div>
           <div style="display:flex;gap:8px;align-items:center">
             <div style="font-size:18px;font-weight:800;color:#0A2342;">Dashboard</div>
             <div id="llRoleBadge" class="ll-role-badge" style="display:none;">ROLE</div>
           </div>
         </div>
-        <button id="llCloseBtn" class="close-ll" aria-label="Close login">✕</button>
+        <button id="llCloseBtn" class="close-ll" aria-label="Close">✕</button>
       </div>
 
       <div style="display:grid; gap:10px; margin-top:8px;">
         <button class="social-btn" id="llGoogle">
-          <svg width="18" height="18" viewBox="0 0 533.5 544.3" aria-hidden><path fill="#4285F4" d="M533.5 278.4c0-17.6-1.6-34.6-4.6-51.1H272v96.8h146.9c-6.3 34-25.4 62.9-54.2 82.3v68.4h87.6c51.3-47.2 80.2-116.8 80.2-196.4z"/></svg>
-          Continue with Google
+          <svg width="18" height="18" viewBox="0 0 533.5 544.3"><path fill="#4285F4" d="M533.5 278.4c0-17.6-1.6-34.6-4.6-51.1H272v96.8h146.9c-6.3 34-25.4 62.9-54.2 82.3v68.4h87.6c51.3-47.2 80.2-116.8 80.2-196.4z"/></svg>
+          <span id="modal-google">Continua con Google</span>
         </button>
 
         <div style="display:flex; gap:10px;">
           <button class="social-btn" id="llApple" style="flex:1">
-            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden><path fill="currentColor" d="M16.365 1.43c-.9.02-2.04.62-2.7 1.37-.58.68-1.1 1.74-.91 2.76 1.02.07 2.18-.58 2.8-1.35.57-.71 1.06-1.8.81-2.78zM12 6.6c-2.7 0-4.9 2.22-4.9 4.9 0 2.7 2.2 4.9 4.9 4.9 2.7 0 4.9-2.2 4.9-4.9C16.9 8.8 14.7 6.6 12 6.6z"/></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M16.365 1.43c-.9.02-2.04.62-2.7 1.37-.58.68-1.1 1.74-.91 2.76 1.02.07 2.18-.58 2.8-1.35.57-.71 1.06-1.8.81-2.78zM12 6.6c-2.7 0-4.9 2.22-4.9 4.9 0 2.7 2.2 4.9 4.9 4.9 2.7 0 4.9-2.2 4.9-4.9C16.9 8.8 14.7 6.6 12 6.6z"/></svg>
             Apple
           </button>
           <button class="social-btn" id="llDemo" style="flex:1">🚀 Demo</button>
@@ -348,98 +611,389 @@
       </div>
 
       <div style="height:6px"></div>
-      <div class="divider">or sign in with email</div>
+      <div class="divider" id="modal-or">oppure accedi con email</div>
 
       <form id="llForm" novalidate style="margin-top:10px;">
         <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:6px;">
           <label style="font-weight:700;color:#374151;">Email</label>
-          <input id="llEmail" class="input-ll" type="email" autocomplete="email" placeholder="you@company.com" required>
+          <input id="llEmail" class="input-ll" type="email" autocomplete="email" placeholder="tu@azienda.com" required>
           <div id="llEmailErr" style="display:none;color:#ef4444;font-weight:600;font-size:13px;"></div>
         </div>
 
         <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:6px;">
           <label style="font-weight:700;color:#374151;">Password</label>
-          <input id="llPassword" class="input-ll" type="password" autocomplete="current-password" placeholder="Your password" required>
+          <input id="llPassword" class="input-ll" type="password" autocomplete="current-password" placeholder="La tua password" required>
         </div>
 
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-          <label style="display:flex;align-items:center;gap:8px;color:#6b7280;font-size:13px;"><input id="llRemember" type="checkbox" class="checkbox"> Remember me</label>
-          <button type="button" id="llForgot" class="small-link">Forgot?</button>
+          <label style="display:flex;align-items:center;gap:8px;color:#6b7280;font-size:13px;"><input id="llRemember" type="checkbox"> <span id="modal-remember">Ricordami</span></label>
+          <button type="button" id="llForgot" style="background:none;border:none;color:#0077CC;cursor:pointer;font-size:13px;" id="modal-forgot">Dimenticato?</button>
         </div>
 
-        <button type="button" id="llSubmit" class="btn-ll" style="width:100%; margin-top:6px;">Sign in</button>
+        <button type="button" id="llSubmit" class="btn-ll" style="width:100%; margin-top:6px;"><span id="modal-submit">Accedi</span></button>
       </form>
 
       <div style="display:flex; align-items:center; gap:8px; margin-top:10px;">
-        <div style="font-size:13px;color:#94a3b8;">New here?</div>
-        <div class="small-link" id="llSignup">Create an account</div>
+        <div style="font-size:13px;color:#94a3b8;" id="modal-new">Nuovo qui?</div>
+        <button type="button" id="llSignup" style="background:none;border:none;color:#0077CC;cursor:pointer;font-size:13px;font-weight:600;" id="modal-create">Crea un account</button>
       </div>
 
       <div style="margin-top:14px;font-size:13px;color:#94a3b8;">
-        <div>Two-factor authentication supported • <span class="small-link" id="llSecurity">Security</span></div>
+        <span id="modal-2fa">Autenticazione a due fattori supportata</span> • <button type="button" id="llSecurity" style="background:none;border:none;color:#0077CC;cursor:pointer;font-size:13px;" id="modal-security">Sicurezza</button>
       </div>
 
     </div>
   </div>
 </div>
 
-<!-- success toast -->
 <div id="llToast" class="ll-toast">✅ Login effettuato</div>
 
 <script>
-/* translations + booking & cleaners */
-const text = {
-  en: {
-    hero: 'You take care of yourself.<br>We take care of the rest.',
-    slogan: "It's not magic. It's LustroLindo.",
-    panelTitle: 'Book a Cleaning',
-    kicker: 'Booking',
-    name: 'Name',
-    email: 'Email',
-    service: 'Service',
-    date: 'Date',
-    duration: 'Duration',
-    timeslot: 'Time slot',
-    notes: 'Notes (optional)',
-    confirm: 'Confirm',
-    shiftsTitle: 'Available cleaners'
-  },
+// ===== TRADUZIONI COMPLETE IT/EN =====
+const translations = {
   it: {
-    hero: 'Prenditi cura di te.<br>Noi ci occupiamo del resto.',
-    slogan: 'Non è magia. È LustroLindo.',
+    // Hero
+    badgeText: 'SOLO PER CHI NON HA TEMPO DA PERDERE',
+    heroTitle: 'Il tuo maggiordomo digitale.<br><span style="background: linear-gradient(90deg, #0A2342, #0077CC); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Pulizie premium</span>, zero pensieri.',
+    heroSubtitle: 'Dimentica cleaner inaffidabili, pagamenti in nero e weekend passati a pulire. <strong>Ci pensiamo noi. Tu vivi.</strong>',
+    btnRequest: 'Richiedi accesso',
+    btnHow: 'Come funziona',
+    
+    // Trust badges
+    trustVerified: 'Cleaner verificati',
+    trustPayments: 'Pagamenti sicuri',
+    trustInsurance: 'Assicurazione inclusa',
+    
+    // How it works
+    howTitle: 'Come funziona',
+    howSubtitle: '3 step. Zero stress. Massima qualità.',
+    step1Title: 'Scegli il tuo piano',
+    step1Text: 'Essentials, Premium o Elite. Tutti includono cleaner verificato, assicurazione e concierge dedicato.',
+    step2Title: 'Ti assegniamo il tuo cleaner',
+    step2Text: 'Stesso professionista, sempre. Conosce le tue preferenze. Noi gestiamo scheduling, pagamenti e tutto il resto.',
+    step3Title: 'Tu non pensi a niente',
+    step3Text: 'Casa sempre impeccabile. Zero preoccupazioni. Se c\'è un problema, lo risolviamo noi in <1h.',
+    
+    // KPI
+    kpi1: 'Clienti soddisfatti',
+    kpi2: 'Tempo di risposta',
+    kpi3: 'Cleaner verificati',
+    
+    // Pricing
+    pricingTitle: 'Piani su misura',
+    pricingSubtitle: 'Scegli il piano perfetto per te. Cambia o cancella quando vuoi.',
+    plan1Desc: 'Per chi vuole iniziare',
+    plan2Desc: 'Per professionisti esigenti',
+    plan3Desc: 'White-glove service',
+    perMonth: '/mese',
+    mostPopular: 'PIÙ SCELTO',
+    plan1Feat1: '<strong>2 cleaning al mese</strong> (4h ciascuno)',
+    plan1Feat2: 'Cleaner fisso verificato',
+    plan1Feat3: 'Assicurazione inclusa',
+    plan1Feat4: 'Concierge via WhatsApp',
+    plan1Feat5: 'Cancella quando vuoi',
+    plan2Feat1: '<strong>4 cleaning al mese</strong> (4h ciascuno)',
+    plan2Feat2: 'Tutto di Essentials +',
+    plan2Feat3: '<strong>Priority booking</strong>',
+    plan2Feat4: '1 deep cleaning incluso',
+    plan2Feat5: 'Prodotti eco inclusi',
+    plan2Feat6: 'Sostituzione in 24h',
+    plan3Feat1: '<strong>Unlimited cleaning</strong>',
+    plan3Feat2: 'Tutto di Premium +',
+    plan3Feat3: '<strong>Concierge 24/7</strong>',
+    plan3Feat4: 'Stiratura inclusa',
+    plan3Feat5: 'Gestione chiavi',
+    plan3Feat6: 'Servizi extra su richiesta',
+    btnStart: 'Inizia ora',
+    guaranteeTitle: '💎 Garanzia 30 giorni',
+    guaranteeText: 'Non sei soddisfatto? Rimborso completo, senza domande. Punto.',
+    
+    // CTA
+    ctaClient: 'Per clienti',
+    ctaClientSub: 'Prenota, gestisci e rilassati.',
+    btnBooking: 'Inizia prenotazione',
+    ctaCleaner: 'Per cleaner',
+    ctaCleanerSub: 'Turni ultra-ottimizzati con AI.',
+    btnShifts: 'Accedi ai turni',
+    
+    // Booking panel
+    panelKicker: 'Prenotazione',
     panelTitle: 'Inizia la prenotazione',
-    kicker: 'Prenotazione',
-    name: 'Nome',
-    email: 'Email',
-    service: 'Servizio',
-    date: 'Data',
-    duration: 'Durata',
-    timeslot: 'Fascia oraria',
-    notes: 'Note (opzionale)',
-    confirm: 'Conferma',
-    shiftsTitle: 'Cleaner disponibili'
+    lblName: 'Nome',
+    lblEmail: 'Email',
+    lblService: 'Servizio',
+    lblDate: 'Data',
+    lblDuration: 'Durata',
+    lblTimeslot: 'Fascia oraria',
+    lblNotes: 'Note (opzionale)',
+    optSelect: '-- Seleziona servizio --',
+    optHome: 'Pulizia casa',
+    optDeep: 'Pulizia profonda',
+    optMove: 'Trasloco',
+    optAirbnb: 'Airbnb turnover',
+    optTime: '-- Seleziona orario --',
+    cleanersTitle: 'Cleaner disponibili',
+    btnConfirm: 'Conferma',
+    btnClose: 'Chiudi',
+    placeholderName: 'Il tuo nome',
+    placeholderNotes: 'Aggiungi richieste speciali...',
+    
+    // Login modal
+    modalTitle: 'Bentornato — facciamo brillare tutto ✨',
+    modalSubtitle: 'Accesso sicuro alla tua dashboard. Login mock — nessun backend richiesto.',
+    modalSecure: 'Sicuro • Veloce • Scalabile',
+    modalTeam: 'Team',
+    modalReady: 'accounts pronti',
+    modalSignin: 'Accedi a',
+    modalGoogle: 'Continua con Google',
+    modalOr: 'oppure accedi con email',
+    modalRemember: 'Ricordami',
+    modalForgot: 'Dimenticato?',
+    modalSubmit: 'Accedi',
+    modalNew: 'Nuovo qui?',
+    modalCreate: 'Crea un account',
+    modal2fa: 'Autenticazione a due fattori supportata',
+    modalSecurity: 'Sicurezza',
+    toastLogin: '✅ Login effettuato',
+    toastLogout: '✅ Logout effettuato',
+    alertSelectCleaner: 'Seleziona un cleaner prima di confermare',
+    alertBookingConfirmed: 'Prenotazione confermata con ',
+    alertEmailInvalid: 'Inserisci una email valida.',
+    alertPasswordShort: 'Password troppo corta.',
+    alertGoogleLogin: 'Google login (simulato)',
+    alertAppleLogin: 'Apple login (simulato)',
+    signingIn: 'Accesso in corso…'
+  },
+  en: {
+    // Hero
+    badgeText: 'ONLY FOR THOSE WHO HAVE NO TIME TO WASTE',
+    heroTitle: 'Your digital butler.<br><span style="background: linear-gradient(90deg, #0A2342, #0077CC); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Premium cleaning</span>, zero worries.',
+    heroSubtitle: 'Forget unreliable cleaners, cash payments and weekends spent cleaning. <strong>We take care of it. You live.</strong>',
+    btnRequest: 'Request access',
+    btnHow: 'How it works',
+    
+    // Trust badges
+    trustVerified: 'Verified cleaners',
+    trustPayments: 'Secure payments',
+    trustInsurance: 'Insurance included',
+    
+    // How it works
+    howTitle: 'How it works',
+    howSubtitle: '3 steps. Zero stress. Maximum quality.',
+    step1Title: 'Choose your plan',
+    step1Text: 'Essentials, Premium or Elite. All include verified cleaner, insurance and dedicated concierge.',
+    step2Title: 'We assign your cleaner',
+    step2Text: 'Same professional, always. Knows your preferences. We manage scheduling, payments and everything else.',
+    step3Title: 'You don\'t think about anything',
+    step3Text: 'Always impeccable home. Zero worries. If there\'s a problem, we solve it in <1h.',
+    
+    // KPI
+    kpi1: 'Satisfied clients',
+    kpi2: 'Response time',
+    kpi3: 'Verified cleaners',
+    
+    // Pricing
+    pricingTitle: 'Tailored plans',
+    pricingSubtitle: 'Choose the perfect plan for you. Change or cancel anytime.',
+    plan1Desc: 'For those who want to start',
+    plan2Desc: 'For demanding professionals',
+    plan3Desc: 'White-glove service',
+    perMonth: '/month',
+    mostPopular: 'MOST POPULAR',
+    plan1Feat1: '<strong>2 cleanings per month</strong> (4h each)',
+    plan1Feat2: 'Fixed verified cleaner',
+    plan1Feat3: 'Insurance included',
+    plan1Feat4: 'Concierge via WhatsApp',
+    plan1Feat5: 'Cancel anytime',
+    plan2Feat1: '<strong>4 cleanings per month</strong> (4h each)',
+    plan2Feat2: 'Everything from Essentials +',
+    plan2Feat3: '<strong>Priority booking</strong>',
+    plan2Feat4: '1 deep cleaning included',
+    plan2Feat5: 'Eco products included',
+    plan2Feat6: 'Replacement in 24h',
+    plan3Feat1: '<strong>Unlimited cleaning</strong>',
+    plan3Feat2: 'Everything from Premium +',
+    plan3Feat3: '<strong>Concierge 24/7</strong>',
+    plan3Feat4: 'Ironing included',
+    plan3Feat5: 'Key management',
+    plan3Feat6: 'Extra services on request',
+    btnStart: 'Start now',
+    guaranteeTitle: '💎 30-day guarantee',
+    guaranteeText: 'Not satisfied? Full refund, no questions asked. Period.',
+    
+    // CTA
+    ctaClient: 'For clients',
+    ctaClientSub: 'Book, manage and relax.',
+    btnBooking: 'Start booking',
+    ctaCleaner: 'For cleaners',
+    ctaCleanerSub: 'Ultra-optimized shifts with AI.',
+    btnShifts: 'Access shifts',
+    
+    // Booking panel
+    panelKicker: 'Booking',
+    panelTitle: 'Book a Cleaning',
+    lblName: 'Name',
+    lblEmail: 'Email',
+    lblService: 'Service',
+    lblDate: 'Date',
+    lblDuration: 'Duration',
+    lblTimeslot: 'Time slot',
+    lblNotes: 'Notes (optional)',
+    optSelect: '-- Select service --',
+    optHome: 'Home cleaning',
+    optDeep: 'Deep cleaning',
+    optMove: 'Move-In / Move-Out',
+    optAirbnb: 'Airbnb turnover',
+    optTime: '-- Select time --',
+    cleanersTitle: 'Available cleaners',
+    btnConfirm: 'Confirm',
+    btnClose: 'Close',
+    placeholderName: 'Your name',
+    placeholderNotes: 'Add any special requests...',
+    
+    // Login modal
+    modalTitle: 'Welcome back — let\'s get you sparkling ✨',
+    modalSubtitle: 'Secure access to your dashboard. Mock login — no backend required.',
+    modalSecure: 'Secure • Fast • Scalable',
+    modalTeam: 'Team',
+    modalReady: 'accounts ready',
+    modalSignin: 'Sign in to',
+    modalGoogle: 'Continue with Google',
+    modalOr: 'or sign in with email',
+    modalRemember: 'Remember me',
+    modalForgot: 'Forgot?',
+    modalSubmit: 'Sign in',
+    modalNew: 'New here?',
+    modalCreate: 'Create an account',
+    modal2fa: 'Two-factor authentication supported',
+    modalSecurity: 'Security',
+    toastLogin: '✅ Login successful',
+    toastLogout: '✅ Logged out',
+    alertSelectCleaner: 'Please select a cleaner first',
+    alertBookingConfirmed: 'Booking confirmed with ',
+    alertEmailInvalid: 'Enter a valid email.',
+    alertPasswordShort: 'Password too short.',
+    alertGoogleLogin: 'Google login (simulated)',
+    alertAppleLogin: 'Apple login (simulated)',
+    signingIn: 'Signing in…'
   }
 };
 
-let currentLang = 'en';
-function setLang(lang){
+let currentLang = 'it';
+
+function setLang(lang) {
   currentLang = lang;
-  document.getElementById('hero-text').innerHTML = text[lang].hero;
-  document.getElementById('hero-subtext').innerText = text[lang].slogan;
-  document.getElementById('panel-title').innerText = text[lang].panelTitle;
-  document.getElementById('panel-kicker').innerText = text[lang].kicker;
-  document.getElementById('lbl-name').innerText = text[lang].name;
-  document.getElementById('fldName').placeholder = (lang==='it'?'Nome':'Your name');
-  document.getElementById('lbl-email').innerText = text[lang].email;
-  document.getElementById('lbl-service').innerText = text[lang].service;
-  document.getElementById('lbl-date').innerText = text[lang].date;
-  document.getElementById('lbl-duration').innerText = text[lang].duration;
-  document.getElementById('lbl-timeslot').innerText = text[lang].timeslot;
-  document.getElementById('lbl-notes').innerText = text[lang].notes;
-  document.getElementById('confirmBtn').innerText = text[lang].confirm;
+  const t = translations[lang];
+  
+  // Hero
+  document.getElementById('badge-text').innerText = t.badgeText;
+  document.getElementById('hero-title').innerHTML = t.heroTitle;
+  document.getElementById('hero-subtitle').innerHTML = t.heroSubtitle;
+  document.getElementById('btn-request').innerText = t.btnRequest;
+  document.getElementById('btn-how').innerText = t.btnHow;
+  
+  // Trust badges
+  document.getElementById('trust-verified').innerText = t.trustVerified;
+  document.getElementById('trust-payments').innerText = t.trustPayments;
+  document.getElementById('trust-insurance').innerText = t.trustInsurance;
+  
+  // How it works
+  document.getElementById('how-title').innerText = t.howTitle;
+  document.getElementById('how-subtitle').innerText = t.howSubtitle;
+  document.getElementById('step1-title').innerText = t.step1Title;
+  document.getElementById('step1-text').innerText = t.step1Text;
+  document.getElementById('step2-title').innerText = t.step2Title;
+  document.getElementById('step2-text').innerText = t.step2Text;
+  document.getElementById('step3-title').innerText = t.step3Title;
+  document.getElementById('step3-text').innerHTML = t.step3Text;
+  
+  // KPI
+  document.getElementById('kpi1').innerText = t.kpi1;
+  document.getElementById('kpi2').innerText = t.kpi2;
+  document.getElementById('kpi3').innerText = t.kpi3;
+  
+  // Pricing
+  document.getElementById('pricing-title').innerText = t.pricingTitle;
+  document.getElementById('pricing-subtitle').innerText = t.pricingSubtitle;
+  document.getElementById('plan1-desc').innerText = t.plan1Desc;
+  document.getElementById('plan2-desc').innerText = t.plan2Desc;
+  document.getElementById('plan3-desc').innerText = t.plan3Desc;
+  document.getElementById('per-month-1').innerText = t.perMonth;
+  document.getElementById('per-month-2').innerText = t.perMonth;
+  document.getElementById('per-month-3').innerText = t.perMonth;
+  document.getElementById('most-popular').innerText = t.mostPopular;
+  document.getElementById('plan1-feat1').innerHTML = t.plan1Feat1;
+  document.getElementById('plan1-feat2').innerText = t.plan1Feat2;
+  document.getElementById('plan1-feat3').innerText = t.plan1Feat3;
+  document.getElementById('plan1-feat4').innerText = t.plan1Feat4;
+  document.getElementById('plan1-feat5').innerText = t.plan1Feat5;
+  document.getElementById('plan2-feat1').innerHTML = t.plan2Feat1;
+  document.getElementById('plan2-feat2').innerText = t.plan2Feat2;
+  document.getElementById('plan2-feat3').innerHTML = t.plan2Feat3;
+  document.getElementById('plan2-feat4').innerText = t.plan2Feat4;
+  document.getElementById('plan2-feat5').innerText = t.plan2Feat5;
+  document.getElementById('plan2-feat6').innerText = t.plan2Feat6;
+  document.getElementById('plan3-feat1').innerHTML = t.plan3Feat1;
+  document.getElementById('plan3-feat2').innerText = t.plan3Feat2;
+  document.getElementById('plan3-feat3').innerHTML = t.plan3Feat3;
+  document.getElementById('plan3-feat4').innerText = t.plan3Feat4;
+  document.getElementById('plan3-feat5').innerText = t.plan3Feat5;
+  document.getElementById('plan3-feat6').innerText = t.plan3Feat6;
+  document.getElementById('btn-start-1').innerText = t.btnStart;
+  document.getElementById('btn-start-2').innerText = t.btnStart;
+  document.getElementById('btn-start-3').innerText = t.btnStart;
+  document.getElementById('guarantee-title').innerText = t.guaranteeTitle;
+  document.getElementById('guarantee-text').innerText = t.guaranteeText;
+  
+  // CTA
+  document.getElementById('cta-client').innerText = t.ctaClient;
+  document.getElementById('cta-client-sub').innerText = t.ctaClientSub;
+  document.getElementById('btn-booking').innerText = t.btnBooking;
+  document.getElementById('cta-cleaner').innerText = t.ctaCleaner;
+  document.getElementById('cta-cleaner-sub').innerText = t.ctaCleanerSub;
+  document.getElementById('btn-shifts').innerText = t.btnShifts;
+  
+  // Booking panel
+  document.getElementById('panel-kicker').innerText = t.panelKicker;
+  document.getElementById('panel-title').innerText = t.panelTitle;
+  document.getElementById('lbl-name').innerText = t.lblName;
+  document.getElementById('lbl-email').innerText = t.lblEmail;
+  document.getElementById('lbl-service').innerText = t.lblService;
+  document.getElementById('lbl-date').innerText = t.lblDate;
+  document.getElementById('lbl-duration').innerText = t.lblDuration;
+  document.getElementById('lbl-timeslot').innerText = t.lblTimeslot;
+  document.getElementById('lbl-notes').innerText = t.lblNotes;
+  document.getElementById('opt-select').innerText = t.optSelect;
+  document.getElementById('opt-home').innerText = t.optHome;
+  document.getElementById('opt-deep').innerText = t.optDeep;
+  document.getElementById('opt-move').innerText = t.optMove;
+  document.getElementById('opt-airbnb').innerText = t.optAirbnb;
+  document.getElementById('opt-time').innerText = t.optTime;
+  document.getElementById('cleaners-title').innerText = t.cleanersTitle;
+  document.getElementById('confirmBtn').innerText = t.btnConfirm;
+  document.getElementById('btn-close').innerText = t.btnClose;
+  document.getElementById('fldName').placeholder = t.placeholderName;
+  document.getElementById('fldNotes').placeholder = t.placeholderNotes;
+  
+  // Login modal
+  document.getElementById('modal-title').innerText = t.modalTitle;
+  document.getElementById('modal-subtitle').innerText = t.modalSubtitle;
+  document.getElementById('modal-secure').innerText = t.modalSecure;
+  document.getElementById('modal-team').innerText = t.modalTeam;
+  document.getElementById('modal-ready').innerText = t.modalReady;
+  document.getElementById('modal-signin').innerText = t.modalSignin;
+  document.getElementById('modal-google').innerText = t.modalGoogle;
+  document.getElementById('modal-or').innerText = t.modalOr;
+  document.getElementById('modal-remember').innerText = t.modalRemember;
+  document.getElementById('modal-forgot').innerText = t.modalForgot;
+  document.getElementById('modal-submit').innerText = t.modalSubmit;
+  document.getElementById('modal-new').innerText = t.modalNew;
+  document.getElementById('modal-create').innerText = t.modalCreate;
+  document.getElementById('modal-2fa').innerText = t.modal2fa;
+  document.getElementById('modal-security').innerText = t.modalSecurity;
 }
 
-/* booking panel control */
+// Booking panel
 function openBooking(){
   prefillBookingFromUser();
   document.getElementById('bookingPanel').classList.add('open');
@@ -451,23 +1005,14 @@ function closeBooking(){
   document.getElementById('bookingPanel').setAttribute('aria-hidden','true');
   document.body.style.overflow = '';
 }
-function openShifts(){document.getElementById('shiftsPlaceholder').classList.add('show');}
-function closeShiftsPlaceholder(){document.getElementById('shiftsPlaceholder').classList.remove('show');}
 
-/* sample cleaners */
+// Sample cleaners
 const sampleCleaners = [
   { name:'Giulia R.', rating:4.9, price:18, status:'Available', emoji:'🧼' },
   { name:'Marco V.', rating:4.7, price:20, status:'On job', emoji:'✨' },
   { name:'Sara L.', rating:4.8, price:17, status:'Available', emoji:'🧽' }
 ];
 let selectedCleanerIndex = null;
-
-function formatToDDMMYYYY(isoDate){
-  if(!isoDate) return '';
-  const p = isoDate.split('-');
-  if(p.length!==3) return isoDate;
-  return `${p[2]}-${p[1]}-${p[0]}`;
-}
 
 function checkAndRenderCleaners(){
   const name = document.getElementById('fldName').value.trim();
@@ -488,7 +1033,7 @@ function checkAndRenderCleaners(){
       div.dataset.idx = idx;
       div.innerHTML = `<div class="avatar">${c.emoji}</div>
       <div style="flex:1">
-        <div style="display:flex;justify-content:space-between;align-items:center;font-weight:700;color:var(--navy);">
+        <div style="display:flex;justify-content:space-between;align-items:center;font-weight:700;color:#0A2342;">
           <div>${c.name}</div>
           <div style="font-size:13px;color:#6b7280">⭐ ${c.rating}</div>
         </div>
@@ -497,7 +1042,11 @@ function checkAndRenderCleaners(){
           <div>€${c.price}/h</div>
         </div>
       </div>`;
-      div.onclick = ()=>{ selectedCleanerIndex = idx; document.querySelectorAll('.cleaner-card').forEach(d=>d.classList.remove('cleaner-selected')); div.classList.add('cleaner-selected'); };
+      div.onclick = ()=>{ 
+        selectedCleanerIndex = idx; 
+        document.querySelectorAll('.cleaner-card').forEach(d=>d.classList.remove('cleaner-selected')); 
+        div.classList.add('cleaner-selected'); 
+      };
       list.appendChild(div);
     });
   } else {
@@ -506,7 +1055,6 @@ function checkAndRenderCleaners(){
   }
 }
 
-// Event listeners for booking fields
 ['fldName','fldEmail','fldService','fldDate','fldDuration','fldTimeslot'].forEach(id=>{
   const el = document.getElementById(id);
   if(el){
@@ -515,21 +1063,18 @@ function checkAndRenderCleaners(){
   }
 });
 
-// Confirm button behavior
 document.getElementById('confirmBtn').addEventListener('click',()=>{
+  const t = translations[currentLang];
   if(selectedCleanerIndex===null){
-    alert(currentLang==='it' ? 'Seleziona un cleaner prima di confermare' : 'Please select a cleaner first');
+    alert(t.alertSelectCleaner);
     return;
   }
   const c = sampleCleaners[selectedCleanerIndex];
-  alert((currentLang==='it' ? 'Prenotazione confermata con ' : 'Booking confirmed with ') + c.name + '!');
+  alert(t.alertBookingConfirmed + c.name + '!');
   closeBooking();
 });
 
-setLang('en'); // default
-
-/* AUTH glue & UI hooks */
-
+// AUTH
 const AUTH_KEY = 'lustro_user';
 
 function deriveNameFromEmail(email){
@@ -538,10 +1083,7 @@ function deriveNameFromEmail(email){
   return local.replace(/[._\-]/g,' ').split(' ').map(s => s.charAt(0).toUpperCase()+s.slice(1)).join(' ');
 }
 
-function saveUserToStorage(user){
-  localStorage.setItem(AUTH_KEY, JSON.stringify(user));
-}
-
+function saveUserToStorage(user){ localStorage.setItem(AUTH_KEY, JSON.stringify(user)); }
 function getUserFromStorage(){
   try {
     const s = localStorage.getItem(AUTH_KEY);
@@ -549,21 +1091,14 @@ function getUserFromStorage(){
     return JSON.parse(s);
   } catch(e){ return null; }
 }
-
-function clearUserStorage(){
-  localStorage.removeItem(AUTH_KEY);
-}
-
-function isLogged(){
-  return !!getUserFromStorage();
-}
+function clearUserStorage(){ localStorage.removeItem(AUTH_KEY); }
+function isLogged(){ return !!getUserFromStorage(); }
 
 function renderAuthButton(){
   const container = document.getElementById('authContainer');
   const user = getUserFromStorage();
   container.innerHTML = '';
   if(user){
-    // ✅ Se loggato: mostra solo Logout
     const btn = document.createElement('button');
     btn.className = 'btn-primary';
     btn.id = 'logoutBtn';
@@ -571,11 +1106,10 @@ function renderAuthButton(){
     btn.onclick = ()=> {
       clearUserStorage();
       renderAuthButton();
-      showToast(currentLang==='it' ? 'Logout effettuato' : 'Logged out');
+      showToast(translations[currentLang].toastLogout);
     };
     container.appendChild(btn);
   } else {
-    // ✅ Se NON loggato: mostra dropdown Login con opzioni Customer/Cleaner
     const wrap = document.createElement('div');
     wrap.className = 'dropdown';
     wrap.innerHTML = `
@@ -609,8 +1143,6 @@ function openLLModal(){
   setTimeout(()=> card.classList.add('show'), 20);
   document.body.style.overflow = 'hidden';
   setTimeout(()=> document.getElementById('llEmail').focus(), 220);
-  const loginBtnHeader = document.getElementById('loginBtnHeader');
-  if(loginBtnHeader) loginBtnHeader.setAttribute('aria-expanded','true');
 }
 
 function closeLLModal(){
@@ -627,18 +1159,12 @@ function showToast(msg){
   const toast = document.getElementById('llToast');
   toast.innerText = msg;
   toast.style.display = 'block';
-  setTimeout(()=> {
-    toast.style.opacity = '1';
-  },20);
-  setTimeout(()=> {
-    toast.style.display = 'none';
-    toast.style.opacity = '';
-  }, 2200);
+  setTimeout(()=> { toast.style.opacity = '1'; },20);
+  setTimeout(()=> { toast.style.display = 'none'; toast.style.opacity = ''; }, 2200);
 }
 
 (function(){
   const overlay = document.getElementById('llOverlay');
-  const card = document.getElementById('llCard');
   const closeBtn = document.getElementById('llCloseBtn');
   const submitBtn = document.getElementById('llSubmit');
   const demoBtn = document.getElementById('llDemo');
@@ -649,21 +1175,20 @@ function showToast(msg){
   const emailErr = document.getElementById('llEmailErr');
 
   closeBtn.addEventListener('click', closeLLModal);
-  overlay.addEventListener('click', (e) => {
-    if(e.target === overlay) closeLLModal();
-  });
+  overlay.addEventListener('click', (e) => { if(e.target === overlay) closeLLModal(); });
 
   function validate(){
+    const t = translations[currentLang];
     const e = emailInput.value.trim();
     const p = pwdInput.value;
     if(!e || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)){
       emailErr.style.display = 'block';
-      emailErr.innerText = currentLang==='it' ? 'Inserisci una email valida.' : 'Enter a valid email.';
+      emailErr.innerText = t.alertEmailInvalid;
       return false;
     }
     emailErr.style.display = 'none';
     if(!p || p.length < 4){
-      alert(currentLang==='it' ? 'Password troppo corta.' : 'Password too short.');
+      alert(t.alertPasswordShort);
       return false;
     }
     return true;
@@ -671,9 +1196,10 @@ function showToast(msg){
 
   submitBtn.addEventListener('click', ()=>{
     if(!validate()) return;
+    const t = translations[currentLang];
     const orig = submitBtn.innerText;
     submitBtn.disabled = true;
-    submitBtn.innerText = currentLang==='it' ? 'Accesso in corso…' : 'Signing in…';
+    submitBtn.innerText = t.signingIn;
     setTimeout(()=> {
       submitBtn.disabled = false;
       submitBtn.innerText = orig;
@@ -686,7 +1212,7 @@ function showToast(msg){
       saveUserToStorage(user);
       renderAuthButton();
       closeLLModal();
-      showToast(currentLang==='it' ? '✅ Login effettuato (mock)' : '✅ Login successful (mock)');
+      showToast(t.toastLogin);
 
       if(role === 'customer' && pendingAction === 'openBookingAfterLogin') {
         openBooking();
@@ -703,13 +1229,10 @@ function showToast(msg){
     document.getElementById('llRemember').checked = true;
     submitBtn.click();
   });
-  googleBtn.addEventListener('click', ()=> alert(currentLang==='it' ? 'Google login (simulato)' : 'Google login (simulated)'));
-  appleBtn.addEventListener('click', ()=> alert(currentLang==='it' ? 'Apple login (simulato)' : 'Apple login (simulated)'));
+  googleBtn.addEventListener('click', ()=> alert(translations[currentLang].alertGoogleLogin));
+  appleBtn.addEventListener('click', ()=> alert(translations[currentLang].alertAppleLogin));
 
-  document.addEventListener('keydown', (e)=>{
-    if(e.key === 'Escape' && overlay.style.display === 'flex'){ closeLLModal(); }
-  });
-
+  document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape' && overlay.style.display === 'flex'){ closeLLModal(); } });
 })();
 
 renderAuthButton();
@@ -754,26 +1277,20 @@ function prefillBookingFromUser(){
 }
 
 window.addEventListener('load', ()=>{
+  setLang('it'); // default italiano
   renderAuthButton();
-  if(isLogged()){
-    prefillBookingFromUser();
-  }
+  if(isLogged()){ prefillBookingFromUser(); }
 });
 
-// ✅ SYNC AUTH quando torni alla pagina
 window.addEventListener('focus', ()=>{
   renderAuthButton();
-  if(isLogged()){
-    prefillBookingFromUser();
-  }
+  if(isLogged()){ prefillBookingFromUser(); }
 });
 
 document.addEventListener('visibilitychange', ()=>{
   if(!document.hidden){
     renderAuthButton();
-    if(isLogged()){
-      prefillBookingFromUser();
-    }
+    if(isLogged()){ prefillBookingFromUser(); }
   }
 });
 </script>
