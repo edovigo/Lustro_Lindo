@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>LustroLindo – Dashboard Cleaner</title>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
 body {
@@ -16,7 +16,8 @@ body {
 
 /* HEADER IDENTICO ALL'INDEX */
 header {
-  background: #ffffff;
+  background: rgba(255,255,255,0.98);
+  backdrop-filter: blur(10px);
   padding: 15px 40px;
   display: flex;
   justify-content: space-between;
@@ -36,20 +37,20 @@ header {
   gap: 8px;
 }
 
-.sparkle { 
-  color: #0077CC; 
-  animation: sparklePulse 1.4s ease-in-out infinite; 
+.sparkle {
+  color: #0077CC;
+  animation: sparklePulse 1.4s ease-in-out infinite;
 }
 
-@keyframes sparklePulse { 
-  0%,100% { transform: scale(1); opacity: .8; } 
-  50% { transform: scale(1.3); opacity: 1; } 
+@keyframes sparklePulse {
+  0%,100% { transform: scale(1); opacity: .8; }
+  50% { transform: scale(1.3); opacity: 1; }
 }
 
 .lang-toggle {
-  cursor:pointer; 
-  font-weight:bold; 
-  font-size:20px; 
+  cursor:pointer;
+  font-weight:bold;
+  font-size:20px;
   transition: transform 0.2s;
 }
 .lang-toggle:hover { transform: scale(1.1); }
@@ -70,49 +71,239 @@ header {
 
 main { max-width: 1100px; margin: 40px auto; padding: 0 20px; }
 h1 { font-size: 28px; margin-bottom: 10px; font-weight: 800; }
-.section { background: #ffffff; border-radius: 22px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); padding: 25px; margin-top: 25px; }
+.section { 
+  background: #ffffff; 
+  border-radius: 22px; 
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08); 
+  padding: 25px; 
+  margin-top: 25px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.section:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+}
 .section h2 { font-size: 20px; margin-bottom: 15px; color: #0A2342; font-weight: 800; }
 
 /* Prossimi lavori */
 .job-list { display: grid; gap: 15px; }
-.job-item { background: #F8FAFC; border: 1px solid #eef2f7; padding: 15px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; }
+.job-item { 
+  background: linear-gradient(135deg, rgba(247,251,255,0.6), rgba(255,255,255,1));
+  border: 1px solid #eef2f7; 
+  padding: 15px; 
+  border-radius: 12px; 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.job-item:hover {
+  transform: translateX(5px);
+  box-shadow: 0 5px 15px rgba(0,119,204,0.15);
+  border-color: #0077CC;
+}
+.job-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 4px;
+  background: linear-gradient(180deg, #0A2342, #0077CC);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.job-item:hover::before {
+  opacity: 1;
+}
 .job-info { display: flex; flex-direction: column; gap: 4px; }
-.job-title { font-weight: 600; }
+.job-title { font-weight: 600; display: flex; align-items: center; gap: 8px; }
+.job-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.badge-new { background: #dbeafe; color: #1e40af; }
+.badge-urgent { background: #fee2e2; color: #991b1b; }
+.badge-premium { background: #fef3c7; color: #92400e; }
 .job-meta { font-size: 14px; color: #4b5563; }
-.job-btn { padding: 10px 18px; border-radius: 12px; font-weight:600; font-size:14px; cursor:pointer; border:none; transition:all 0.3s; }
+.job-btn { 
+  padding: 10px 18px; 
+  border-radius: 12px; 
+  font-weight:600; 
+  font-size:14px; 
+  cursor:pointer; 
+  border:none; 
+  transition:all 0.3s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
 .view-btn { background:#0A2342; color:white; }
-.view-btn:hover { opacity: .85; }
+.view-btn:hover { 
+  opacity: .85;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Empty state */
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: #6b7280;
+}
+.empty-state-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  animation: float 3s ease-in-out infinite;
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
 
 /* Grafico guadagni */
 .earnings-section { display:flex; flex-direction:column; }
 .earnings-grid { display:flex; align-items:center; gap:20px; flex-wrap:wrap; }
 .chart-container { flex:1; max-width:350px; }
 .summary { display:flex; flex-direction:column; gap:6px; }
-.total { font-size:24px; font-weight:700; color:#0A2342; }
-.delta.positive { color:green; font-weight:600; }
-.delta.negative { color:red; font-weight:600; }
+.total { font-size:32px; font-weight:800; color:#0A2342; background: linear-gradient(90deg, #0A2342, #0077CC); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.delta.positive { color:#10b981; font-weight:600; }
+.delta.negative { color:#ef4444; font-weight:600; }
 .meta { color:#4b5563; font-size:14px; }
 
 /* Calendario */
 .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 12px; margin-top:10px; }
-.calendar-day { background: #F8FAFC; border-radius: 12px; padding: 12px; cursor: pointer; transition: all 0.2s; font-size: 14px; border: 1px solid #eef2f7; }
-.calendar-day:hover { background: rgba(10,35,66,0.08); }
+.calendar-day { 
+  background: #F8FAFC; 
+  border-radius: 12px; 
+  padding: 12px; 
+  cursor: pointer; 
+  transition: all 0.3s; 
+  font-size: 14px; 
+  border: 1px solid #eef2f7;
+  position: relative;
+  overflow: hidden;
+}
+.calendar-day:hover { 
+  background: rgba(10,35,66,0.08);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.calendar-day.has-job {
+  background: linear-gradient(135deg, rgba(0,119,204,0.1), rgba(10,35,66,0.05));
+  border-color: #0077CC;
+}
+.calendar-day.has-job::after {
+  content: '✓';
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  color: #0077CC;
+  font-weight: 800;
+  font-size: 16px;
+}
 .calendar-day h3 { margin:0 0 6px 0; font-weight:600; }
 .calendar-day .event { font-size:13px; color:#4b5563; margin-top:4px; }
 
 footer { text-align:center; color:#6b7280; font-size:13px; margin-top:40px; padding:20px 0; }
 
 /* Popup */
-#popup { display:none; position:fixed; inset:0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); justify-content:center; align-items:center; z-index:10000; }
-#popup div { background:#fff; padding:30px; border-radius:12px; text-align:center; box-shadow:0 2px 10px rgba(0,0,0,0.2); animation:fadeIn 0.3s ease; max-width:90%; }
-@keyframes fadeIn { from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);} }
-#popup button { font-weight:600; font-size:14px; padding:10px 18px; border-radius:12px; cursor:pointer; border:none; transition:all 0.3s; }
+#popup { 
+  display:none; 
+  position:fixed; 
+  inset:0; 
+  background: rgba(0,0,0,0.5); 
+  backdrop-filter: blur(4px); 
+  justify-content:center; 
+  align-items:center; 
+  z-index:10000;
+  animation: fadeIn 0.3s ease;
+}
+#popup div { 
+  background:#fff; 
+  padding:30px; 
+  border-radius:16px; 
+  text-align:center; 
+  box-shadow:0 20px 60px rgba(0,0,0,0.3); 
+  max-width:90%;
+  max-width: 450px;
+  animation: slideUp 0.3s ease;
+}
+@keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
+@keyframes slideUp { from{opacity:0; transform:translateY(20px);} to{opacity:1; transform:translateY(0);} }
+#popup h3 {
+  margin: 0 0 16px 0;
+  font-size: 22px;
+  font-weight: 800;
+}
+#popup p {
+  margin: 0 0 20px 0;
+  color: #4b5563;
+  line-height: 1.6;
+  white-space: pre-line;
+}
+#popup button { 
+  font-weight:600; 
+  font-size:14px; 
+  padding:12px 20px; 
+  border-radius:12px; 
+  cursor:pointer; 
+  border:none; 
+  transition:all 0.3s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+#popup button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
 #popup .accept-btn { background:#0A2342; color:white; }
 #popup .accept-btn:hover { opacity: .85; }
 #popup .reject-btn { background:#DC2626; color:white; }
 #popup .reject-btn:hover { opacity: .85; }
 #popup .close-btn { background:#6b7280; color:white; }
 #popup .close-btn:hover { opacity: .85; }
+
+/* Toast notification */
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: linear-gradient(90deg, #0A2342, #0077CC);
+  color: white;
+  padding: 16px 24px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  font-weight: 600;
+  z-index: 10001;
+  animation: slideInRight 0.3s ease;
+  display: none;
+}
+@keyframes slideInRight {
+  from { transform: translateX(400px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+.toast.success { background: linear-gradient(90deg, #10b981, #059669); }
+.toast.error { background: linear-gradient(90deg, #ef4444, #dc2626); }
+
+/* Confetti */
+.confetti {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  background: #0077CC;
+  position: absolute;
+  animation: confetti-fall 3s ease-out forwards;
+}
+@keyframes confetti-fall {
+  to {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
 </style>
 </head>
 <body>
@@ -120,13 +311,13 @@ footer { text-align:center; color:#6b7280; font-size:13px; margin-top:40px; padd
 <!-- HEADER IDENTICO ALL'INDEX -->
 <header>
   <div class="logo">LustroLindo <span class="sparkle">✦</span></div>
-  
+
   <!-- Bandierine centrate -->
   <div style="position: absolute; left: 50%; transform: translateX(-50%); display:flex; gap:15px; align-items:center;">
     <span class="lang-toggle" onclick="setLang('it')">🇮🇹</span>
     <span class="lang-toggle" onclick="setLang('en')">🇬🇧</span>
   </div>
-  
+
   <!-- Logout a destra -->
   <button class="logout-btn" id="logoutBtn">Logout</button>
 </header>
@@ -168,13 +359,14 @@ footer { text-align:center; color:#6b7280; font-size:13px; margin-top:40px; padd
   <div>
     <h3 id="popupTitle">Job details</h3>
     <p id="popupText"></p>
-    <div style="display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin-top:15px;">
-      <button class="accept-btn" id="popupAccept">Accept</button>
-      <button class="reject-btn" id="popupReject">Reject</button>
-      <button class="close-btn" onclick="closePopup()" id="popupClose">Close</button>
+    <div style="display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin-top:15px;" id="popupButtons">
+      <!-- Buttons injected by JS -->
     </div>
   </div>
 </div>
+
+<!-- Toast notification -->
+<div id="toast" class="toast"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
@@ -195,7 +387,10 @@ const text = {
     view: "View",
     noJobs: "✨ All jobs have been assigned. 🚀 Get ready for the next ones! ✨",
     noJobsDay: "No jobs",
-    weekDays: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun']
+    weekDays: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
+    toastAccepted: "✅ Job accepted!",
+    toastRejected: "❌ Job rejected",
+    jobAccepted: "Job already in calendar"
   },
   it: {
     welcome: "Bentornato, Cleaner! 👋",
@@ -212,7 +407,10 @@ const text = {
     view: "Vedi",
     noJobs: "✨ Tutti i lavori sono stati assegnati. 🚀 Preparati per i prossimi! ✨",
     noJobsDay: "Nessun lavoro",
-    weekDays: ['Lun','Mar','Mer','Gio','Ven','Sab','Dom']
+    weekDays: ['Lun','Mar','Mer','Gio','Ven','Sab','Dom'],
+    toastAccepted: "✅ Lavoro accettato!",
+    toastRejected: "❌ Lavoro rifiutato",
+    jobAccepted: "Lavoro già in calendario"
   }
 };
 
@@ -226,9 +424,6 @@ function setLang(lang){
   document.getElementById('calendar-title').innerText = text[lang].calendarTitle;
   document.getElementById('delta').innerText = text[lang].delta;
   document.getElementById('completed').innerText = text[lang].completed;
-  document.getElementById('popupAccept').innerText = text[lang].accept;
-  document.getElementById('popupReject').innerText = text[lang].reject;
-  document.getElementById('popupClose').innerText = text[lang].close;
   renderJobs();
   renderCalendar();
 }
@@ -241,59 +436,99 @@ logoutBtn.addEventListener("click", ()=>{
 });
 
 const jobs = [
-  { title: "🏠 Apartment – Milan Center", date: "8 Nov", time: "09:00 - 13:00", location: "Milan Center", details: "Complete cleaning kitchen, bathroom and living room" },
-  { title: "🏢 Office – Porta Romana", date: "9 Nov", time: "14:00 - 18:00", location: "Porta Romana", details: "Cleaning desks, floors and meeting room" },
-  { title: "🏡 Villa – San Siro", date: "11 Nov", time: "10:00 - 16:00", location: "San Siro", details: "General cleaning + garden" }
+  { title: "🏠 Apartment – Milan Center", date: "8 Nov", time: "09:00 - 13:00", location: "Milan Center", details: "Complete cleaning kitchen, bathroom and living room", badge: "new" },
+  { title: "🏢 Office – Porta Romana", date: "9 Nov", time: "14:00 - 18:00", location: "Porta Romana", details: "Cleaning desks, floors and meeting room", badge: "urgent" },
+  { title: "🏡 Villa – San Siro", date: "11 Nov", time: "10:00 - 16:00", location: "San Siro", details: "General cleaning + garden", badge: "premium" }
 ];
 
 const jobList = document.getElementById("jobList");
 function renderJobs() {
   jobList.innerHTML = "";
   if(jobs.length===0){
-    jobList.innerHTML=`<div style="color:#4b5563; font-style:italic;">${text[currentLang].noJobs}</div>`;
+    jobList.innerHTML=`<div class="empty-state">
+      <div class="empty-state-icon">✨</div>
+      <div style="font-size:18px;font-weight:600;color:#0A2342;margin-bottom:8px;">All caught up!</div>
+      <div>${text[currentLang].noJobs}</div>
+    </div>`;
     return;
   }
   jobs.forEach((job,idx)=>{
     const div = document.createElement("div");
     div.className="job-item";
+    
+    let badgeHTML = '';
+    if(job.badge === 'new') badgeHTML = '<span class="job-badge badge-new">New</span>';
+    if(job.badge === 'urgent') badgeHTML = '<span class="job-badge badge-urgent">Urgent</span>';
+    if(job.badge === 'premium') badgeHTML = '<span class="job-badge badge-premium">Premium</span>';
+    
     div.innerHTML=`
   <div class="job-info">
-    <div class="job-title">${job.title}</div>
-    <div class="job-meta">${job.date}, ${job.time}</div>
+    <div class="job-title">${job.title} ${badgeHTML}</div>
+    <div class="job-meta">📅 ${job.date}, ⏰ ${job.time}</div>
   </div>
   <button class="job-btn view-btn">${text[currentLang].view}</button>
 `;
     const viewBtn = div.querySelector(".view-btn");
     viewBtn.onclick = ()=>{
-      showPopup(job,idx);
+      showPopup(job,idx, false); // false = not from calendar
     };
     jobList.appendChild(div);
   });
 }
 renderJobs();
 
-function showPopup(job,index){
+function showPopup(job, index, fromCalendar){
   document.getElementById("popupTitle").innerText = text[currentLang].jobDetails;
-  document.getElementById("popupText").innerText = `${job.date}, ${job.time}\nDetails: ${job.details}`;
+  document.getElementById("popupText").innerText = `📅 ${job.date}, ⏰ ${job.time}\n📍 ${job.location}\n\n${job.details}`;
   document.getElementById("popup").style.display="flex";
 
-  const acceptBtn=document.getElementById("popupAccept");
-  const rejectBtn=document.getElementById("popupReject");
+  const buttonsContainer = document.getElementById("popupButtons");
+  buttonsContainer.innerHTML = '';
 
-  acceptBtn.onclick = ()=>{
-    addToCalendar(job);
-    jobs.splice(index,1);
-    renderJobs();
-    closePopup();
-  };
-  rejectBtn.onclick = ()=>{
-    jobs.splice(index,1);
-    renderJobs();
-    closePopup();
-  };
+  // ✅ FIX: Se il job è già in calendario, NON mostrare Accept/Reject
+  if(!fromCalendar) {
+    const acceptBtn = document.createElement('button');
+    acceptBtn.className = 'accept-btn';
+    acceptBtn.innerText = text[currentLang].accept;
+    acceptBtn.onclick = ()=>{
+      addToCalendar(job);
+      jobs.splice(index,1);
+      renderJobs();
+      closePopup();
+      showToast(text[currentLang].toastAccepted, 'success');
+      createConfetti();
+    };
+    
+    const rejectBtn = document.createElement('button');
+    rejectBtn.className = 'reject-btn';
+    rejectBtn.innerText = text[currentLang].reject;
+    rejectBtn.onclick = ()=>{
+      jobs.splice(index,1);
+      renderJobs();
+      closePopup();
+      showToast(text[currentLang].toastRejected, 'error');
+    };
+    
+    buttonsContainer.appendChild(acceptBtn);
+    buttonsContainer.appendChild(rejectBtn);
+  } else {
+    // Job già in calendario: mostra solo info
+    const infoDiv = document.createElement('div');
+    infoDiv.style.cssText = 'background:#dbeafe;color:#1e40af;padding:10px;border-radius:8px;font-weight:600;font-size:14px;margin-bottom:12px;';
+    infoDiv.innerText = '✓ ' + text[currentLang].jobAccepted;
+    document.getElementById("popup").querySelector('div').insertBefore(infoDiv, buttonsContainer);
+  }
+  
+  const closeBtn = document.createElement('button');
+  closeBtn.className = 'close-btn';
+  closeBtn.innerText = text[currentLang].close;
+  closeBtn.onclick = closePopup;
+  buttonsContainer.appendChild(closeBtn);
 }
 
-function closePopup(){ document.getElementById("popup").style.display="none"; }
+function closePopup(){ 
+  document.getElementById("popup").style.display="none"; 
+}
 
 // Calendario lavori
 const calendarJobs=[];
@@ -309,12 +544,16 @@ function renderCalendar(){
     const dayDiv=document.createElement("div");
     dayDiv.className="calendar-day";
     const jobForDay=calendarJobs[idx]||null;
-    dayDiv.innerHTML=`<h3>${day}</h3>${jobForDay ? `<div class="event">${jobForDay.title}<br>${jobForDay.time}</div>` : `<div class="event">${text[currentLang].noJobsDay}</div>`}`;
+    
+    if(jobForDay) {
+      dayDiv.classList.add('has-job');
+    }
+    
+    dayDiv.innerHTML=`<h3>${day}</h3>${jobForDay ? `<div class="event">${jobForDay.title}<br>⏰ ${jobForDay.time}</div>` : `<div class="event" style="color:#9ca3af;">${text[currentLang].noJobsDay}</div>`}`;
+    
     if(jobForDay){
       dayDiv.onclick=()=>{
-        document.getElementById("popupTitle").innerText = text[currentLang].jobDetails;
-        document.getElementById("popupText").innerText = `${jobForDay.date}, ${jobForDay.time}\nDetails: ${jobForDay.details}`;
-        document.getElementById("popup").style.display="flex";
+        showPopup(jobForDay, idx, true); // true = from calendar
       }
     }
     calendarGrid.appendChild(dayDiv);
@@ -322,14 +561,58 @@ function renderCalendar(){
 }
 renderCalendar();
 
-// Grafico guadagni
+// Toast notification
+function showToast(message, type = 'success') {
+  const toast = document.getElementById('toast');
+  toast.innerText = message;
+  toast.className = `toast ${type}`;
+  toast.style.display = 'block';
+  setTimeout(() => {
+    toast.style.display = 'none';
+  }, 3000);
+}
+
+// Confetti animation
+function createConfetti() {
+  const colors = ['#0077CC', '#0A2342', '#10b981', '#fbbf24', '#f472b6'];
+  for(let i = 0; i < 30; i++) {
+    const confetti = document.createElement('div');
+    confetti.className = 'confetti';
+    confetti.style.left = Math.random() * 100 + '%';
+    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+    confetti.style.animationDelay = Math.random() * 0.5 + 's';
+    confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+    document.body.appendChild(confetti);
+    setTimeout(() => confetti.remove(), 3000);
+  }
+}
+
+// Grafico guadagni con gradient
 const ctx=document.getElementById('earningsChart').getContext('2d');
+const gradient = ctx.createLinearGradient(0, 0, 0, 80);
+gradient.addColorStop(0, '#0077CC');
+gradient.addColorStop(1, '#0A2342');
+
 new Chart(ctx,{
   type:'bar',
-  data:{ labels:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
-    datasets:[{ label:'Earnings (€)', data:[50,60,40,70,30,50,40], backgroundColor:'#0077CC'}]
+  data:{ 
+    labels:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
+    datasets:[{ 
+      label:'Earnings (€)', 
+      data:[50,60,40,70,30,50,40], 
+      backgroundColor: gradient,
+      borderRadius: 8,
+      borderSkipped: false,
+    }]
   },
-  options:{ responsive:true, plugins:{legend:{display:false}}, scales:{y:{beginAtZero:true}}}
+  options:{ 
+    responsive:true, 
+    plugins:{legend:{display:false}}, 
+    scales:{
+      y:{beginAtZero:true, grid: {color: 'rgba(0,0,0,0.05)'}},
+      x:{grid: {display: false}}
+    }
+  }
 });
 </script>
 </body>
