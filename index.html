@@ -24,47 +24,343 @@
   .dropdown:hover .dropdown-content {display:block;}
   .dropdown-content button:hover {background:#f2f2f2;}
 
-  /* RIGHT SLIDE PANEL */
-  #bookingPanel {
+  /* === NUOVO BOOKING PANEL PREMIUM === */
+  #bookingOverlay {
     position: fixed;
-    top: 0;
-    right: -420px;
-    width: 420px;
-    height: 100vh;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(8px);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 5000;
+    animation: fadeIn 0.3s ease;
+  }
+  #bookingPanel {
     background: white;
-    box-shadow: -4px 0 25px rgba(0,0,0,.15);
-    padding: 28px;
-    transition: right .35s ease;
-    z-index: 60;
+    border-radius: 24px;
+    width: 90%;
+    max-width: 700px;
+    max-height: 90vh;
     overflow-y: auto;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.3);
+    animation: slideUp 0.4s ease;
+    position: relative;
   }
-  #bookingPanel.open { right: 0; }
-  input[type="text"], input[type="email"], input[type="date"], select, textarea {
-    width:100%; padding:12px; border:1px solid #e5e7eb; border-radius:10px; margin-bottom:12px; font-size:15px;
+  @keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
+  @keyframes slideUp { from{opacity:0; transform:translateY(30px);} to{opacity:1; transform:translateY(0);} }
+  
+  /* Progress bar */
+  .progress-bar {
+    height: 6px;
+    background: #e5e7eb;
+    border-radius: 10px 10px 0 0;
+    overflow: hidden;
   }
-  textarea {
-    resize: vertical;
-    min-height: 80px;
-    font-family: 'Inter', system-ui, sans-serif;
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #0A2342, #0077CC);
+    transition: width 0.4s ease;
+  }
+  
+  /* Panel header */
+  .panel-header {
+    padding: 30px 30px 20px 30px;
+    border-bottom: 1px solid #f3f4f6;
+  }
+  .panel-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #6b7280;
+    cursor: pointer;
+    transition: all 0.2s;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+  }
+  .panel-close:hover {
+    background: #f3f4f6;
+    color: #0A2342;
+  }
+  
+  /* Panel content */
+  .panel-content {
+    padding: 30px;
+  }
+  
+  /* Service cards */
+  .service-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-top: 20px;
+  }
+  .service-card {
+    background: linear-gradient(135deg, rgba(247,251,255,0.8), rgba(255,255,255,1));
+    border: 2px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 24px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-align: center;
+  }
+  .service-card:hover {
+    border-color: #0077CC;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,119,204,0.15);
+  }
+  .service-card.selected {
+    border-color: #0077CC;
+    background: linear-gradient(135deg, rgba(0,119,204,0.1), rgba(10,35,66,0.05));
+    box-shadow: 0 10px 25px rgba(0,119,204,0.2);
+  }
+  .service-icon {
+    font-size: 48px;
+    margin-bottom: 12px;
+  }
+  .service-name {
+    font-weight: 700;
+    font-size: 16px;
+    color: #0A2342;
+    margin-bottom: 6px;
+  }
+  .service-desc {
+    font-size: 13px;
+    color: #6b7280;
+  }
+  
+  /* Calendar */
+  .calendar-container {
+    margin-top: 20px;
+  }
+  .calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  .calendar-month {
+    font-weight: 700;
+    font-size: 18px;
+    color: #0A2342;
+  }
+  .calendar-nav {
+    display: flex;
+    gap: 8px;
+  }
+  .calendar-nav button {
+    background: #f3f4f6;
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 18px;
+  }
+  .calendar-nav button:hover {
+    background: #e5e7eb;
+  }
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+  }
+  .calendar-day {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 2px solid transparent;
+  }
+  .calendar-day.disabled {
+    color: #d1d5db;
+    cursor: not-allowed;
+  }
+  .calendar-day:not(.disabled):hover {
+    background: #f3f4f6;
+  }
+  .calendar-day.selected {
+    background: linear-gradient(135deg, #0A2342, #0077CC);
+    color: white;
+    border-color: #0077CC;
+  }
+  .calendar-weekday {
+    font-size: 12px;
+    font-weight: 700;
+    color: #6b7280;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+  
+  /* Time slots */
+  .time-slots {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 12px;
+    margin-top: 20px;
+  }
+  .time-slot {
+    background: #f9fafb;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  .time-slot:hover {
+    border-color: #0077CC;
+    background: rgba(0,119,204,0.05);
+  }
+  .time-slot.selected {
+    background: linear-gradient(135deg, #0A2342, #0077CC);
+    color: white;
+    border-color: #0077CC;
+  }
+  
+  /* Cleaner cards */
+  .cleaner-grid {
+    display: grid;
+    gap: 16px;
+    margin-top: 20px;
+  }
+  .cleaner-card {
+    background: linear-gradient(135deg, rgba(247,251,255,0.8), rgba(255,255,255,1));
+    border: 2px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+  .cleaner-card:hover {
+    border-color: #0077CC;
+    box-shadow: 0 10px 25px rgba(0,119,204,0.15);
+  }
+  .cleaner-card.selected {
+    border-color: #0077CC;
+    background: linear-gradient(135deg, rgba(0,119,204,0.1), rgba(10,35,66,0.05));
+    box-shadow: 0 10px 25px rgba(0,119,204,0.2);
+  }
+  .cleaner-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #e6f0ff, #cfe6ff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    flex-shrink: 0;
+  }
+  .cleaner-info {
+    flex: 1;
+  }
+  .cleaner-name {
+    font-weight: 700;
+    font-size: 16px;
+    color: #0A2342;
+    margin-bottom: 4px;
+  }
+  .cleaner-meta {
+    display: flex;
+    gap: 12px;
+    font-size: 13px;
+    color: #6b7280;
+    margin-bottom: 8px;
+  }
+  .cleaner-badge {
+    display: inline-block;
+    background: #dbeafe;
+    color: #1e40af;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  
+  /* Summary */
+  .summary-box {
+    background: linear-gradient(135deg, rgba(10,35,66,0.03), rgba(0,119,204,0.03));
+    border-radius: 16px;
+    padding: 24px;
+    margin-top: 20px;
+  }
+  .summary-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    font-size: 15px;
+  }
+  .summary-row:last-child {
+    margin-bottom: 0;
+    padding-top: 12px;
+    border-top: 2px solid rgba(0,0,0,0.05);
+    font-weight: 700;
+    font-size: 18px;
+  }
+  
+  /* Buttons */
+  .panel-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 30px;
+  }
+  .btn-back {
+    flex: 1;
+    background: #f3f4f6;
+    color: #374151;
+    border: none;
+    padding: 14px;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-back:hover {
+    background: #e5e7eb;
+  }
+  .btn-next {
+    flex: 2;
+    background: linear-gradient(90deg, #0A2342, #0077CC);
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 4px 12px rgba(0,119,204,0.3);
+  }
+  .btn-next:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0,119,204,0.4);
+  }
+  .btn-next:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
   }
 
-  /* cleaners list inside panel */
-  .cleaner-card { display:flex; gap:12px; align-items:center; padding:12px; background:#F8FAFC; border-radius:12px; margin-bottom:10px; border:1px solid #eef2f7; cursor:pointer; transition: all 0.2s; }
-  .cleaner-card:hover { background:#e6f0ff; }
-  .cleaner-selected { outline: 3px solid rgba(10, 132, 255, 0.12); background: #eef6ff; }
-  .avatar { width:44px; height:44px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-weight:700; background:linear-gradient(90deg,#e6f0ff,#cfe6ff); color:#0A2342; font-size:20px; }
-
-  @media (max-width:880px){
-    #bookingPanel { width: 92vw; right: -100vw; }
-  }
-
-  /* Logo sparkle animata */
-  @keyframes sparklePulse {
-    0%, 100% { transform: scale(1); opacity: .9; }
-    50% { transform: scale(1.45); opacity: 1; }
-  }
-
-  /* --- Login modal (glassmorphism) --- */
+  /* Login modal (glassmorphism) */
   .ll-overlay {
     position: fixed;
     inset: 0;
@@ -107,7 +403,7 @@
     .ll-right{ width:100%; padding:20px;}
   }
 
-  /* success toast */
+  /* Toast */
   .ll-toast {
     position: fixed;
     right: 20px;
@@ -122,10 +418,10 @@
     font-weight:700;
   }
 
-  /* role badge */
+  /* Role badge */
   .ll-role-badge { font-size:13px; font-weight:700; color:#0A2342; background:#eef2ff; padding:6px 10px; border-radius:10px; }
 
-  /* sticky header */
+  /* Header */
   header { 
     position: sticky; 
     top:0; 
@@ -149,6 +445,11 @@
   }
   
   .sparkle { color: #0077CC; animation: sparklePulse 1.4s ease-in-out infinite; }
+  
+  @keyframes sparklePulse {
+    0%, 100% { transform: scale(1); opacity: .9; }
+    50% { transform: scale(1.45); opacity: 1; }
+  }
 
   /* Premium badge */
   .premium-badge {
@@ -208,7 +509,6 @@
     transform: translateY(-10px);
   }
 
-  /* Smooth scroll */
   html {
     scroll-behavior: smooth;
   }
@@ -221,13 +521,11 @@
 <header>
   <div class="logo">LustroLindo <span class="sparkle">✦</span></div>
   
-  <!-- Bandierine centrate -->
   <div style="position: absolute; left: 50%; transform: translateX(-50%); display:flex; gap:15px; align-items:center;">
     <span class="lang-toggle" onclick="setLang('it')" id="flag-it">🇮🇹</span>
     <span class="lang-toggle" onclick="setLang('en')" id="flag-en">🇬🇧</span>
   </div>
   
-  <!-- Header: Login dropdown or Logout -->
   <div id="authContainer"></div>
 </header>
 
@@ -248,7 +546,7 @@
   </p>
 
   <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 50px;">
-    <button class="btn-primary" id="heroBookBtn" style="padding: 14px 28px; font-size: 16px;">
+    <button class="btn-primary" id="heroRequestBtn" style="padding: 14px 28px; font-size: 16px;">
       <span id="btn-request">Richiedi accesso</span> →
     </button>
     <button class="btn-primary" id="heroLearnBtn" style="background: white; color: #0A2342; border: 2px solid #0A2342; padding: 14px 28px; font-size: 16px;" onclick="document.getElementById('how-it-works').scrollIntoView({behavior: 'smooth'})">
@@ -281,7 +579,6 @@
   </div>
 
   <div class="grid md:grid-cols-3 gap-12">
-    <!-- Step 1 -->
     <div class="step-card">
       <div class="step-number">
         <span style="color: white; font-size: 36px; font-weight: 800;">1</span>
@@ -290,7 +587,6 @@
       <p class="text-gray-600" id="step1-text">Essentials, Premium o Elite. Tutti includono cleaner verificato, assicurazione e concierge dedicato.</p>
     </div>
 
-    <!-- Step 2 -->
     <div class="step-card">
       <div class="step-number">
         <span style="color: white; font-size: 36px; font-weight: 800;">2</span>
@@ -299,7 +595,6 @@
       <p class="text-gray-600" id="step2-text">Stesso professionista, sempre. Conosce le tue preferenze. Noi gestiamo scheduling, pagamenti e tutto il resto.</p>
     </div>
 
-    <!-- Step 3 -->
     <div class="step-card">
       <div class="step-number">
         <span style="color: white; font-size: 36px; font-weight: 800;">3</span>
@@ -372,7 +667,7 @@
         </li>
       </ul>
 
-      <button class="btn-primary w-full py-3" onclick="document.getElementById('heroBookBtn').click()"><span id="btn-start-1">Inizia ora</span></button>
+      <button class="btn-primary w-full py-3" onclick="startBookingFlow()"><span id="btn-start-1">Inizia ora</span></button>
     </div>
 
     <!-- PREMIUM (MOST POPULAR) -->
@@ -420,7 +715,7 @@
         </li>
       </ul>
 
-      <button class="btn-primary w-full py-3" onclick="document.getElementById('heroBookBtn').click()" style="box-shadow: 0 10px 30px rgba(0,119,204,0.3);"><span id="btn-start-2">Inizia ora</span></button>
+      <button class="btn-primary w-full py-3" onclick="startBookingFlow()" style="box-shadow: 0 10px 30px rgba(0,119,204,0.3);"><span id="btn-start-2">Inizia ora</span></button>
     </div>
 
     <!-- ELITE -->
@@ -464,7 +759,7 @@
         </li>
       </ul>
 
-      <button class="btn-primary w-full py-3" onclick="document.getElementById('heroBookBtn').click()"><span id="btn-start-3">Inizia ora</span></button>
+      <button class="btn-primary w-full py-3" onclick="startBookingFlow()"><span id="btn-start-3">Inizia ora</span></button>
     </div>
 
   </div>
@@ -494,68 +789,36 @@
 
 <footer class="text-center py-12 text-gray-500 text-sm">© 2025 LustroLindo — The future of living.</footer>
 
-<!-- BOOKING PANEL -->
-<div id="bookingPanel" aria-hidden="true">
-  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-    <div>
-      <div style="font-size:12px;color:#6b7280" id="panel-kicker">Prenotazione</div>
-      <h3 class="text-2xl font-bold navy" id="panel-title">Inizia la prenotazione</h3>
+<!-- === NUOVO BOOKING PANEL PREMIUM === -->
+<div id="bookingOverlay">
+  <div id="bookingPanel">
+    <!-- Progress bar -->
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill" style="width: 25%;"></div>
     </div>
-    <button id="closePanelBtn" style="background:none;border:none;font-size:20px;cursor:pointer" onclick="closeBooking()">✕</button>
-  </div>
-
-  <label class="block mb-2 font-semibold" id="lbl-name">Nome</label>
-  <input id="fldName" class="w-full p-3 border rounded-lg mb-4" placeholder="Il tuo nome">
-
-  <label class="block mb-2 font-semibold" id="lbl-email">Email</label>
-  <input id="fldEmail" type="email" class="w-full p-3 border rounded-lg mb-4" placeholder="Email">
-
-  <label class="block mb-2 font-semibold" id="lbl-service">Servizio</label>
-  <select id="fldService" class="w-full p-3 border rounded-lg mb-4">
-    <option value="" id="opt-select">-- Seleziona servizio --</option>
-    <option id="opt-home">Pulizia casa</option>
-    <option id="opt-deep">Pulizia profonda</option>
-    <option id="opt-move">Trasloco</option>
-    <option id="opt-airbnb">Airbnb turnover</option>
-  </select>
-
-  <div style="display:flex;gap:12px">
-    <div style="flex:1">
-      <label class="block mb-2 font-semibold" id="lbl-date">Data</label>
-      <input id="fldDate" type="date" class="w-full p-3 border rounded-lg mb-4">
+    
+    <!-- Close button -->
+    <button class="panel-close" onclick="closeBooking()">✕</button>
+    
+    <!-- Header -->
+    <div class="panel-header">
+      <div style="font-size:14px;color:#6b7280;font-weight:600;margin-bottom:4px;" id="stepIndicator">Step 1 of 4</div>
+      <h2 style="font-size:24px;font-weight:800;color:#0A2342;margin:0;" id="stepTitle">Che tipo di pulizia ti serve?</h2>
     </div>
-    <div style="width:140px">
-      <label class="block mb-2 font-semibold" id="lbl-duration">Durata</label>
-      <select id="fldDuration" class="w-full p-3 border rounded-lg mb-4">
-        <option value="">--</option>
-        <option value="2">2h</option>
-        <option value="4">4h</option>
-        <option value="6">6h</option>
-      </select>
+    
+    <!-- Content -->
+    <div class="panel-content" id="panelContent">
+      <!-- Step 1: Service selection -->
+    </div>
+    
+    <!-- Buttons -->
+    <div style="padding: 0 30px 30px 30px;">
+      <div class="panel-buttons">
+        <button class="btn-back" id="btnBack" style="display:none;" onclick="prevStep()">← Indietro</button>
+        <button class="btn-next" id="btnNext" onclick="nextStep()" disabled>Continua →</button>
+      </div>
     </div>
   </div>
-
-  <label class="block mb-2 font-semibold" id="lbl-timeslot">Fascia oraria</label>
-  <select id="fldTimeslot" class="w-full p-3 border rounded-lg mb-4">
-    <option value="" id="opt-time">-- Seleziona orario --</option>
-    <option>09:00</option>
-    <option>11:00</option>
-    <option>13:00</option>
-    <option>15:00</option>
-    <option>17:00</option>
-  </select>
-
-  <label class="block mb-2 font-semibold" id="lbl-notes">Note (opzionale)</label>
-  <textarea id="fldNotes" class="w-full p-3 border rounded-lg mb-4" placeholder="Aggiungi richieste speciali..."></textarea>
-
-  <!-- Cleaners list -->
-  <div id="cleanersWrapper" style="display:none;margin-top:6px">
-    <h4 class="text-md font-semibold mb-2" id="cleaners-title">Cleaner disponibili</h4>
-    <div id="cleanersList"></div>
-  </div>
-
-  <button class="btn-primary w-full py-3" id="confirmBtn">Conferma</button>
-  <button class="mt-4 w-full py-2 text-gray-600" onclick="closeBooking()" id="btn-close">Chiudi</button>
 </div>
 
 <!-- LOGIN MODAL -->
@@ -649,7 +912,7 @@
 <div id="llToast" class="ll-toast">✅ Login effettuato</div>
 
 <script>
-// ===== TRADUZIONI COMPLETE IT/EN =====
+// ===== TRADUZIONI IT/EN =====
 const translations = {
   it: {
     // Hero
@@ -717,26 +980,39 @@ const translations = {
     btnShifts: 'Accedi ai turni',
     
     // Booking panel
-    panelKicker: 'Prenotazione',
-    panelTitle: 'Inizia la prenotazione',
-    lblName: 'Nome',
-    lblEmail: 'Email',
-    lblService: 'Servizio',
-    lblDate: 'Data',
-    lblDuration: 'Durata',
-    lblTimeslot: 'Fascia oraria',
-    lblNotes: 'Note (opzionale)',
-    optSelect: '-- Seleziona servizio --',
-    optHome: 'Pulizia casa',
-    optDeep: 'Pulizia profonda',
-    optMove: 'Trasloco',
-    optAirbnb: 'Airbnb turnover',
-    optTime: '-- Seleziona orario --',
-    cleanersTitle: 'Cleaner disponibili',
-    btnConfirm: 'Conferma',
-    btnClose: 'Chiudi',
-    placeholderName: 'Il tuo nome',
-    placeholderNotes: 'Aggiungi richieste speciali...',
+    step1Title: 'Che tipo di pulizia ti serve?',
+    step2Title: 'Quando ti serve?',
+    step3Title: 'Scegli il tuo cleaner',
+    step4Title: 'Conferma la prenotazione',
+    stepIndicator: 'Step {current} di 4',
+    btnBack: '← Indietro',
+    btnNext: 'Continua →',
+    btnConfirm: 'Conferma prenotazione',
+    
+    // Services
+    serviceHome: 'Pulizia casa',
+    serviceHomeDesc: 'Standard cleaning',
+    serviceDeep: 'Pulizia profonda',
+    serviceDeepDesc: 'Deep cleaning',
+    serviceMove: 'Trasloco',
+    serviceMoveDesc: 'Move-in/out',
+    serviceAirbnb: 'Airbnb',
+    serviceAirbnbDesc: 'Turnover veloce',
+    
+    // Calendar
+    selectDate: 'Seleziona la data',
+    selectTime: 'Seleziona l\'orario',
+    
+    // Cleaners
+    available: 'Disponibile',
+    topRated: 'Top rated',
+    
+    // Summary
+    summaryService: 'Servizio',
+    summaryDate: 'Data',
+    summaryTime: 'Orario',
+    summaryCleaner: 'Cleaner',
+    summaryTotal: 'Totale',
     
     // Login modal
     modalTitle: 'Bentornato — facciamo brillare tutto ✨',
@@ -756,8 +1032,7 @@ const translations = {
     modalSecurity: 'Sicurezza',
     toastLogin: '✅ Login effettuato',
     toastLogout: '✅ Logout effettuato',
-    alertSelectCleaner: 'Seleziona un cleaner prima di confermare',
-    alertBookingConfirmed: 'Prenotazione confermata con ',
+    toastBooking: '✅ Prenotazione confermata!',
     alertEmailInvalid: 'Inserisci una email valida.',
     alertPasswordShort: 'Password troppo corta.',
     alertGoogleLogin: 'Google login (simulato)',
@@ -830,26 +1105,39 @@ const translations = {
     btnShifts: 'Access shifts',
     
     // Booking panel
-    panelKicker: 'Booking',
-    panelTitle: 'Book a Cleaning',
-    lblName: 'Name',
-    lblEmail: 'Email',
-    lblService: 'Service',
-    lblDate: 'Date',
-    lblDuration: 'Duration',
-    lblTimeslot: 'Time slot',
-    lblNotes: 'Notes (optional)',
-    optSelect: '-- Select service --',
-    optHome: 'Home cleaning',
-    optDeep: 'Deep cleaning',
-    optMove: 'Move-In / Move-Out',
-    optAirbnb: 'Airbnb turnover',
-    optTime: '-- Select time --',
-    cleanersTitle: 'Available cleaners',
-    btnConfirm: 'Confirm',
-    btnClose: 'Close',
-    placeholderName: 'Your name',
-    placeholderNotes: 'Add any special requests...',
+    step1Title: 'What type of cleaning do you need?',
+    step2Title: 'When do you need it?',
+    step3Title: 'Choose your cleaner',
+    step4Title: 'Confirm your booking',
+    stepIndicator: 'Step {current} of 4',
+    btnBack: '← Back',
+    btnNext: 'Continue →',
+    btnConfirm: 'Confirm booking',
+    
+    // Services
+    serviceHome: 'Home cleaning',
+    serviceHomeDesc: 'Standard cleaning',
+    serviceDeep: 'Deep cleaning',
+    serviceDeepDesc: 'Thorough cleaning',
+    serviceMove: 'Move-in/out',
+    serviceMoveDesc: 'Moving cleaning',
+    serviceAirbnb: 'Airbnb',
+    serviceAirbnbDesc: 'Quick turnover',
+    
+    // Calendar
+    selectDate: 'Select date',
+    selectTime: 'Select time',
+    
+    // Cleaners
+    available: 'Available',
+    topRated: 'Top rated',
+    
+    // Summary
+    summaryService: 'Service',
+    summaryDate: 'Date',
+    summaryTime: 'Time',
+    summaryCleaner: 'Cleaner',
+    summaryTotal: 'Total',
     
     // Login modal
     modalTitle: 'Welcome back — let\'s get you sparkling ✨',
@@ -869,8 +1157,7 @@ const translations = {
     modalSecurity: 'Security',
     toastLogin: '✅ Login successful',
     toastLogout: '✅ Logged out',
-    alertSelectCleaner: 'Please select a cleaner first',
-    alertBookingConfirmed: 'Booking confirmed with ',
+    toastBooking: '✅ Booking confirmed!',
     alertEmailInvalid: 'Enter a valid email.',
     alertPasswordShort: 'Password too short.',
     alertGoogleLogin: 'Google login (simulated)',
@@ -953,28 +1240,6 @@ function setLang(lang) {
   document.getElementById('cta-cleaner-sub').innerText = t.ctaCleanerSub;
   document.getElementById('btn-shifts').innerText = t.btnShifts;
   
-  // Booking panel
-  document.getElementById('panel-kicker').innerText = t.panelKicker;
-  document.getElementById('panel-title').innerText = t.panelTitle;
-  document.getElementById('lbl-name').innerText = t.lblName;
-  document.getElementById('lbl-email').innerText = t.lblEmail;
-  document.getElementById('lbl-service').innerText = t.lblService;
-  document.getElementById('lbl-date').innerText = t.lblDate;
-  document.getElementById('lbl-duration').innerText = t.lblDuration;
-  document.getElementById('lbl-timeslot').innerText = t.lblTimeslot;
-  document.getElementById('lbl-notes').innerText = t.lblNotes;
-  document.getElementById('opt-select').innerText = t.optSelect;
-  document.getElementById('opt-home').innerText = t.optHome;
-  document.getElementById('opt-deep').innerText = t.optDeep;
-  document.getElementById('opt-move').innerText = t.optMove;
-  document.getElementById('opt-airbnb').innerText = t.optAirbnb;
-  document.getElementById('opt-time').innerText = t.optTime;
-  document.getElementById('cleaners-title').innerText = t.cleanersTitle;
-  document.getElementById('confirmBtn').innerText = t.btnConfirm;
-  document.getElementById('btn-close').innerText = t.btnClose;
-  document.getElementById('fldName').placeholder = t.placeholderName;
-  document.getElementById('fldNotes').placeholder = t.placeholderNotes;
-  
   // Login modal
   document.getElementById('modal-title').innerText = t.modalTitle;
   document.getElementById('modal-subtitle').innerText = t.modalSubtitle;
@@ -993,88 +1258,238 @@ function setLang(lang) {
   document.getElementById('modal-security').innerText = t.modalSecurity;
 }
 
-// Booking panel
-function openBooking(){
-  prefillBookingFromUser();
-  document.getElementById('bookingPanel').classList.add('open');
-  document.getElementById('bookingPanel').setAttribute('aria-hidden','false');
-  document.body.style.overflow = 'hidden';
+// ===== BOOKING PANEL LOGIC =====
+let currentStep = 1;
+const bookingData = {
+  service: null,
+  date: null,
+  time: null,
+  cleaner: null
+};
+
+const services = [
+  { id: 'home', icon: '🏠', name: 'serviceHome', desc: 'serviceHomeDesc', price: 50 },
+  { id: 'deep', icon: '✨', name: 'serviceDeep', desc: 'serviceDeepDesc', price: 80 },
+  { id: 'move', icon: '📦', name: 'serviceMove', desc: 'serviceMoveDesc', price: 120 },
+  { id: 'airbnb', icon: '🏨', name: 'serviceAirbnb', desc: 'serviceAirbnbDesc', price: 60 }
+];
+
+const cleaners = [
+  { id: 1, name: 'Giulia R.', emoji: '🧼', rating: 4.9, badge: 'topRated' },
+  { id: 2, name: 'Marco V.', emoji: '✨', rating: 4.7, badge: null },
+  { id: 3, name: 'Sara L.', emoji: '🧽', rating: 4.8, badge: 'topRated' }
+];
+
+function startBookingFlow() {
+  const user = getUserFromStorage();
+  if(!user || user.role !== 'customer') {
+    pendingAction = 'openBookingAfterLogin';
+    openLogin('customer');
+    return;
+  }
+  openBooking();
 }
-function closeBooking(){
-  document.getElementById('bookingPanel').classList.remove('open');
-  document.getElementById('bookingPanel').setAttribute('aria-hidden','true');
+
+function openBooking() {
+  currentStep = 1;
+  bookingData.service = null;
+  bookingData.date = null;
+  bookingData.time = null;
+  bookingData.cleaner = null;
+  
+  document.getElementById('bookingOverlay').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+  renderStep();
+}
+
+function closeBooking() {
+  document.getElementById('bookingOverlay').style.display = 'none';
   document.body.style.overflow = '';
 }
 
-// Sample cleaners
-const sampleCleaners = [
-  { name:'Giulia R.', rating:4.9, price:18, status:'Available', emoji:'🧼' },
-  { name:'Marco V.', rating:4.7, price:20, status:'On job', emoji:'✨' },
-  { name:'Sara L.', rating:4.8, price:17, status:'Available', emoji:'🧽' }
-];
-let selectedCleanerIndex = null;
-
-function checkAndRenderCleaners(){
-  const name = document.getElementById('fldName').value.trim();
-  const email = document.getElementById('fldEmail').value.trim();
-  const service = document.getElementById('fldService').value;
-  const date = document.getElementById('fldDate').value;
-  const duration = document.getElementById('fldDuration').value;
-  const timeslot = document.getElementById('fldTimeslot').value;
-  const allFilled = name && email && service && date && duration && timeslot;
-  const wrapper = document.getElementById('cleanersWrapper');
-  const list = document.getElementById('cleanersList');
-  if(allFilled){
-    wrapper.style.display = 'block';
-    list.innerHTML = '';
-    sampleCleaners.forEach((c, idx) => {
-      const div = document.createElement('div');
-      div.className = 'cleaner-card';
-      div.dataset.idx = idx;
-      div.innerHTML = `<div class="avatar">${c.emoji}</div>
-      <div style="flex:1">
-        <div style="display:flex;justify-content:space-between;align-items:center;font-weight:700;color:#0A2342;">
-          <div>${c.name}</div>
-          <div style="font-size:13px;color:#6b7280">⭐ ${c.rating}</div>
-        </div>
-        <div style="display:flex;gap:10px;margin-top:6px;font-size:13px;color:#374151;">
-          <div style="font-weight:700;color:${c.status==='Available'?'green':'#c59b00'}">${c.status}</div>
-          <div>€${c.price}/h</div>
-        </div>
-      </div>`;
-      div.onclick = ()=>{ 
-        selectedCleanerIndex = idx; 
-        document.querySelectorAll('.cleaner-card').forEach(d=>d.classList.remove('cleaner-selected')); 
-        div.classList.add('cleaner-selected'); 
+function renderStep() {
+  const t = translations[currentLang];
+  const content = document.getElementById('panelContent');
+  const stepTitle = document.getElementById('stepTitle');
+  const stepIndicator = document.getElementById('stepIndicator');
+  const btnBack = document.getElementById('btnBack');
+  const btnNext = document.getElementById('btnNext');
+  const progressFill = document.getElementById('progressFill');
+  
+  stepIndicator.innerText = t.stepIndicator.replace('{current}', currentStep);
+  progressFill.style.width = (currentStep * 25) + '%';
+  
+  btnBack.style.display = currentStep > 1 ? 'block' : 'none';
+  btnNext.innerText = currentStep === 4 ? t.btnConfirm : t.btnNext;
+  
+  if(currentStep === 1) {
+    stepTitle.innerText = t.step1Title;
+    content.innerHTML = '<div class="service-grid"></div>';
+    const grid = content.querySelector('.service-grid');
+    
+    services.forEach(service => {
+      const card = document.createElement('div');
+      card.className = 'service-card';
+      if(bookingData.service === service.id) card.classList.add('selected');
+      card.innerHTML = `
+        <div class="service-icon">${service.icon}</div>
+        <div class="service-name">${t[service.name]}</div>
+        <div class="service-desc">${t[service.desc]}</div>
+        <div style="margin-top:8px;font-weight:700;color:#0A2342;">€${service.price}</div>
+      `;
+      card.onclick = () => {
+        bookingData.service = service.id;
+        renderStep();
+        btnNext.disabled = false;
       };
-      list.appendChild(div);
+      grid.appendChild(card);
     });
-  } else {
-    wrapper.style.display = 'none';
-    selectedCleanerIndex = null;
+    
+    btnNext.disabled = !bookingData.service;
+  }
+  else if(currentStep === 2) {
+    stepTitle.innerText = t.step2Title;
+    content.innerHTML = `
+      <div class="calendar-container">
+        <div style="margin-bottom:20px;">
+          <h3 style="font-size:16px;font-weight:700;color:#0A2342;margin-bottom:12px;">${t.selectDate}</h3>
+          <div class="calendar-header">
+            <div class="calendar-month">November 2025</div>
+            <div class="calendar-nav">
+              <button>←</button>
+              <button>→</button>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-bottom:12px;">
+            ${['L','M','M','G','V','S','D'].map(d => `<div class="calendar-weekday">${d}</div>`).join('')}
+          </div>
+          <div class="calendar-grid" id="calendarGrid"></div>
+        </div>
+        
+        <div>
+          <h3 style="font-size:16px;font-weight:700;color:#0A2342;margin-bottom:12px;">${t.selectTime}</h3>
+          <div class="time-slots" id="timeSlots"></div>
+        </div>
+      </div>
+    `;
+    
+    // Render calendar
+    const calendarGrid = document.getElementById('calendarGrid');
+    for(let i = 1; i <= 30; i++) {
+      const day = document.createElement('div');
+      day.className = 'calendar-day';
+      if(i < 13) day.classList.add('disabled');
+      if(bookingData.date === i) day.classList.add('selected');
+      day.innerText = i;
+      if(i >= 13) {
+        day.onclick = () => {
+          bookingData.date = i;
+          renderStep();
+        };
+      }
+      calendarGrid.appendChild(day);
+    }
+    
+    // Render time slots
+    const timeSlots = document.getElementById('timeSlots');
+    ['09:00', '11:00', '13:00', '15:00', '17:00', '19:00'].forEach(time => {
+      const slot = document.createElement('div');
+      slot.className = 'time-slot';
+      if(bookingData.time === time) slot.classList.add('selected');
+      slot.innerText = time;
+      slot.onclick = () => {
+        bookingData.time = time;
+        renderStep();
+        btnNext.disabled = false;
+      };
+      timeSlots.appendChild(slot);
+    });
+    
+    btnNext.disabled = !bookingData.date || !bookingData.time;
+  }
+  else if(currentStep === 3) {
+    stepTitle.innerText = t.step3Title;
+    content.innerHTML = '<div class="cleaner-grid"></div>';
+    const grid = content.querySelector('.cleaner-grid');
+    
+    cleaners.forEach(cleaner => {
+      const card = document.createElement('div');
+      card.className = 'cleaner-card';
+      if(bookingData.cleaner === cleaner.id) card.classList.add('selected');
+      card.innerHTML = `
+        <div class="cleaner-avatar">${cleaner.emoji}</div>
+        <div class="cleaner-info">
+          <div class="cleaner-name">${cleaner.name}</div>
+          <div class="cleaner-meta">
+            <span>⭐ ${cleaner.rating}</span>
+            <span>•</span>
+            <span>${t.available}</span>
+          </div>
+          ${cleaner.badge ? `<span class="cleaner-badge">${t[cleaner.badge]}</span>` : ''}
+        </div>
+      `;
+      card.onclick = () => {
+        bookingData.cleaner = cleaner.id;
+        renderStep();
+        btnNext.disabled = false;
+      };
+      grid.appendChild(card);
+    });
+    
+    btnNext.disabled = !bookingData.cleaner;
+  }
+  else if(currentStep === 4) {
+    stepTitle.innerText = t.step4Title;
+    const service = services.find(s => s.id === bookingData.service);
+    const cleaner = cleaners.find(c => c.id === bookingData.cleaner);
+    
+    content.innerHTML = `
+      <div class="summary-box">
+        <div class="summary-row">
+          <span style="color:#6b7280;">${t.summaryService}</span>
+          <strong>${t[service.name]}</strong>
+        </div>
+        <div class="summary-row">
+          <span style="color:#6b7280;">${t.summaryDate}</span>
+          <strong>${bookingData.date} Nov 2025</strong>
+        </div>
+        <div class="summary-row">
+          <span style="color:#6b7280;">${t.summaryTime}</span>
+          <strong>${bookingData.time}</strong>
+        </div>
+        <div class="summary-row">
+          <span style="color:#6b7280;">${t.summaryCleaner}</span>
+          <strong>${cleaner.name} ${cleaner.emoji}</strong>
+        </div>
+        <div class="summary-row">
+          <span>${t.summaryTotal}</span>
+          <strong style="color:#0A2342;font-size:24px;">€${service.price}</strong>
+        </div>
+      </div>
+    `;
+    
+    btnNext.disabled = false;
   }
 }
 
-['fldName','fldEmail','fldService','fldDate','fldDuration','fldTimeslot'].forEach(id=>{
-  const el = document.getElementById(id);
-  if(el){
-    el.addEventListener('input', checkAndRenderCleaners);
-    el.addEventListener('change', checkAndRenderCleaners);
-  }
-});
-
-document.getElementById('confirmBtn').addEventListener('click',()=>{
-  const t = translations[currentLang];
-  if(selectedCleanerIndex===null){
-    alert(t.alertSelectCleaner);
+function nextStep() {
+  if(currentStep === 4) {
+    showToast(translations[currentLang].toastBooking, 'success');
+    closeBooking();
     return;
   }
-  const c = sampleCleaners[selectedCleanerIndex];
-  alert(t.alertBookingConfirmed + c.name + '!');
-  closeBooking();
-});
+  currentStep++;
+  renderStep();
+}
 
-// AUTH
+function prevStep() {
+  if(currentStep > 1) {
+    currentStep--;
+    renderStep();
+  }
+}
+
+// ===== AUTH =====
 const AUTH_KEY = 'lustro_user';
 
 function deriveNameFromEmail(email){
@@ -1092,7 +1507,6 @@ function getUserFromStorage(){
   } catch(e){ return null; }
 }
 function clearUserStorage(){ localStorage.removeItem(AUTH_KEY); }
-function isLogged(){ return !!getUserFromStorage(); }
 
 function renderAuthButton(){
   const container = document.getElementById('authContainer');
@@ -1126,6 +1540,8 @@ function renderAuthButton(){
 }
 
 let pendingLoginRole = null;
+let pendingAction = null;
+
 function openLogin(role){
   pendingLoginRole = role || 'customer';
   const badge = document.getElementById('llRoleBadge');
@@ -1159,8 +1575,13 @@ function showToast(msg){
   const toast = document.getElementById('llToast');
   toast.innerText = msg;
   toast.style.display = 'block';
-  setTimeout(()=> { toast.style.opacity = '1'; },20);
-  setTimeout(()=> { toast.style.display = 'none'; toast.style.opacity = ''; }, 2200);
+  setTimeout(()=> {
+    toast.style.opacity = '1';
+  },20);
+  setTimeout(()=> {
+    toast.style.display = 'none';
+    toast.style.opacity = '';
+  }, 2200);
 }
 
 (function(){
@@ -1237,26 +1658,17 @@ function showToast(msg){
 
 renderAuthButton();
 
-let pendingAction = null;
+// "Richiedi accesso" → solo login
+document.getElementById('heroRequestBtn').addEventListener('click', ()=>{
+  openLogin('customer');
+});
 
-document.getElementById('heroBookBtn').addEventListener('click', ()=>{
-  const user = getUserFromStorage();
-  if(user && user.role === 'customer'){
-    openBooking();
-  } else {
-    pendingAction = 'openBookingAfterLogin';
-    openLogin('customer');
-  }
-});
+// "Start booking" → login + booking
 document.getElementById('startBookingBtn').addEventListener('click', ()=>{
-  const user = getUserFromStorage();
-  if(user && user.role === 'customer'){
-    openBooking();
-  } else {
-    pendingAction = 'openBookingAfterLogin';
-    openLogin('customer');
-  }
+  startBookingFlow();
 });
+
+// "Access shifts" → login cleaner
 document.getElementById('accessShiftsBtn').addEventListener('click', ()=>{
   const user = getUserFromStorage();
   if(user && user.role === 'cleaner'){
@@ -1267,30 +1679,18 @@ document.getElementById('accessShiftsBtn').addEventListener('click', ()=>{
   }
 });
 
-function prefillBookingFromUser(){
-  const user = getUserFromStorage();
-  if(user){
-    if(user.name) document.getElementById('fldName').value = user.name;
-    if(user.email) document.getElementById('fldEmail').value = user.email;
-    checkAndRenderCleaners();
-  }
-}
-
 window.addEventListener('load', ()=>{
-  setLang('it'); // default italiano
+  setLang('it');
   renderAuthButton();
-  if(isLogged()){ prefillBookingFromUser(); }
 });
 
 window.addEventListener('focus', ()=>{
   renderAuthButton();
-  if(isLogged()){ prefillBookingFromUser(); }
 });
 
 document.addEventListener('visibilitychange', ()=>{
   if(!document.hidden){
     renderAuthButton();
-    if(isLogged()){ prefillBookingFromUser(); }
   }
 });
 </script>
