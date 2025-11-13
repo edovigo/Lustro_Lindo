@@ -24,7 +24,7 @@
   .dropdown:hover .dropdown-content {display:block;}
   .dropdown-content button:hover {background:#f2f2f2;}
 
-  /* === NUOVO BOOKING PANEL PREMIUM === */
+  /* Booking overlay */
   #bookingOverlay {
     position: fixed;
     inset: 0;
@@ -50,7 +50,6 @@
   @keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
   @keyframes slideUp { from{opacity:0; transform:translateY(30px);} to{opacity:1; transform:translateY(0);} }
   
-  /* Progress bar */
   .progress-bar {
     height: 6px;
     background: #e5e7eb;
@@ -63,7 +62,6 @@
     transition: width 0.4s ease;
   }
   
-  /* Panel header */
   .panel-header {
     padding: 30px 30px 20px 30px;
     border-bottom: 1px solid #f3f4f6;
@@ -90,12 +88,10 @@
     color: #0A2342;
   }
   
-  /* Panel content */
   .panel-content {
     padding: 30px;
   }
   
-  /* Service cards */
   .service-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -136,7 +132,6 @@
     color: #6b7280;
   }
   
-  /* Calendar */
   .calendar-container {
     margin-top: 20px;
   }
@@ -205,7 +200,6 @@
     margin-bottom: 8px;
   }
   
-  /* Time slots */
   .time-slots {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
@@ -233,7 +227,6 @@
     border-color: #0077CC;
   }
   
-  /* Cleaner cards */
   .cleaner-grid {
     display: grid;
     gap: 16px;
@@ -296,7 +289,6 @@
     font-weight: 700;
   }
   
-  /* Summary */
   .summary-box {
     background: linear-gradient(135deg, rgba(10,35,66,0.03), rgba(0,119,204,0.03));
     border-radius: 16px;
@@ -317,7 +309,6 @@
     font-size: 18px;
   }
   
-  /* Buttons */
   .panel-buttons {
     display: flex;
     gap: 12px;
@@ -360,7 +351,7 @@
     transform: none;
   }
 
-  /* Login modal (glassmorphism) */
+  /* Login modal */
   .ll-overlay {
     position: fixed;
     inset: 0;
@@ -403,7 +394,6 @@
     .ll-right{ width:100%; padding:20px;}
   }
 
-  /* Toast */
   .ll-toast {
     position: fixed;
     right: 20px;
@@ -418,10 +408,8 @@
     font-weight:700;
   }
 
-  /* Role badge */
   .ll-role-badge { font-size:13px; font-weight:700; color:#0A2342; background:#eef2ff; padding:6px 10px; border-radius:10px; }
 
-  /* Header */
   header { 
     position: sticky; 
     top:0; 
@@ -451,7 +439,6 @@
     50% { transform: scale(1.45); opacity: 1; }
   }
 
-  /* Premium badge */
   .premium-badge {
     display:inline-block; 
     background: linear-gradient(90deg, #0A2342, #0077CC); 
@@ -460,7 +447,6 @@
     margin-bottom: 20px;
   }
 
-  /* Trust badges */
   .trust-badge {
     display: flex; 
     align-items: center; 
@@ -472,7 +458,6 @@
     opacity: 1;
   }
 
-  /* Step cards */
   .step-card {
     text-align: center;
     transition: transform 0.3s;
@@ -496,7 +481,6 @@
     transform: rotate(5deg) scale(1.1);
   }
 
-  /* Pricing cards */
   .pricing-card {
     transition: all 0.3s;
   }
@@ -517,7 +501,6 @@
 
 <body>
 
-<!-- NAV -->
 <header>
   <div class="logo">LustroLindo <span class="sparkle">✦</span></div>
   
@@ -554,7 +537,6 @@
     </button>
   </div>
 
-  <!-- Trust badges -->
   <div style="display: flex; gap: 40px; justify-content: center; align-items: center; flex-wrap: wrap; font-size: 14px; color: #6b7280;">
     <div class="trust-badge">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
@@ -639,7 +621,7 @@
       
       <div style="margin-bottom: 32px;">
         <div style="display: flex; align-items: baseline; gap: 8px;">
-          <span class="text-5xl font-extrabold navy">€149</span>
+          <span class="text-5xl font-extrabold navy">€169</span>
           <span class="text-gray-600" id="per-month-1">/mese</span>
         </div>
       </div>
@@ -647,30 +629,30 @@
       <ul style="list-style: none; padding: 0; margin-bottom: 32px; display: flex; flex-direction: column; gap: 14px;">
         <li style="display: flex; align-items: start; gap: 10px;">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0077CC" stroke-width="3" style="flex-shrink: 0; margin-top: 2px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
-          <span id="plan1-feat1"><strong>2 cleaning al mese</strong> (4h ciascuno)</span>
+          <span id="plan1-feat1"><strong>4 cleaning al mese</strong> (3h ciascuno)</span>
         </li>
         <li style="display: flex; align-items: start; gap: 10px;">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0077CC" stroke-width="3" style="flex-shrink: 0; margin-top: 2px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
-          <span id="plan1-feat2">Cleaner fisso verificato</span>
+          <span id="plan1-feat2">1 cleaning a settimana</span>
         </li>
         <li style="display: flex; align-items: start; gap: 10px;">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0077CC" stroke-width="3" style="flex-shrink: 0; margin-top: 2px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
-          <span id="plan1-feat3">Assicurazione inclusa</span>
+          <span id="plan1-feat3">Cleaner fisso verificato</span>
         </li>
         <li style="display: flex; align-items: start; gap: 10px;">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0077CC" stroke-width="3" style="flex-shrink: 0; margin-top: 2px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
-          <span id="plan1-feat4">Concierge via WhatsApp</span>
+          <span id="plan1-feat4">Assicurazione inclusa</span>
         </li>
         <li style="display: flex; align-items: start; gap: 10px;">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0077CC" stroke-width="3" style="flex-shrink: 0; margin-top: 2px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
-          <span id="plan1-feat5">Cancella quando vuoi</span>
+          <span id="plan1-feat5">Concierge via WhatsApp</span>
         </li>
       </ul>
 
       <button class="btn-primary w-full py-3" onclick="startBookingFlow()"><span id="btn-start-1">Inizia ora</span></button>
     </div>
 
-    <!-- PREMIUM (MOST POPULAR) -->
+    <!-- PREMIUM -->
     <div class="card pricing-card featured p-8" style="position: relative;">
       <div style="position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: linear-gradient(90deg, #0A2342, #0077CC); color: white; padding: 6px 20px; border-radius: 50px; font-weight: 700; font-size: 12px; letter-spacing: 1px;">
         <span id="most-popular">PIÙ SCELTO</span>
@@ -691,27 +673,27 @@
       <ul style="list-style: none; padding: 0; margin-bottom: 32px; display: flex; flex-direction: column; gap: 14px;">
         <li style="display: flex; align-items: start; gap: 10px;">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0077CC" stroke-width="3" style="flex-shrink: 0; margin-top: 2px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
-          <span id="plan2-feat1"><strong>4 cleaning al mese</strong> (4h ciascuno)</span>
+          <span id="plan2-feat1"><strong>6 cleaning al mese</strong> (3h ciascuno)</span>
         </li>
         <li style="display: flex; align-items: start; gap: 10px;">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0077CC" stroke-width="3" style="flex-shrink: 0; margin-top: 2px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
-          <span id="plan2-feat2">Tutto di Essentials +</span>
+          <span id="plan2-feat2">1-2 cleaning a settimana</span>
         </li>
         <li style="display: flex; align-items: start; gap: 10px;">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0077CC" stroke-width="3" style="flex-shrink: 0; margin-top: 2px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
-          <span id="plan2-feat3"><strong>Priority booking</strong></span>
+          <span id="plan2-feat3">Tutto di Essentials +</span>
         </li>
         <li style="display: flex; align-items: start; gap: 10px;">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0077CC" stroke-width="3" style="flex-shrink: 0; margin-top: 2px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
-          <span id="plan2-feat4">1 deep cleaning incluso</span>
+          <span id="plan2-feat4"><strong>Priority booking</strong></span>
         </li>
         <li style="display: flex; align-items: start; gap: 10px;">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0077CC" stroke-width="3" style="flex-shrink: 0; margin-top: 2px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
-          <span id="plan2-feat5">Prodotti eco inclusi</span>
+          <span id="plan2-feat5">1 deep cleaning incluso</span>
         </li>
         <li style="display: flex; align-items: start; gap: 10px;">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0077CC" stroke-width="3" style="flex-shrink: 0; margin-top: 2px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
-          <span id="plan2-feat6">Sostituzione in 24h</span>
+          <span id="plan2-feat6">Prodotti eco inclusi</span>
         </li>
       </ul>
 
@@ -735,27 +717,27 @@
       <ul style="list-style: none; padding: 0; margin-bottom: 32px; display: flex; flex-direction: column; gap: 14px;">
         <li style="display: flex; align-items: start; gap: 10px;">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0077CC" stroke-width="3" style="flex-shrink: 0; margin-top: 2px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
-          <span id="plan3-feat1"><strong>Unlimited cleaning</strong></span>
+          <span id="plan3-feat1"><strong>8 cleaning al mese</strong> (4h ciascuno)</span>
         </li>
         <li style="display: flex; align-items: start; gap: 10px;">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0077CC" stroke-width="3" style="flex-shrink: 0; margin-top: 2px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
-          <span id="plan3-feat2">Tutto di Premium +</span>
+          <span id="plan3-feat2">2 cleaning a settimana</span>
         </li>
         <li style="display: flex; align-items: start; gap: 10px;">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0077CC" stroke-width="3" style="flex-shrink: 0; margin-top: 2px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
-          <span id="plan3-feat3"><strong>Concierge 24/7</strong></span>
+          <span id="plan3-feat3">Tutto di Premium +</span>
         </li>
         <li style="display: flex; align-items: start; gap: 10px;">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0077CC" stroke-width="3" style="flex-shrink: 0; margin-top: 2px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
-          <span id="plan3-feat4">Stiratura inclusa</span>
+          <span id="plan3-feat4"><strong>Concierge 24/7</strong></span>
         </li>
         <li style="display: flex; align-items: start; gap: 10px;">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0077CC" stroke-width="3" style="flex-shrink: 0; margin-top: 2px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
-          <span id="plan3-feat5">Gestione chiavi</span>
+          <span id="plan3-feat5">Stiratura illimitata</span>
         </li>
         <li style="display: flex; align-items: start; gap: 10px;">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0077CC" stroke-width="3" style="flex-shrink: 0; margin-top: 2px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
-          <span id="plan3-feat6">Servizi extra su richiesta</span>
+          <span id="plan3-feat6">Gestione chiavi + grocery</span>
         </li>
       </ul>
 
@@ -764,7 +746,6 @@
 
   </div>
 
-  <!-- Garanzia -->
   <div class="text-center mt-16">
     <div class="card p-8" style="max-width: 700px; margin: 0 auto; background: linear-gradient(135deg, rgba(10,35,66,0.03), rgba(0,119,204,0.03));">
       <h3 class="text-xl font-bold navy mb-3" id="guarantee-title">💎 Garanzia 30 giorni</h3>
@@ -773,7 +754,7 @@
   </div>
 </section>
 
-<!-- TWO MODE CTA -->
+<!-- CTA -->
 <section class="px-6 mb-20 grid md:grid-cols-2 gap-10" style="max-width: 1200px; margin: 0 auto 96px;">
   <div class="card p-10 text-center">
     <h2 class="text-2xl font-bold navy mb-2" id="cta-client">Per clienti</h2>
@@ -789,29 +770,22 @@
 
 <footer class="text-center py-12 text-gray-500 text-sm">© 2025 LustroLindo — The future of living.</footer>
 
-<!-- === NUOVO BOOKING PANEL PREMIUM === -->
+<!-- BOOKING PANEL -->
 <div id="bookingOverlay">
   <div id="bookingPanel">
-    <!-- Progress bar -->
     <div class="progress-bar">
       <div class="progress-fill" id="progressFill" style="width: 25%;"></div>
     </div>
     
-    <!-- Close button -->
     <button class="panel-close" onclick="closeBooking()">✕</button>
     
-    <!-- Header -->
     <div class="panel-header">
       <div style="font-size:14px;color:#6b7280;font-weight:600;margin-bottom:4px;" id="stepIndicator">Step 1 of 4</div>
       <h2 style="font-size:24px;font-weight:800;color:#0A2342;margin:0;" id="stepTitle">Che tipo di pulizia ti serve?</h2>
     </div>
     
-    <!-- Content -->
-    <div class="panel-content" id="panelContent">
-      <!-- Step 1: Service selection -->
-    </div>
+    <div class="panel-content" id="panelContent"></div>
     
-    <!-- Buttons -->
     <div style="padding: 0 30px 30px 30px;">
       <div class="panel-buttons">
         <button class="btn-back" id="btnBack" style="display:none;" onclick="prevStep()">← Indietro</button>
@@ -822,7 +796,7 @@
 </div>
 
 <!-- LOGIN MODAL -->
-<div id="llOverlay" class="ll-overlay" role="dialog" aria-modal="true">
+<div id="llOverlay" class="ll-overlay">
   <div id="llCard" class="ll-card">
     <div class="ll-left">
       <div style="display:flex;align-items:center;gap:12px;">
@@ -834,34 +808,27 @@
       </div>
 
       <h3 style="font-size:20px;font-weight:800;color:#0A2342;margin:0" id="modal-title">Bentornato — facciamo brillare tutto ✨</h3>
-      <p style="color:#475569;font-size:14px;margin:0" id="modal-subtitle">Accesso sicuro alla tua dashboard. Login mock — nessun backend richiesto.</p>
+      <p style="color:#475569;font-size:14px;margin:0" id="modal-subtitle">Accesso sicuro alla tua dashboard.</p>
 
-      <div style="margin-top:12px;width:100%"><div class="divider" id="modal-secure">Sicuro • Veloce • Scalabile</div></div>
-
-      <div style="margin-top:18px; display:flex; gap:10px; width:100%;">
-        <div style="flex:1; display:flex; gap:8px; align-items:center;">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 12a4 4 0 100-8 4 4 0 000 8zM3 20v-1c0-2.5 4-5 9-5s9 2.5 9 5v1H3z" fill="#0A2342"/></svg>
-          <div style="font-size:14px;color:#334155;"><strong id="modal-team">Team</strong> <span id="modal-ready">accounts pronti</span></div>
-        </div>
-      </div>
+      <div style="margin-top:12px;width:100%"><div class="divider">Sicuro • Veloce • Scalabile</div></div>
     </div>
 
     <div class="ll-right">
       <div style="display:flex; justify-content:space-between; align-items:center;">
         <div>
-          <div style="font-size:14px;color:#94a3b8;font-weight:700;" id="modal-signin">Accedi a</div>
+          <div style="font-size:14px;color:#94a3b8;font-weight:700;">Accedi a</div>
           <div style="display:flex;gap:8px;align-items:center">
             <div style="font-size:18px;font-weight:800;color:#0A2342;">Dashboard</div>
             <div id="llRoleBadge" class="ll-role-badge" style="display:none;">ROLE</div>
           </div>
         </div>
-        <button id="llCloseBtn" class="close-ll" aria-label="Close">✕</button>
+        <button id="llCloseBtn" class="close-ll">✕</button>
       </div>
 
       <div style="display:grid; gap:10px; margin-top:8px;">
         <button class="social-btn" id="llGoogle">
           <svg width="18" height="18" viewBox="0 0 533.5 544.3"><path fill="#4285F4" d="M533.5 278.4c0-17.6-1.6-34.6-4.6-51.1H272v96.8h146.9c-6.3 34-25.4 62.9-54.2 82.3v68.4h87.6c51.3-47.2 80.2-116.8 80.2-196.4z"/></svg>
-          <span id="modal-google">Continua con Google</span>
+          <span>Continua con Google</span>
         </button>
 
         <div style="display:flex; gap:10px;">
@@ -874,7 +841,7 @@
       </div>
 
       <div style="height:6px"></div>
-      <div class="divider" id="modal-or">oppure accedi con email</div>
+      <div class="divider">oppure accedi con email</div>
 
       <form id="llForm" novalidate style="margin-top:10px;">
         <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:6px;">
@@ -888,23 +855,8 @@
           <input id="llPassword" class="input-ll" type="password" autocomplete="current-password" placeholder="La tua password" required>
         </div>
 
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-          <label style="display:flex;align-items:center;gap:8px;color:#6b7280;font-size:13px;"><input id="llRemember" type="checkbox"> <span id="modal-remember">Ricordami</span></label>
-          <button type="button" id="llForgot" style="background:none;border:none;color:#0077CC;cursor:pointer;font-size:13px;" id="modal-forgot">Dimenticato?</button>
-        </div>
-
-        <button type="button" id="llSubmit" class="btn-ll" style="width:100%; margin-top:6px;"><span id="modal-submit">Accedi</span></button>
+        <button type="button" id="llSubmit" class="btn-ll" style="width:100%; margin-top:12px;">Accedi</button>
       </form>
-
-      <div style="display:flex; align-items:center; gap:8px; margin-top:10px;">
-        <div style="font-size:13px;color:#94a3b8;" id="modal-new">Nuovo qui?</div>
-        <button type="button" id="llSignup" style="background:none;border:none;color:#0077CC;cursor:pointer;font-size:13px;font-weight:600;" id="modal-create">Crea un account</button>
-      </div>
-
-      <div style="margin-top:14px;font-size:13px;color:#94a3b8;">
-        <span id="modal-2fa">Autenticazione a due fattori supportata</span> • <button type="button" id="llSecurity" style="background:none;border:none;color:#0077CC;cursor:pointer;font-size:13px;" id="modal-security">Sicurezza</button>
-      </div>
-
     </div>
   </div>
 </div>
@@ -912,22 +864,16 @@
 <div id="llToast" class="ll-toast">✅ Login effettuato</div>
 
 <script>
-// ===== TRADUZIONI IT/EN =====
 const translations = {
   it: {
-    // Hero
     badgeText: 'SOLO PER CHI NON HA TEMPO DA PERDERE',
     heroTitle: 'Il tuo maggiordomo digitale.<br><span style="background: linear-gradient(90deg, #0A2342, #0077CC); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Pulizie premium</span>, zero pensieri.',
     heroSubtitle: 'Dimentica cleaner inaffidabili, pagamenti in nero e weekend passati a pulire. <strong>Ci pensiamo noi. Tu vivi.</strong>',
     btnRequest: 'Richiedi accesso',
     btnHow: 'Come funziona',
-    
-    // Trust badges
     trustVerified: 'Cleaner verificati',
     trustPayments: 'Pagamenti sicuri',
     trustInsurance: 'Assicurazione inclusa',
-    
-    // How it works
     howTitle: 'Come funziona',
     howSubtitle: '3 step. Zero stress. Massima qualità.',
     step1Title: 'Scegli il tuo piano',
@@ -936,13 +882,9 @@ const translations = {
     step2Text: 'Stesso professionista, sempre. Conosce le tue preferenze. Noi gestiamo scheduling, pagamenti e tutto il resto.',
     step3Title: 'Tu non pensi a niente',
     step3Text: 'Casa sempre impeccabile. Zero preoccupazioni. Se c\'è un problema, lo risolviamo noi in <1h.',
-    
-    // KPI
     kpi1: 'Clienti soddisfatti',
     kpi2: 'Tempo di risposta',
     kpi3: 'Cleaner verificati',
-    
-    // Pricing
     pricingTitle: 'Piani su misura',
     pricingSubtitle: 'Scegli il piano perfetto per te. Cambia o cancella quando vuoi.',
     plan1Desc: 'Per chi vuole iniziare',
@@ -950,109 +892,45 @@ const translations = {
     plan3Desc: 'White-glove service',
     perMonth: '/mese',
     mostPopular: 'PIÙ SCELTO',
-    plan1Feat1: '<strong>2 cleaning al mese</strong> (4h ciascuno)',
-    plan1Feat2: 'Cleaner fisso verificato',
-    plan1Feat3: 'Assicurazione inclusa',
-    plan1Feat4: 'Concierge via WhatsApp',
-    plan1Feat5: 'Cancella quando vuoi',
-    plan2Feat1: '<strong>4 cleaning al mese</strong> (4h ciascuno)',
-    plan2Feat2: 'Tutto di Essentials +',
-    plan2Feat3: '<strong>Priority booking</strong>',
-    plan2Feat4: '1 deep cleaning incluso',
-    plan2Feat5: 'Prodotti eco inclusi',
-    plan2Feat6: 'Sostituzione in 24h',
-    plan3Feat1: '<strong>Unlimited cleaning</strong>',
-    plan3Feat2: 'Tutto di Premium +',
-    plan3Feat3: '<strong>Concierge 24/7</strong>',
-    plan3Feat4: 'Stiratura inclusa',
-    plan3Feat5: 'Gestione chiavi',
-    plan3Feat6: 'Servizi extra su richiesta',
+    plan1Feat1: '<strong>4 cleaning al mese</strong> (3h ciascuno)',
+    plan1Feat2: '1 cleaning a settimana',
+    plan1Feat3: 'Cleaner fisso verificato',
+    plan1Feat4: 'Assicurazione inclusa',
+    plan1Feat5: 'Concierge via WhatsApp',
+    plan2Feat1: '<strong>6 cleaning al mese</strong> (3h ciascuno)',
+    plan2Feat2: '1-2 cleaning a settimana',
+    plan2Feat3: 'Tutto di Essentials +',
+    plan2Feat4: '<strong>Priority booking</strong>',
+    plan2Feat5: '1 deep cleaning incluso',
+    plan2Feat6: 'Prodotti eco inclusi',
+    plan3Feat1: '<strong>8 cleaning al mese</strong> (4h ciascuno)',
+    plan3Feat2: '2 cleaning a settimana',
+    plan3Feat3: 'Tutto di Premium +',
+    plan3Feat4: '<strong>Concierge 24/7</strong>',
+    plan3Feat5: 'Stiratura illimitata',
+    plan3Feat6: 'Gestione chiavi + grocery',
     btnStart: 'Inizia ora',
     guaranteeTitle: '💎 Garanzia 30 giorni',
     guaranteeText: 'Non sei soddisfatto? Rimborso completo, senza domande. Punto.',
-    
-    // CTA
     ctaClient: 'Per clienti',
     ctaClientSub: 'Prenota, gestisci e rilassati.',
     btnBooking: 'Inizia prenotazione',
     ctaCleaner: 'Per cleaner',
     ctaCleanerSub: 'Turni ultra-ottimizzati con AI.',
     btnShifts: 'Accedi ai turni',
-    
-    // Booking panel
-    step1Title: 'Che tipo di pulizia ti serve?',
-    step2Title: 'Quando ti serve?',
-    step3Title: 'Scegli il tuo cleaner',
-    step4Title: 'Conferma la prenotazione',
-    stepIndicator: 'Step {current} di 4',
-    btnBack: '← Indietro',
-    btnNext: 'Continua →',
-    btnConfirm: 'Conferma prenotazione',
-    
-    // Services
-    serviceHome: 'Pulizia casa',
-    serviceHomeDesc: 'Standard cleaning',
-    serviceDeep: 'Pulizia profonda',
-    serviceDeepDesc: 'Deep cleaning',
-    serviceMove: 'Trasloco',
-    serviceMoveDesc: 'Move-in/out',
-    serviceAirbnb: 'Airbnb',
-    serviceAirbnbDesc: 'Turnover veloce',
-    
-    // Calendar
-    selectDate: 'Seleziona la data',
-    selectTime: 'Seleziona l\'orario',
-    
-    // Cleaners
-    available: 'Disponibile',
-    topRated: 'Top rated',
-    
-    // Summary
-    summaryService: 'Servizio',
-    summaryDate: 'Data',
-    summaryTime: 'Orario',
-    summaryCleaner: 'Cleaner',
-    summaryTotal: 'Totale',
-    
-    // Login modal
-    modalTitle: 'Bentornato — facciamo brillare tutto ✨',
-    modalSubtitle: 'Accesso sicuro alla tua dashboard. Login mock — nessun backend richiesto.',
-    modalSecure: 'Sicuro • Veloce • Scalabile',
-    modalTeam: 'Team',
-    modalReady: 'accounts pronti',
-    modalSignin: 'Accedi a',
-    modalGoogle: 'Continua con Google',
-    modalOr: 'oppure accedi con email',
-    modalRemember: 'Ricordami',
-    modalForgot: 'Dimenticato?',
-    modalSubmit: 'Accedi',
-    modalNew: 'Nuovo qui?',
-    modalCreate: 'Crea un account',
-    modal2fa: 'Autenticazione a due fattori supportata',
-    modalSecurity: 'Sicurezza',
     toastLogin: '✅ Login effettuato',
     toastLogout: '✅ Logout effettuato',
-    toastBooking: '✅ Prenotazione confermata!',
-    alertEmailInvalid: 'Inserisci una email valida.',
-    alertPasswordShort: 'Password troppo corta.',
-    alertGoogleLogin: 'Google login (simulato)',
-    alertAppleLogin: 'Apple login (simulato)',
-    signingIn: 'Accesso in corso…'
+    toastBooking: '✅ Prenotazione confermata!'
   },
   en: {
-    // Hero
     badgeText: 'ONLY FOR THOSE WHO HAVE NO TIME TO WASTE',
     heroTitle: 'Your digital butler.<br><span style="background: linear-gradient(90deg, #0A2342, #0077CC); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Premium cleaning</span>, zero worries.',
     heroSubtitle: 'Forget unreliable cleaners, cash payments and weekends spent cleaning. <strong>We take care of it. You live.</strong>',
     btnRequest: 'Request access',
     btnHow: 'How it works',
-    
-    // Trust badges
     trustVerified: 'Verified cleaners',
     trustPayments: 'Secure payments',
     trustInsurance: 'Insurance included',
-    
-    // How it works
     howTitle: 'How it works',
     howSubtitle: '3 steps. Zero stress. Maximum quality.',
     step1Title: 'Choose your plan',
@@ -1061,13 +939,9 @@ const translations = {
     step2Text: 'Same professional, always. Knows your preferences. We manage scheduling, payments and everything else.',
     step3Title: 'You don\'t think about anything',
     step3Text: 'Always impeccable home. Zero worries. If there\'s a problem, we solve it in <1h.',
-    
-    // KPI
     kpi1: 'Satisfied clients',
     kpi2: 'Response time',
     kpi3: 'Verified cleaners',
-    
-    // Pricing
     pricingTitle: 'Tailored plans',
     pricingSubtitle: 'Choose the perfect plan for you. Change or cancel anytime.',
     plan1Desc: 'For those who want to start',
@@ -1075,94 +949,35 @@ const translations = {
     plan3Desc: 'White-glove service',
     perMonth: '/month',
     mostPopular: 'MOST POPULAR',
-    plan1Feat1: '<strong>2 cleanings per month</strong> (4h each)',
-    plan1Feat2: 'Fixed verified cleaner',
-    plan1Feat3: 'Insurance included',
-    plan1Feat4: 'Concierge via WhatsApp',
-    plan1Feat5: 'Cancel anytime',
-    plan2Feat1: '<strong>4 cleanings per month</strong> (4h each)',
-    plan2Feat2: 'Everything from Essentials +',
-    plan2Feat3: '<strong>Priority booking</strong>',
-    plan2Feat4: '1 deep cleaning included',
-    plan2Feat5: 'Eco products included',
-    plan2Feat6: 'Replacement in 24h',
-    plan3Feat1: '<strong>Unlimited cleaning</strong>',
-    plan3Feat2: 'Everything from Premium +',
-    plan3Feat3: '<strong>Concierge 24/7</strong>',
-    plan3Feat4: 'Ironing included',
-    plan3Feat5: 'Key management',
-    plan3Feat6: 'Extra services on request',
+    plan1Feat1: '<strong>4 cleanings per month</strong> (3h each)',
+    plan1Feat2: '1 cleaning per week',
+    plan1Feat3: 'Fixed verified cleaner',
+    plan1Feat4: 'Insurance included',
+    plan1Feat5: 'Concierge via WhatsApp',
+    plan2Feat1: '<strong>6 cleanings per month</strong> (3h each)',
+    plan2Feat2: '1-2 cleanings per week',
+    plan2Feat3: 'Everything from Essentials +',
+    plan2Feat4: '<strong>Priority booking</strong>',
+    plan2Feat5: '1 deep cleaning included',
+    plan2Feat6: 'Eco products included',
+    plan3Feat1: '<strong>8 cleanings per month</strong> (4h each)',
+    plan3Feat2: '2 cleanings per week',
+    plan3Feat3: 'Everything from Premium +',
+    plan3Feat4: '<strong>Concierge 24/7</strong>',
+    plan3Feat5: 'Unlimited ironing',
+    plan3Feat6: 'Key management + grocery',
     btnStart: 'Start now',
     guaranteeTitle: '💎 30-day guarantee',
     guaranteeText: 'Not satisfied? Full refund, no questions asked. Period.',
-    
-    // CTA
     ctaClient: 'For clients',
     ctaClientSub: 'Book, manage and relax.',
     btnBooking: 'Start booking',
     ctaCleaner: 'For cleaners',
     ctaCleanerSub: 'Ultra-optimized shifts with AI.',
     btnShifts: 'Access shifts',
-    
-    // Booking panel
-    step1Title: 'What type of cleaning do you need?',
-    step2Title: 'When do you need it?',
-    step3Title: 'Choose your cleaner',
-    step4Title: 'Confirm your booking',
-    stepIndicator: 'Step {current} of 4',
-    btnBack: '← Back',
-    btnNext: 'Continue →',
-    btnConfirm: 'Confirm booking',
-    
-    // Services
-    serviceHome: 'Home cleaning',
-    serviceHomeDesc: 'Standard cleaning',
-    serviceDeep: 'Deep cleaning',
-    serviceDeepDesc: 'Thorough cleaning',
-    serviceMove: 'Move-in/out',
-    serviceMoveDesc: 'Moving cleaning',
-    serviceAirbnb: 'Airbnb',
-    serviceAirbnbDesc: 'Quick turnover',
-    
-    // Calendar
-    selectDate: 'Select date',
-    selectTime: 'Select time',
-    
-    // Cleaners
-    available: 'Available',
-    topRated: 'Top rated',
-    
-    // Summary
-    summaryService: 'Service',
-    summaryDate: 'Date',
-    summaryTime: 'Time',
-    summaryCleaner: 'Cleaner',
-    summaryTotal: 'Total',
-    
-    // Login modal
-    modalTitle: 'Welcome back — let\'s get you sparkling ✨',
-    modalSubtitle: 'Secure access to your dashboard. Mock login — no backend required.',
-    modalSecure: 'Secure • Fast • Scalable',
-    modalTeam: 'Team',
-    modalReady: 'accounts ready',
-    modalSignin: 'Sign in to',
-    modalGoogle: 'Continue with Google',
-    modalOr: 'or sign in with email',
-    modalRemember: 'Remember me',
-    modalForgot: 'Forgot?',
-    modalSubmit: 'Sign in',
-    modalNew: 'New here?',
-    modalCreate: 'Create an account',
-    modal2fa: 'Two-factor authentication supported',
-    modalSecurity: 'Security',
     toastLogin: '✅ Login successful',
     toastLogout: '✅ Logged out',
-    toastBooking: '✅ Booking confirmed!',
-    alertEmailInvalid: 'Enter a valid email.',
-    alertPasswordShort: 'Password too short.',
-    alertGoogleLogin: 'Google login (simulated)',
-    alertAppleLogin: 'Apple login (simulated)',
-    signingIn: 'Signing in…'
+    toastBooking: '✅ Booking confirmed!'
   }
 };
 
@@ -1172,19 +987,14 @@ function setLang(lang) {
   currentLang = lang;
   const t = translations[lang];
   
-  // Hero
   document.getElementById('badge-text').innerText = t.badgeText;
   document.getElementById('hero-title').innerHTML = t.heroTitle;
   document.getElementById('hero-subtitle').innerHTML = t.heroSubtitle;
   document.getElementById('btn-request').innerText = t.btnRequest;
   document.getElementById('btn-how').innerText = t.btnHow;
-  
-  // Trust badges
   document.getElementById('trust-verified').innerText = t.trustVerified;
   document.getElementById('trust-payments').innerText = t.trustPayments;
   document.getElementById('trust-insurance').innerText = t.trustInsurance;
-  
-  // How it works
   document.getElementById('how-title').innerText = t.howTitle;
   document.getElementById('how-subtitle').innerText = t.howSubtitle;
   document.getElementById('step1-title').innerText = t.step1Title;
@@ -1193,13 +1003,9 @@ function setLang(lang) {
   document.getElementById('step2-text').innerText = t.step2Text;
   document.getElementById('step3-title').innerText = t.step3Title;
   document.getElementById('step3-text').innerHTML = t.step3Text;
-  
-  // KPI
   document.getElementById('kpi1').innerText = t.kpi1;
   document.getElementById('kpi2').innerText = t.kpi2;
   document.getElementById('kpi3').innerText = t.kpi3;
-  
-  // Pricing
   document.getElementById('pricing-title').innerText = t.pricingTitle;
   document.getElementById('pricing-subtitle').innerText = t.pricingSubtitle;
   document.getElementById('plan1-desc').innerText = t.plan1Desc;
@@ -1216,14 +1022,14 @@ function setLang(lang) {
   document.getElementById('plan1-feat5').innerText = t.plan1Feat5;
   document.getElementById('plan2-feat1').innerHTML = t.plan2Feat1;
   document.getElementById('plan2-feat2').innerText = t.plan2Feat2;
-  document.getElementById('plan2-feat3').innerHTML = t.plan2Feat3;
-  document.getElementById('plan2-feat4').innerText = t.plan2Feat4;
+  document.getElementById('plan2-feat3').innerText = t.plan2Feat3;
+  document.getElementById('plan2-feat4').innerHTML = t.plan2Feat4;
   document.getElementById('plan2-feat5').innerText = t.plan2Feat5;
   document.getElementById('plan2-feat6').innerText = t.plan2Feat6;
   document.getElementById('plan3-feat1').innerHTML = t.plan3Feat1;
   document.getElementById('plan3-feat2').innerText = t.plan3Feat2;
-  document.getElementById('plan3-feat3').innerHTML = t.plan3Feat3;
-  document.getElementById('plan3-feat4').innerText = t.plan3Feat4;
+  document.getElementById('plan3-feat3').innerText = t.plan3Feat3;
+  document.getElementById('plan3-feat4').innerHTML = t.plan3Feat4;
   document.getElementById('plan3-feat5').innerText = t.plan3Feat5;
   document.getElementById('plan3-feat6').innerText = t.plan3Feat6;
   document.getElementById('btn-start-1').innerText = t.btnStart;
@@ -1231,53 +1037,29 @@ function setLang(lang) {
   document.getElementById('btn-start-3').innerText = t.btnStart;
   document.getElementById('guarantee-title').innerText = t.guaranteeTitle;
   document.getElementById('guarantee-text').innerText = t.guaranteeText;
-  
-  // CTA
   document.getElementById('cta-client').innerText = t.ctaClient;
   document.getElementById('cta-client-sub').innerText = t.ctaClientSub;
   document.getElementById('btn-booking').innerText = t.btnBooking;
   document.getElementById('cta-cleaner').innerText = t.ctaCleaner;
   document.getElementById('cta-cleaner-sub').innerText = t.ctaCleanerSub;
   document.getElementById('btn-shifts').innerText = t.btnShifts;
-  
-  // Login modal
-  document.getElementById('modal-title').innerText = t.modalTitle;
-  document.getElementById('modal-subtitle').innerText = t.modalSubtitle;
-  document.getElementById('modal-secure').innerText = t.modalSecure;
-  document.getElementById('modal-team').innerText = t.modalTeam;
-  document.getElementById('modal-ready').innerText = t.modalReady;
-  document.getElementById('modal-signin').innerText = t.modalSignin;
-  document.getElementById('modal-google').innerText = t.modalGoogle;
-  document.getElementById('modal-or').innerText = t.modalOr;
-  document.getElementById('modal-remember').innerText = t.modalRemember;
-  document.getElementById('modal-forgot').innerText = t.modalForgot;
-  document.getElementById('modal-submit').innerText = t.modalSubmit;
-  document.getElementById('modal-new').innerText = t.modalNew;
-  document.getElementById('modal-create').innerText = t.modalCreate;
-  document.getElementById('modal-2fa').innerText = t.modal2fa;
-  document.getElementById('modal-security').innerText = t.modalSecurity;
 }
 
-// ===== BOOKING PANEL LOGIC =====
+// Booking logic
 let currentStep = 1;
-const bookingData = {
-  service: null,
-  date: null,
-  time: null,
-  cleaner: null
-};
+const bookingData = { service: null, date: null, time: null, cleaner: null };
 
 const services = [
-  { id: 'home', icon: '🏠', name: 'serviceHome', desc: 'serviceHomeDesc', price: 50 },
-  { id: 'deep', icon: '✨', name: 'serviceDeep', desc: 'serviceDeepDesc', price: 80 },
-  { id: 'move', icon: '📦', name: 'serviceMove', desc: 'serviceMoveDesc', price: 120 },
-  { id: 'airbnb', icon: '🏨', name: 'serviceAirbnb', desc: 'serviceAirbnbDesc', price: 60 }
+  { id: 'home', icon: '🏠', name: 'Pulizia casa', price: 50 },
+  { id: 'deep', icon: '✨', name: 'Pulizia profonda', price: 80 },
+  { id: 'move', icon: '📦', name: 'Trasloco', price: 120 },
+  { id: 'airbnb', icon: '🏨', name: 'Airbnb', price: 60 }
 ];
 
 const cleaners = [
-  { id: 1, name: 'Giulia R.', emoji: '🧼', rating: 4.9, badge: 'topRated' },
-  { id: 2, name: 'Marco V.', emoji: '✨', rating: 4.7, badge: null },
-  { id: 3, name: 'Sara L.', emoji: '🧽', rating: 4.8, badge: 'topRated' }
+  { id: 1, name: 'Giulia R.', emoji: '🧼', rating: 4.9 },
+  { id: 2, name: 'Marco V.', emoji: '✨', rating: 4.7 },
+  { id: 3, name: 'Sara L.', emoji: '🧽', rating: 4.8 }
 ];
 
 function startBookingFlow() {
@@ -1308,7 +1090,6 @@ function closeBooking() {
 }
 
 function renderStep() {
-  const t = translations[currentLang];
   const content = document.getElementById('panelContent');
   const stepTitle = document.getElementById('stepTitle');
   const stepIndicator = document.getElementById('stepIndicator');
@@ -1316,14 +1097,14 @@ function renderStep() {
   const btnNext = document.getElementById('btnNext');
   const progressFill = document.getElementById('progressFill');
   
-  stepIndicator.innerText = t.stepIndicator.replace('{current}', currentStep);
+  stepIndicator.innerText = `Step ${currentStep} of 4`;
   progressFill.style.width = (currentStep * 25) + '%';
   
   btnBack.style.display = currentStep > 1 ? 'block' : 'none';
-  btnNext.innerText = currentStep === 4 ? t.btnConfirm : t.btnNext;
+  btnNext.innerText = currentStep === 4 ? 'Conferma prenotazione' : 'Continua →';
   
   if(currentStep === 1) {
-    stepTitle.innerText = t.step1Title;
+    stepTitle.innerText = 'Che tipo di pulizia ti serve?';
     content.innerHTML = '<div class="service-grid"></div>';
     const grid = content.querySelector('.service-grid');
     
@@ -1333,8 +1114,7 @@ function renderStep() {
       if(bookingData.service === service.id) card.classList.add('selected');
       card.innerHTML = `
         <div class="service-icon">${service.icon}</div>
-        <div class="service-name">${t[service.name]}</div>
-        <div class="service-desc">${t[service.desc]}</div>
+        <div class="service-name">${service.name}</div>
         <div style="margin-top:8px;font-weight:700;color:#0A2342;">€${service.price}</div>
       `;
       card.onclick = () => {
@@ -1348,11 +1128,11 @@ function renderStep() {
     btnNext.disabled = !bookingData.service;
   }
   else if(currentStep === 2) {
-    stepTitle.innerText = t.step2Title;
+    stepTitle.innerText = 'Quando ti serve?';
     content.innerHTML = `
       <div class="calendar-container">
         <div style="margin-bottom:20px;">
-          <h3 style="font-size:16px;font-weight:700;color:#0A2342;margin-bottom:12px;">${t.selectDate}</h3>
+          <h3 style="font-size:16px;font-weight:700;color:#0A2342;margin-bottom:12px;">Seleziona la data</h3>
           <div class="calendar-header">
             <div class="calendar-month">November 2025</div>
             <div class="calendar-nav">
@@ -1367,13 +1147,12 @@ function renderStep() {
         </div>
         
         <div>
-          <h3 style="font-size:16px;font-weight:700;color:#0A2342;margin-bottom:12px;">${t.selectTime}</h3>
+          <h3 style="font-size:16px;font-weight:700;color:#0A2342;margin-bottom:12px;">Seleziona l'orario</h3>
           <div class="time-slots" id="timeSlots"></div>
         </div>
       </div>
     `;
     
-    // Render calendar
     const calendarGrid = document.getElementById('calendarGrid');
     for(let i = 1; i <= 30; i++) {
       const day = document.createElement('div');
@@ -1390,7 +1169,6 @@ function renderStep() {
       calendarGrid.appendChild(day);
     }
     
-    // Render time slots
     const timeSlots = document.getElementById('timeSlots');
     ['09:00', '11:00', '13:00', '15:00', '17:00', '19:00'].forEach(time => {
       const slot = document.createElement('div');
@@ -1408,7 +1186,7 @@ function renderStep() {
     btnNext.disabled = !bookingData.date || !bookingData.time;
   }
   else if(currentStep === 3) {
-    stepTitle.innerText = t.step3Title;
+    stepTitle.innerText = 'Scegli il tuo cleaner';
     content.innerHTML = '<div class="cleaner-grid"></div>';
     const grid = content.querySelector('.cleaner-grid');
     
@@ -1423,9 +1201,8 @@ function renderStep() {
           <div class="cleaner-meta">
             <span>⭐ ${cleaner.rating}</span>
             <span>•</span>
-            <span>${t.available}</span>
+            <span>Disponibile</span>
           </div>
-          ${cleaner.badge ? `<span class="cleaner-badge">${t[cleaner.badge]}</span>` : ''}
         </div>
       `;
       card.onclick = () => {
@@ -1439,30 +1216,30 @@ function renderStep() {
     btnNext.disabled = !bookingData.cleaner;
   }
   else if(currentStep === 4) {
-    stepTitle.innerText = t.step4Title;
+    stepTitle.innerText = 'Conferma la prenotazione';
     const service = services.find(s => s.id === bookingData.service);
     const cleaner = cleaners.find(c => c.id === bookingData.cleaner);
     
     content.innerHTML = `
       <div class="summary-box">
         <div class="summary-row">
-          <span style="color:#6b7280;">${t.summaryService}</span>
-          <strong>${t[service.name]}</strong>
+          <span style="color:#6b7280;">Servizio</span>
+          <strong>${service.name}</strong>
         </div>
         <div class="summary-row">
-          <span style="color:#6b7280;">${t.summaryDate}</span>
+          <span style="color:#6b7280;">Data</span>
           <strong>${bookingData.date} Nov 2025</strong>
         </div>
         <div class="summary-row">
-          <span style="color:#6b7280;">${t.summaryTime}</span>
+          <span style="color:#6b7280;">Orario</span>
           <strong>${bookingData.time}</strong>
         </div>
         <div class="summary-row">
-          <span style="color:#6b7280;">${t.summaryCleaner}</span>
+          <span style="color:#6b7280;">Cleaner</span>
           <strong>${cleaner.name} ${cleaner.emoji}</strong>
         </div>
         <div class="summary-row">
-          <span>${t.summaryTotal}</span>
+          <span>Totale</span>
           <strong style="color:#0A2342;font-size:24px;">€${service.price}</strong>
         </div>
       </div>
@@ -1474,7 +1251,7 @@ function renderStep() {
 
 function nextStep() {
   if(currentStep === 4) {
-    showToast(translations[currentLang].toastBooking, 'success');
+    showToast(translations[currentLang].toastBooking);
     closeBooking();
     return;
   }
@@ -1489,7 +1266,7 @@ function prevStep() {
   }
 }
 
-// ===== AUTH =====
+// Auth
 const AUTH_KEY = 'lustro_user';
 
 function deriveNameFromEmail(email){
@@ -1515,7 +1292,6 @@ function renderAuthButton(){
   if(user){
     const btn = document.createElement('button');
     btn.className = 'btn-primary';
-    btn.id = 'logoutBtn';
     btn.innerText = 'Logout';
     btn.onclick = ()=> {
       clearUserStorage();
@@ -1527,7 +1303,7 @@ function renderAuthButton(){
     const wrap = document.createElement('div');
     wrap.className = 'dropdown';
     wrap.innerHTML = `
-      <button class="btn-primary" id="loginBtnHeader">Login</button>
+      <button class="btn-primary">Login</button>
       <div class="dropdown-content">
         <button id="loginAsCustomerBtn">Login Customer</button>
         <button id="loginAsCleanerBtn">Login Cleaner</button>
@@ -1558,7 +1334,6 @@ function openLLModal(){
   overlay.style.display = 'flex';
   setTimeout(()=> card.classList.add('show'), 20);
   document.body.style.overflow = 'hidden';
-  setTimeout(()=> document.getElementById('llEmail').focus(), 220);
 }
 
 function closeLLModal(){
@@ -1576,11 +1351,7 @@ function showToast(msg){
   toast.innerText = msg;
   toast.style.display = 'block';
   setTimeout(()=> {
-    toast.style.opacity = '1';
-  },20);
-  setTimeout(()=> {
     toast.style.display = 'none';
-    toast.style.opacity = '';
   }, 2200);
 }
 
@@ -1590,91 +1361,48 @@ function showToast(msg){
   const submitBtn = document.getElementById('llSubmit');
   const demoBtn = document.getElementById('llDemo');
   const googleBtn = document.getElementById('llGoogle');
-  const appleBtn = document.getElementById('llApple');
   const emailInput = document.getElementById('llEmail');
   const pwdInput = document.getElementById('llPassword');
-  const emailErr = document.getElementById('llEmailErr');
 
   closeBtn.addEventListener('click', closeLLModal);
   overlay.addEventListener('click', (e) => { if(e.target === overlay) closeLLModal(); });
 
-  function validate(){
-    const t = translations[currentLang];
-    const e = emailInput.value.trim();
-    const p = pwdInput.value;
-    if(!e || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)){
-      emailErr.style.display = 'block';
-      emailErr.innerText = t.alertEmailInvalid;
-      return false;
-    }
-    emailErr.style.display = 'none';
-    if(!p || p.length < 4){
-      alert(t.alertPasswordShort);
-      return false;
-    }
-    return true;
-  }
-
   submitBtn.addEventListener('click', ()=>{
-    if(!validate()) return;
-    const t = translations[currentLang];
-    const orig = submitBtn.innerText;
-    submitBtn.disabled = true;
-    submitBtn.innerText = t.signingIn;
-    setTimeout(()=> {
-      submitBtn.disabled = false;
-      submitBtn.innerText = orig;
+    const email = emailInput.value.trim();
+    const name = deriveNameFromEmail(email);
+    const role = pendingLoginRole || 'customer';
+    const user = { name, email, role };
 
-      const email = emailInput.value.trim();
-      const name = deriveNameFromEmail(email);
-      const role = pendingLoginRole || 'customer';
-      const user = { name, email, role };
+    saveUserToStorage(user);
+    renderAuthButton();
+    closeLLModal();
+    showToast(translations[currentLang].toastLogin);
 
-      saveUserToStorage(user);
-      renderAuthButton();
-      closeLLModal();
-      showToast(t.toastLogin);
-
-      if(role === 'customer' && pendingAction === 'openBookingAfterLogin') {
-        openBooking();
-      } else if(role === 'cleaner' && pendingAction === 'accessShiftsAfterLogin') {
-        window.location.href = 'dashboard-cleaner.html';
-      }
-      pendingAction = null;
-    }, 900);
+    if(role === 'customer' && pendingAction === 'openBookingAfterLogin') {
+      openBooking();
+    } else if(role === 'cleaner') {
+      window.location.href = 'dashboard-cleaner.html';
+    }
+    pendingAction = null;
   });
 
   demoBtn.addEventListener('click', ()=> {
     emailInput.value = 'demo@lustrolindo.test';
     pwdInput.value = 'demo1234';
-    document.getElementById('llRemember').checked = true;
     submitBtn.click();
   });
-  googleBtn.addEventListener('click', ()=> alert(translations[currentLang].alertGoogleLogin));
-  appleBtn.addEventListener('click', ()=> alert(translations[currentLang].alertAppleLogin));
-
-  document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape' && overlay.style.display === 'flex'){ closeLLModal(); } });
+  googleBtn.addEventListener('click', ()=> alert('Google login (simulato)'));
 })();
 
 renderAuthButton();
 
-// "Richiedi accesso" → solo login
-document.getElementById('heroRequestBtn').addEventListener('click', ()=>{
-  openLogin('customer');
-});
-
-// "Start booking" → login + booking
-document.getElementById('startBookingBtn').addEventListener('click', ()=>{
-  startBookingFlow();
-});
-
-// "Access shifts" → login cleaner
+document.getElementById('heroRequestBtn').addEventListener('click', ()=> openLogin('customer'));
+document.getElementById('startBookingBtn').addEventListener('click', ()=> startBookingFlow());
 document.getElementById('accessShiftsBtn').addEventListener('click', ()=>{
   const user = getUserFromStorage();
   if(user && user.role === 'cleaner'){
     window.location.href = 'dashboard-cleaner.html';
   } else {
-    pendingAction = 'accessShiftsAfterLogin';
     openLogin('cleaner');
   }
 });
@@ -1682,16 +1410,6 @@ document.getElementById('accessShiftsBtn').addEventListener('click', ()=>{
 window.addEventListener('load', ()=>{
   setLang('it');
   renderAuthButton();
-});
-
-window.addEventListener('focus', ()=>{
-  renderAuthButton();
-});
-
-document.addEventListener('visibilitychange', ()=>{
-  if(!document.hidden){
-    renderAuthButton();
-  }
 });
 </script>
 
