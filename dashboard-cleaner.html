@@ -15,8 +15,7 @@ body {
 }
 
 header {
-  background: rgba(255,255,255,0.98);
-  backdrop-filter: blur(10px);
+  background: #ffffff;
   padding: 15px 40px;
   display: flex;
   justify-content: space-between;
@@ -69,367 +68,135 @@ header {
 
 main { max-width: 1100px; margin: 40px auto; padding: 0 20px; }
 h1 { font-size: 28px; margin-bottom: 10px; font-weight: 800; }
-.section { 
-  background: #ffffff; 
-  border-radius: 22px; 
-  box-shadow: 0 10px 25px rgba(0,0,0,0.08); 
-  padding: 25px; 
-  margin-top: 25px;
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-.section:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 15px 35px rgba(0,0,0,0.12);
-}
+.section { background: #ffffff; border-radius: 22px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); padding: 25px; margin-top: 25px; }
 .section h2 { font-size: 20px; margin-bottom: 15px; color: #0A2342; font-weight: 800; }
 
-/* Upgrade banner */
-.upgrade-banner {
-  background: linear-gradient(90deg, #0A2342, #0077CC);
-  color: white;
-  padding: 16px 24px;
-  border-radius: 12px;
-  margin-bottom: 20px;
+/* Prossimi lavori */
+.job-list { display: grid; gap: 15px; }
+.job-item { 
+  background: linear-gradient(135deg, rgba(247,251,255,0.8), rgba(255,255,255,1));
+  border: 2px solid #e5e7eb;
+  padding: 18px;
+  border-radius: 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 10px 30px rgba(0,119,204,0.3);
-  animation: slideDown 0.5s ease;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-@keyframes slideDown {
-  from { opacity: 0; transform: translateY(-20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.upgrade-banner-text {
-  flex: 1;
-  min-width: 250px;
-}
-.upgrade-banner-title {
-  font-weight: 700;
-  font-size: 16px;
-  margin-bottom: 4px;
-}
-.upgrade-banner-subtitle {
-  font-size: 14px;
-  opacity: 0.9;
-}
-.upgrade-banner-btn {
-  background: white;
-  color: #0A2342;
-  padding: 10px 20px;
-  border-radius: 8px;
-  font-weight: 700;
-  border: none;
-  cursor: pointer;
-  transition: all 0.2s;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-}
-.upgrade-banner-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.2);
-}
-
-/* Job list */
-.job-list { display: grid; gap: 15px; }
-.job-item { 
-  background: linear-gradient(135deg, rgba(247,251,255,0.6), rgba(255,255,255,1));
-  border: 1px solid #eef2f7; 
-  padding: 15px; 
-  border-radius: 12px; 
-  display: flex; 
-  justify-content: space-between; 
-  align-items: center;
   transition: all 0.3s;
-  position: relative;
-  overflow: hidden;
 }
 .job-item:hover {
-  transform: translateX(5px);
-  box-shadow: 0 5px 15px rgba(0,119,204,0.15);
   border-color: #0077CC;
+  box-shadow: 0 10px 25px rgba(0,119,204,0.15);
 }
-.job-item::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 4px;
-  background: linear-gradient(180deg, #0A2342, #0077CC);
-  opacity: 0;
-  transition: opacity 0.3s;
+.job-info { display: flex; flex-direction: column; gap: 6px; flex: 1; }
+.job-title { font-weight: 700; font-size: 16px; color: #0A2342; }
+.job-meta { font-size: 14px; color: #6b7280; display: flex; gap: 12px; align-items: center; }
+.job-earnings { 
+  font-weight: 800;
+  font-size: 20px;
+  color: #0A2342;
+  margin-right: 16px;
 }
-.job-item:hover::before {
-  opacity: 1;
-}
-.job-info { display: flex; flex-direction: column; gap: 4px; }
-.job-title { font-weight: 600; display: flex; align-items: center; gap: 8px; }
 .job-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 8px;
   font-size: 11px;
   font-weight: 700;
-  padding: 3px 8px;
-  border-radius: 6px;
-  text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 .badge-new { background: #dbeafe; color: #1e40af; }
 .badge-urgent { background: #fee2e2; color: #991b1b; }
 .badge-premium { background: #fef3c7; color: #92400e; }
-.job-meta { font-size: 14px; color: #4b5563; }
-.job-btn { 
-  padding: 10px 18px; 
-  border-radius: 12px; 
-  font-weight:600; 
-  font-size:14px; 
-  cursor:pointer; 
-  border:none; 
-  transition:all 0.3s;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
+
+.job-btn { padding: 10px 18px; border-radius: 12px; font-weight:600; font-size:14px; cursor:pointer; border:none; transition:all 0.3s; }
 .view-btn { background:#0A2342; color:white; }
-.view-btn:hover { 
-  opacity: .85;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-}
+.view-btn:hover { opacity: .85; }
 
-/* Empty state */
-.empty-state {
-  text-align: center;
-  padding: 40px 20px;
-  color: #6b7280;
-}
-.empty-state-icon {
-  font-size: 48px;
-  margin-bottom: 16px;
-  animation: float 3s ease-in-out infinite;
-}
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-
-/* Earnings */
+/* Guadagni settimanali */
 .earnings-section { display:flex; flex-direction:column; }
-.earnings-grid { display:flex; align-items:center; gap:20px; flex-wrap:wrap; }
-.chart-container { flex:1; max-width:350px; }
-.summary { display:flex; flex-direction:column; gap:6px; }
-.total { font-size:32px; font-weight:800; color:#0A2342; background: linear-gradient(90deg, #0A2342, #0077CC); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-.delta.positive { color:#10b981; font-weight:600; }
-.delta.negative { color:#ef4444; font-weight:600; }
-.meta { color:#4b5563; font-size:14px; }
+.week-shifts { display: flex; flex-direction: column; gap: 12px; }
+.shift-item {
+  background: linear-gradient(135deg, rgba(10,35,66,0.03), rgba(0,119,204,0.03));
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.shift-info { display: flex; flex-direction: column; gap: 4px; }
+.shift-date { font-weight: 700; font-size: 14px; color: #0A2342; }
+.shift-details { font-size: 13px; color: #6b7280; }
+.shift-earnings { font-weight: 800; font-size: 18px; color: #0A2342; }
 
-/* Calendar */
+.earnings-summary {
+  margin-top: 20px;
+  padding: 20px;
+  background: linear-gradient(135deg, rgba(0,119,204,0.1), rgba(10,35,66,0.05));
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.summary-label { font-size: 14px; color: #6b7280; font-weight: 600; }
+.summary-total { font-size: 32px; font-weight: 800; color: #0A2342; }
+.summary-meta { font-size: 13px; color: #6b7280; margin-top: 4px; }
+
+/* Calendario */
 .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 12px; margin-top:10px; }
 .calendar-day { 
-  background: #F8FAFC; 
-  border-radius: 12px; 
-  padding: 12px; 
-  cursor: pointer; 
-  transition: all 0.3s; 
-  font-size: 14px; 
-  border: 1px solid #eef2f7;
-  position: relative;
-  overflow: hidden;
+  background: linear-gradient(135deg, rgba(247,251,255,0.8), rgba(255,255,255,1));
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 14px;
+  min-height: 80px;
 }
 .calendar-day:hover { 
-  background: rgba(10,35,66,0.08);
-  transform: translateY(-3px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-.calendar-day.has-job {
-  background: linear-gradient(135deg, rgba(0,119,204,0.1), rgba(10,35,66,0.05));
   border-color: #0077CC;
+  box-shadow: 0 5px 15px rgba(0,119,204,0.1);
 }
-.calendar-day.has-job::after {
-  content: '✓';
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  color: #0077CC;
-  font-weight: 800;
-  font-size: 16px;
+.calendar-day h3 { margin:0 0 8px 0; font-weight:700; font-size: 14px; color: #0A2342; }
+.calendar-day .event { 
+  font-size:12px;
+  color:#4b5563;
+  margin-top:6px;
+  padding: 6px;
+  background: rgba(0,119,204,0.08);
+  border-radius: 6px;
 }
-.calendar-day h3 { margin:0 0 6px 0; font-weight:600; }
-.calendar-day .event { font-size:13px; color:#4b5563; margin-top:4px; }
+.calendar-day .no-event {
+  font-size:12px;
+  color:#9ca3af;
+  font-style: italic;
+}
 
 footer { text-align:center; color:#6b7280; font-size:13px; margin-top:40px; padding:20px 0; }
 
-/* Popup job details */
-#popup { 
-  display:none; 
-  position:fixed; 
-  inset:0; 
-  background: rgba(0,0,0,0.5); 
-  backdrop-filter: blur(4px); 
-  justify-content:center; 
-  align-items:center; 
-  z-index:10000;
-  animation: fadeIn 0.3s ease;
-}
+/* Popup */
+#popup { display:none; position:fixed; inset:0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); justify-content:center; align-items:center; z-index:10000; }
 #popup > div { 
-  background:#fff; 
-  padding:30px; 
-  border-radius:16px; 
-  text-align:center; 
-  box-shadow:0 20px 60px rgba(0,0,0,0.3); 
+  background:#fff;
+  padding:30px;
+  border-radius:16px;
+  text-align:center;
+  box-shadow:0 20px 60px rgba(0,0,0,0.3);
+  animation:fadeIn 0.3s ease;
   max-width:90%;
-  max-width: 450px;
-  animation: slideUp 0.3s ease;
+  max-width: 500px;
 }
-@keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
-@keyframes slideUp { from{opacity:0; transform:translateY(20px);} to{opacity:1; transform:translateY(0);} }
-#popup h3 {
-  margin: 0 0 16px 0;
-  font-size: 22px;
-  font-weight: 800;
-}
-#popup p {
-  margin: 0 0 20px 0;
-  color: #4b5563;
-  line-height: 1.6;
-  white-space: pre-line;
-}
-#popup button { 
-  font-weight:600; 
-  font-size:14px; 
-  padding:12px 20px; 
-  border-radius:12px; 
-  cursor:pointer; 
-  border:none; 
-  transition:all 0.3s;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-#popup button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-}
+@keyframes fadeIn { from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);} }
+#popup h3 { margin: 0 0 16px 0; font-size: 20px; font-weight: 800; color: #0A2342; }
+#popup p { margin: 0 0 20px 0; color: #6b7280; line-height: 1.6; }
+#popup button { font-weight:600; font-size:14px; padding:10px 18px; border-radius:12px; cursor:pointer; border:none; transition:all 0.3s; }
 #popup .accept-btn { background:#0A2342; color:white; }
 #popup .accept-btn:hover { opacity: .85; }
 #popup .reject-btn { background:#DC2626; color:white; }
 #popup .reject-btn:hover { opacity: .85; }
 #popup .close-btn { background:#6b7280; color:white; }
 #popup .close-btn:hover { opacity: .85; }
-
-/* Pricing modal */
-#pricingModal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.6);
-  backdrop-filter: blur(4px);
-  justify-content: center;
-  align-items: center;
-  z-index: 10001;
-  animation: fadeIn 0.3s ease;
-}
-#pricingModal > div {
-  background: white;
-  padding: 40px;
-  border-radius: 16px;
-  max-width: 900px;
-  max-height: 90vh;
-  overflow-y: auto;
-  animation: slideUp 0.3s ease;
-  width: 90%;
-}
-.pricing-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  margin-bottom: 20px;
-}
-@media (max-width: 768px) {
-  .pricing-grid { grid-template-columns: 1fr; }
-}
-.pricing-card {
-  border: 2px solid #e5e7eb;
-  padding: 24px;
-  border-radius: 12px;
-  transition: all 0.3s;
-}
-.pricing-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-}
-.pricing-card.featured {
-  border: 3px solid #0077CC;
-  position: relative;
-  box-shadow: 0 10px 30px rgba(0,119,204,0.2);
-}
-.pricing-badge {
-  position: absolute;
-  top: -12px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: linear-gradient(90deg, #0A2342, #0077CC);
-  color: white;
-  padding: 4px 16px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 700;
-}
-.pricing-price {
-  font-size: 32px;
-  font-weight: 800;
-  color: #0A2342;
-  margin-bottom: 16px;
-}
-.pricing-price span {
-  font-size: 16px;
-  color: #6b7280;
-}
-.pricing-features {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 20px 0;
-}
-.pricing-features li {
-  margin-bottom: 10px;
-  display: flex;
-  align-items: start;
-  gap: 8px;
-}
-
-/* Toast */
-.toast {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background: linear-gradient(90deg, #0A2342, #0077CC);
-  color: white;
-  padding: 16px 24px;
-  border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-  font-weight: 600;
-  z-index: 10002;
-  animation: slideInRight 0.3s ease;
-  display: none;
-}
-@keyframes slideInRight {
-  from { transform: translateX(400px); opacity: 0; }
-  to { transform: translateX(0); opacity: 1; }
-}
-.toast.success { background: linear-gradient(90deg, #10b981, #059669); }
-.toast.error { background: linear-gradient(90deg, #ef4444, #dc2626); }
-
-/* Confetti */
-.confetti {
-  position: fixed;
-  width: 10px;
-  height: 10px;
-  background: #0077CC;
-  position: absolute;
-  animation: confetti-fall 3s ease-out forwards;
-}
-@keyframes confetti-fall {
-  to {
-    transform: translateY(100vh) rotate(360deg);
-    opacity: 0;
-  }
-}
 </style>
 </head>
 <body>
@@ -449,35 +216,30 @@ footer { text-align:center; color:#6b7280; font-size:13px; margin-top:40px; padd
   <h1 id="welcome">Welcome back, Cleaner! 👋</h1>
   <p style="color:#6b7280;" id="subtitle">Here you'll find your shifts, earnings and confirmed appointments.</p>
 
-  <!-- Upgrade banner -->
-  <div id="upgradeBanner" class="upgrade-banner" style="display:none;">
-    <div class="upgrade-banner-text">
-      <div class="upgrade-banner-title" id="bannerTitle">🚀 You're on Free plan (2/3 jobs used this month)</div>
-      <div class="upgrade-banner-subtitle" id="bannerSubtitle">Upgrade to Pro: unlimited jobs + €0 commission</div>
-    </div>
-    <button class="upgrade-banner-btn" onclick="showPricingModal()" id="bannerBtn">View Plans →</button>
-  </div>
-
-  <!-- Jobs -->
+  <!-- Prossimi lavori -->
   <div class="section">
     <h2 id="jobs-title">Your upcoming jobs</h2>
     <div class="job-list" id="jobList"></div>
   </div>
 
-  <!-- Earnings -->
+  <!-- Guadagni settimanali -->
   <div class="section earnings-section">
-    <h2 id="earnings-title">Weekly earnings</h2>
-    <div class="earnings-grid">
-      <div class="chart-container"><canvas id="earningsChart" width="350" height="80"></canvas></div>
-      <div class="summary">
-        <div class="total">€410</div>
-        <div class="delta positive" id="delta">▲ +8% vs last week</div>
-        <div class="meta" id="completed">5 completed jobs</div>
+    <h2 id="earnings-title">This week's shifts</h2>
+    <div class="week-shifts" id="weekShifts"></div>
+    <div class="earnings-summary">
+      <div>
+        <div class="summary-label" id="summary-label">Total this week</div>
+        <div class="summary-total" id="summary-total">€418</div>
+        <div class="summary-meta" id="summary-meta">12 shifts completed • 38h worked</div>
+      </div>
+      <div style="text-align: right;">
+        <div style="font-size: 14px; color: #6b7280; font-weight: 600;" id="avg-label">Average hourly</div>
+        <div style="font-size: 24px; font-weight: 800; color: #0A2342;">€11/h</div>
       </div>
     </div>
   </div>
 
-  <!-- Calendar -->
+  <!-- Calendario -->
   <div class="section">
     <h2 id="calendar-title">Work calendar</h2>
     <div class="calendar-grid" id="calendarGrid"></div>
@@ -486,401 +248,282 @@ footer { text-align:center; color:#6b7280; font-size:13px; margin-top:40px; padd
 
 <footer>© 2025 LustroLindo — The future of living.</footer>
 
-<!-- Job details popup -->
+<!-- Popup dettagli lavoro -->
 <div id="popup">
   <div>
     <h3 id="popupTitle">Job details</h3>
     <p id="popupText"></p>
-    <div style="display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin-top:15px;" id="popupButtons"></div>
-  </div>
-</div>
-
-<!-- Pricing modal -->
-<div id="pricingModal">
-  <div>
-    <h2 style="font-size:28px;font-weight:800;margin-bottom:10px;" id="pricingTitle">Choose your plan</h2>
-    <p style="color:#6b7280;margin-bottom:30px;" id="pricingSubtitle">Unlock unlimited jobs and keep 100% of your earnings.</p>
-    
-    <div class="pricing-grid">
-      <!-- FREE -->
-      <div class="pricing-card">
-        <h3 style="font-size:20px;font-weight:700;margin-bottom:8px;">Free</h3>
-        <div class="pricing-price">€0<span>/month</span></div>
-        <ul class="pricing-features">
-          <li><span>✓</span> <span id="free-feat1">3 jobs per month</span></li>
-          <li><span>✓</span> <span id="free-feat2">20% commission</span></li>
-          <li><span>✓</span> <span id="free-feat3">Basic support</span></li>
-        </ul>
-        <button style="width:100%;padding:12px;background:#e5e7eb;color:#6b7280;border:none;border-radius:8px;font-weight:600;cursor:not-allowed;" id="currentPlanBtn">Current plan</button>
-      </div>
-      
-      <!-- PRO -->
-      <div class="pricing-card featured">
-        <div class="pricing-badge" id="recommendedBadge">RECOMMENDED</div>
-        <h3 style="font-size:20px;font-weight:700;margin-bottom:8px;">Pro</h3>
-        <div class="pricing-price">€79<span>/month</span></div>
-        <ul class="pricing-features">
-          <li><span>✓</span> <strong id="pro-feat1">Unlimited jobs</strong></li>
-          <li><span>✓</span> <strong id="pro-feat2">0% commission</strong></li>
-          <li><span>✓</span> <span id="pro-feat3">Priority matching</span></li>
-          <li><span>✓</span> <span id="pro-feat4">Priority support</span></li>
-        </ul>
-        <button onclick="upgradeToPro()" style="width:100%;padding:12px;background:#0A2342;color:white;border:none;border-radius:8px;font-weight:700;cursor:pointer;" id="upgradeBtn">Upgrade now</button>
-      </div>
+    <div style="display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin-top:15px;">
+      <button class="accept-btn" id="popupAccept">Accept</button>
+      <button class="reject-btn" id="popupReject">Reject</button>
+      <button class="close-btn" onclick="closePopup()" id="popupClose">Close</button>
     </div>
-    
-    <button onclick="closePricingModal()" style="margin-top:20px;background:none;border:none;color:#6b7280;cursor:pointer;width:100%;padding:10px;" id="maybeLaterBtn">Maybe later</button>
   </div>
 </div>
 
-<div id="toast" class="toast"></div>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-// ===== TRADUZIONI IT/EN =====
+// ✅ TRADUZIONI IT/EN
 const text = {
   en: {
     welcome: "Welcome back, Cleaner! 👋",
     subtitle: "Here you'll find your shifts, earnings and confirmed appointments.",
     jobsTitle: "Your upcoming jobs",
-    earningsTitle: "Weekly earnings",
+    earningsTitle: "This week's shifts",
     calendarTitle: "Work calendar",
-    delta: "▲ +8% vs last week",
-    completed: "5 completed jobs",
     jobDetails: "Job details",
     accept: "Accept",
     reject: "Reject",
     close: "Close",
     view: "View",
     noJobs: "✨ All jobs have been assigned. 🚀 Get ready for the next ones! ✨",
-    noJobsDay: "No jobs",
+    noJobsDay: "No shifts",
     weekDays: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
-    toastAccepted: "✅ Job accepted!",
-    toastRejected: "❌ Job rejected",
-    toastUpgraded: "🚀 Upgraded to Pro!",
-    jobAccepted: "Job already in calendar",
-    bannerTitle: "🚀 You're on Free plan ({used}/3 jobs used this month)",
-    bannerSubtitle: "Upgrade to Pro: unlimited jobs + €0 commission",
-    bannerBtn: "View Plans →",
-    pricingTitle: "Choose your plan",
-    pricingSubtitle: "Unlock unlimited jobs and keep 100% of your earnings.",
-    freeFeat1: "3 jobs per month",
-    freeFeat2: "20% commission",
-    freeFeat3: "Basic support",
-    proFeat1: "Unlimited jobs",
-    proFeat2: "0% commission",
-    proFeat3: "Priority matching",
-    proFeat4: "Priority support",
-    currentPlanBtn: "Current plan",
-    upgradeBtn: "Upgrade now",
-    maybeLaterBtn: "Maybe later",
-    recommendedBadge: "RECOMMENDED",
-    limitReached: "You've reached your Free plan limit (3 jobs/month). Upgrade to Pro to continue!",
+    summaryLabel: "Total this week",
+    summaryMeta: "shifts completed • %h worked",
+    avgLabel: "Average hourly",
+    newBadge: "NEW",
+    urgentBadge: "URGENT",
+    premiumBadge: "PREMIUM"
   },
   it: {
     welcome: "Bentornato, Cleaner! 👋",
     subtitle: "Qui trovi i tuoi turni, guadagni e appuntamenti confermati.",
     jobsTitle: "I tuoi prossimi lavori",
-    earningsTitle: "Guadagni settimanali",
+    earningsTitle: "Turni di questa settimana",
     calendarTitle: "Calendario lavori",
-    delta: "▲ +8% vs settimana scorsa",
-    completed: "5 lavori completati",
     jobDetails: "Dettagli lavoro",
     accept: "Accetta",
     reject: "Rifiuta",
     close: "Chiudi",
     view: "Vedi",
     noJobs: "✨ Tutti i lavori sono stati assegnati. 🚀 Preparati per i prossimi! ✨",
-    noJobsDay: "Nessun lavoro",
+    noJobsDay: "Nessun turno",
     weekDays: ['Lun','Mar','Mer','Gio','Ven','Sab','Dom'],
-    toastAccepted: "✅ Lavoro accettato!",
-    toastRejected: "❌ Lavoro rifiutato",
-    toastUpgraded: "🚀 Upgrade a Pro completato!",
-    jobAccepted: "Lavoro già in calendario",
-    bannerTitle: "🚀 Sei sul piano Free ({used}/3 lavori usati questo mese)",
-    bannerSubtitle: "Upgrade a Pro: lavori illimitati + €0 commissioni",
-    bannerBtn: "Vedi Piani →",
-    pricingTitle: "Scegli il tuo piano",
-    pricingSubtitle: "Sblocca lavori illimitati e tieni il 100% dei tuoi guadagni.",
-    freeFeat1: "3 lavori al mese",
-    freeFeat2: "20% commissione",
-    freeFeat3: "Supporto base",
-    proFeat1: "Lavori illimitati",
-    proFeat2: "0% commissione",
-    proFeat3: "Matching prioritario",
-    proFeat4: "Supporto prioritario",
-    currentPlanBtn: "Piano attuale",
-    upgradeBtn: "Fai upgrade ora",
-    maybeLaterBtn: "Forse più tardi",
-    recommendedBadge: "CONSIGLIATO",
-    limitReached: "Hai raggiunto il limite del piano Free (3 lavori/mese). Fai upgrade a Pro per continuare!",
+    summaryLabel: "Totale settimana",
+    summaryMeta: "turni completati • %h lavorate",
+    avgLabel: "Media oraria",
+    newBadge: "NUOVO",
+    urgentBadge: "URGENTE",
+    premiumBadge: "PREMIUM"
   }
 };
 
 let currentLang = 'en';
 function setLang(lang){
   currentLang = lang;
-  const t = text[lang];
-  document.getElementById('welcome').innerText = t.welcome;
-  document.getElementById('subtitle').innerText = t.subtitle;
-  document.getElementById('jobs-title').innerText = t.jobsTitle;
-  document.getElementById('earnings-title').innerText = t.earningsTitle;
-  document.getElementById('calendar-title').innerText = t.calendarTitle;
-  document.getElementById('delta').innerText = t.delta;
-  document.getElementById('completed').innerText = t.completed;
-  
-  // Banner
-  document.getElementById('bannerTitle').innerText = t.bannerTitle.replace('{used}', jobsAcceptedThisMonth);
-  document.getElementById('bannerSubtitle').innerText = t.bannerSubtitle;
-  document.getElementById('bannerBtn').innerText = t.bannerBtn;
-  
-  // Pricing modal
-  document.getElementById('pricingTitle').innerText = t.pricingTitle;
-  document.getElementById('pricingSubtitle').innerText = t.pricingSubtitle;
-  document.getElementById('free-feat1').innerText = t.freeFeat1;
-  document.getElementById('free-feat2').innerText = t.freeFeat2;
-  document.getElementById('free-feat3').innerText = t.freeFeat3;
-  document.getElementById('pro-feat1').innerText = t.proFeat1;
-  document.getElementById('pro-feat2').innerText = t.proFeat2;
-  document.getElementById('pro-feat3').innerText = t.proFeat3;
-  document.getElementById('pro-feat4').innerText = t.proFeat4;
-  document.getElementById('currentPlanBtn').innerText = t.currentPlanBtn;
-  document.getElementById('upgradeBtn').innerText = t.upgradeBtn;
-  document.getElementById('maybeLaterBtn').innerText = t.maybeLaterBtn;
-  document.getElementById('recommendedBadge').innerText = t.recommendedBadge;
-  
+  document.getElementById('welcome').innerText = text[lang].welcome;
+  document.getElementById('subtitle').innerText = text[lang].subtitle;
+  document.getElementById('jobs-title').innerText = text[lang].jobsTitle;
+  document.getElementById('earnings-title').innerText = text[lang].earningsTitle;
+  document.getElementById('calendar-title').innerText = text[lang].calendarTitle;
+  document.getElementById('popupAccept').innerText = text[lang].accept;
+  document.getElementById('popupReject').innerText = text[lang].reject;
+  document.getElementById('popupClose').innerText = text[lang].close;
+  document.getElementById('summary-label').innerText = text[lang].summaryLabel;
+  document.getElementById('avg-label').innerText = text[lang].avgLabel;
   renderJobs();
+  renderWeekShifts();
   renderCalendar();
 }
 
-// ===== LOGOUT =====
+// ✅ LOGOUT
 const logoutBtn = document.getElementById("logoutBtn");
 logoutBtn.addEventListener("click", ()=>{
   localStorage.removeItem('lustro_user');
   window.location.href="index.html";
 });
 
-// ===== PRICING LOGIC =====
-let currentPlan = 'free'; // mock: 'free' or 'pro'
-let jobsAcceptedThisMonth = 2; // mock
-const FREE_LIMIT = 3;
-
-function checkJobLimit() {
-  if(currentPlan === 'free' && jobsAcceptedThisMonth >= FREE_LIMIT) {
-    showToast(text[currentLang].limitReached, 'error');
-    showPricingModal();
-    return false;
-  }
-  return true;
-}
-
-function updateUpgradeBanner() {
-  const banner = document.getElementById('upgradeBanner');
-  if(currentPlan === 'free' && jobsAcceptedThisMonth >= FREE_LIMIT - 1) {
-    banner.style.display = 'flex';
-    document.getElementById('bannerTitle').innerText = text[currentLang].bannerTitle.replace('{used}', jobsAcceptedThisMonth);
-  } else {
-    banner.style.display = 'none';
-  }
-}
-
-function showPricingModal() {
-  document.getElementById('pricingModal').style.display = 'flex';
-}
-
-function closePricingModal() {
-  document.getElementById('pricingModal').style.display = 'none';
-}
-
-function upgradeToPro() {
-  currentPlan = 'pro';
-  closePricingModal();
-  showToast(text[currentLang].toastUpgraded, 'success');
-  createConfetti();
-  document.getElementById('upgradeBanner').style.display = 'none';
-}
-
-// ===== JOBS =====
+// ✅ JOBS con guadagni reali
 const jobs = [
-  { title: "🏠 Apartment – Milan Center", date: "8 Nov", time: "09:00 - 13:00", location: "Milan Center", details: "Complete cleaning kitchen, bathroom and living room", badge: "new" },
-  { title: "🏢 Office – Porta Romana", date: "9 Nov", time: "14:00 - 18:00", location: "Porta Romana", details: "Cleaning desks, floors and meeting room", badge: "urgent" },
-  { title: "🏡 Villa – San Siro", date: "11 Nov", time: "10:00 - 16:00", location: "San Siro", details: "General cleaning + garden", badge: "premium" }
+  { 
+    title: "🏠 Apartment – Milan Center", 
+    date: "18 Nov", 
+    time: "09:00 - 12:00",
+    hours: 3,
+    rate: 11,
+    location: "Via Tortona 15", 
+    details: "Essentials plan: kitchen, bathroom, living room",
+    badge: "new"
+  },
+  { 
+    title: "🏢 Office – Porta Romana", 
+    date: "20 Nov", 
+    time: "14:00 - 17:00",
+    hours: 3,
+    rate: 12,
+    location: "Corso Buenos Aires 42", 
+    details: "Premium plan: desks, floors, meeting room",
+    badge: "premium"
+  },
+  { 
+    title: "🏡 Villa – San Siro", 
+    date: "22 Nov", 
+    time: "10:00 - 14:00",
+    hours: 4,
+    rate: 13,
+    location: "Via Novara 88", 
+    details: "Elite plan: complete cleaning + garden",
+    badge: "urgent"
+  }
 ];
 
 const jobList = document.getElementById("jobList");
 function renderJobs() {
   jobList.innerHTML = "";
   if(jobs.length===0){
-    jobList.innerHTML=`<div class="empty-state">
-      <div class="empty-state-icon">✨</div>
-      <div style="font-size:18px;font-weight:600;color:#0A2342;margin-bottom:8px;">All caught up!</div>
-      <div>${text[currentLang].noJobs}</div>
-    </div>`;
+    jobList.innerHTML=`<div style="color:#4b5563; font-style:italic; text-align:center; padding:20px;">${text[currentLang].noJobs}</div>`;
     return;
   }
   jobs.forEach((job,idx)=>{
+    const earnings = job.hours * job.rate;
+    const badgeClass = job.badge === 'new' ? 'badge-new' : job.badge === 'urgent' ? 'badge-urgent' : 'badge-premium';
+    const badgeText = job.badge === 'new' ? text[currentLang].newBadge : job.badge === 'urgent' ? text[currentLang].urgentBadge : text[currentLang].premiumBadge;
+    
     const div = document.createElement("div");
     div.className="job-item";
-    
-    let badgeHTML = '';
-    if(job.badge === 'new') badgeHTML = '<span class="job-badge badge-new">New</span>';
-    if(job.badge === 'urgent') badgeHTML = '<span class="job-badge badge-urgent">Urgent</span>';
-    if(job.badge === 'premium') badgeHTML = '<span class="job-badge badge-premium">Premium</span>';
-    
     div.innerHTML=`
-  <div class="job-info">
-    <div class="job-title">${job.title} ${badgeHTML}</div>
-    <div class="job-meta">📅 ${job.date}, ⏰ ${job.time}</div>
-  </div>
-  <button class="job-btn view-btn">${text[currentLang].view}</button>
-`;
+      <div class="job-info">
+        <div class="job-title">${job.title}</div>
+        <div class="job-meta">
+          <span>${job.date} • ${job.time}</span>
+          <span class="job-badge ${badgeClass}">${badgeText}</span>
+        </div>
+      </div>
+      <div style="display:flex; align-items:center; gap:16px;">
+        <div class="job-earnings">€${earnings}</div>
+        <button class="job-btn view-btn">${text[currentLang].view}</button>
+      </div>
+    `;
     const viewBtn = div.querySelector(".view-btn");
-    viewBtn.onclick = ()=>{ showPopup(job,idx, false); };
+    viewBtn.onclick = ()=>{
+      showPopup(job,idx);
+    };
     jobList.appendChild(div);
   });
 }
 renderJobs();
 
-function showPopup(job, index, fromCalendar){
+function showPopup(job,index){
+  const earnings = job.hours * job.rate;
   document.getElementById("popupTitle").innerText = text[currentLang].jobDetails;
-  document.getElementById("popupText").innerText = `📅 ${job.date}, ⏰ ${job.time}\n📍 ${job.location}\n\n${job.details}`;
+  document.getElementById("popupText").innerHTML = `
+    <strong>${job.title}</strong><br>
+    📅 ${job.date} • ${job.time}<br>
+    📍 ${job.location}<br>
+    💰 €${earnings} (${job.hours}h × €${job.rate}/h)<br><br>
+    ${job.details}
+  `;
   document.getElementById("popup").style.display="flex";
 
-  const buttonsContainer = document.getElementById("popupButtons");
-  buttonsContainer.innerHTML = '';
+  const acceptBtn=document.getElementById("popupAccept");
+  const rejectBtn=document.getElementById("popupReject");
 
-  if(!fromCalendar) {
-    const acceptBtn = document.createElement('button');
-    acceptBtn.className = 'accept-btn';
-    acceptBtn.innerText = text[currentLang].accept;
-    acceptBtn.onclick = ()=>{
-      if(!checkJobLimit()) return;
-      
-      jobsAcceptedThisMonth++;
-      addToCalendar(job);
-      jobs.splice(index,1);
-      renderJobs();
-      closePopup();
-      showToast(text[currentLang].toastAccepted, 'success');
-      createConfetti();
-      updateUpgradeBanner();
-    };
-    
-    const rejectBtn = document.createElement('button');
-    rejectBtn.className = 'reject-btn';
-    rejectBtn.innerText = text[currentLang].reject;
-    rejectBtn.onclick = ()=>{
-      jobs.splice(index,1);
-      renderJobs();
-      closePopup();
-      showToast(text[currentLang].toastRejected, 'error');
-    };
-    
-    buttonsContainer.appendChild(acceptBtn);
-    buttonsContainer.appendChild(rejectBtn);
-  } else {
-    const infoDiv = document.createElement('div');
-    infoDiv.style.cssText = 'background:#dbeafe;color:#1e40af;padding:10px;border-radius:8px;font-weight:600;font-size:14px;margin-bottom:12px;';
-    infoDiv.innerText = '✓ ' + text[currentLang].jobAccepted;
-    document.getElementById("popup").querySelector('div').insertBefore(infoDiv, buttonsContainer);
-  }
+  acceptBtn.onclick = ()=>{
+    addToCalendar(job);
+    jobs.splice(index,1);
+    renderJobs();
+    closePopup();
+  };
+  rejectBtn.onclick = ()=>{
+    jobs.splice(index,1);
+    renderJobs();
+    closePopup();
+  };
+}
+
+function closePopup(){ document.getElementById("popup").style.display="none"; }
+
+// ✅ WEEK SHIFTS con guadagni reali
+const weekShifts = [
+  { date: "Mon 18 Nov", time: "09:00-12:00", location: "Via Tortona 15", hours: 3, rate: 11 },
+  { date: "Mon 18 Nov", time: "14:00-17:00", location: "Corso Como 8", hours: 3, rate: 11 },
+  { date: "Tue 19 Nov", time: "10:00-13:00", location: "Via Montenapoleone 12", hours: 3, rate: 12 },
+  { date: "Wed 20 Nov", time: "09:00-12:00", location: "Porta Romana 42", hours: 3, rate: 12 },
+  { date: "Wed 20 Nov", time: "14:00-18:00", location: "San Siro 88", hours: 4, rate: 13 },
+  { date: "Thu 21 Nov", time: "10:00-13:00", location: "Navigli 33", hours: 3, rate: 11 },
+  { date: "Fri 22 Nov", time: "09:00-12:00", location: "Brera 7", hours: 3, rate: 11 },
+  { date: "Fri 22 Nov", time: "15:00-18:00", location: "Isola 55", hours: 3, rate: 11 },
+  { date: "Sat 23 Nov", time: "10:00-14:00", location: "Duomo 1", hours: 4, rate: 13 },
+  { date: "Sat 23 Nov", time: "15:00-18:00", location: "Garibaldi 22", hours: 3, rate: 12 },
+  { date: "Sun 24 Nov", time: "10:00-13:00", location: "Loreto 45", hours: 3, rate: 12 },
+  { date: "Sun 24 Nov", time: "14:00-17:00", location: "Lambrate 90", hours: 3, rate: 11 }
+];
+
+const weekShiftsContainer = document.getElementById("weekShifts");
+function renderWeekShifts() {
+  weekShiftsContainer.innerHTML = "";
+  let totalEarnings = 0;
+  let totalHours = 0;
   
-  const closeBtn = document.createElement('button');
-  closeBtn.className = 'close-btn';
-  closeBtn.innerText = text[currentLang].close;
-  closeBtn.onclick = closePopup;
-  buttonsContainer.appendChild(closeBtn);
+  weekShifts.forEach(shift => {
+    const earnings = shift.hours * shift.rate;
+    totalEarnings += earnings;
+    totalHours += shift.hours;
+    
+    const div = document.createElement("div");
+    div.className = "shift-item";
+    div.innerHTML = `
+      <div class="shift-info">
+        <div class="shift-date">${shift.date}</div>
+        <div class="shift-details">📍 ${shift.location} • ${shift.time}</div>
+      </div>
+      <div class="shift-earnings">€${earnings}</div>
+    `;
+    weekShiftsContainer.appendChild(div);
+  });
+  
+  // Update summary
+  document.getElementById('summary-total').innerText = `€${totalEarnings}`;
+  document.getElementById('summary-meta').innerText = text[currentLang].summaryMeta.replace('%', weekShifts.length).replace('%h', totalHours + 'h');
 }
+renderWeekShifts();
 
-function closePopup(){ 
-  document.getElementById("popup").style.display="none"; 
-}
-
-// ===== CALENDAR =====
+// ✅ CALENDARIO con turni reali
 const calendarJobs=[];
 function addToCalendar(job){
   calendarJobs.push(job);
   renderCalendar();
 }
+
 const calendarGrid=document.getElementById("calendarGrid");
 function renderCalendar(){
   calendarGrid.innerHTML="";
   const weekDays = text[currentLang].weekDays;
-  weekDays.forEach((day,idx)=>{
+  
+  // Mock: alcuni giorni hanno turni, altri no
+  const mockCalendar = [
+    { day: weekDays[0], shifts: 2, hours: 6 },
+    { day: weekDays[1], shifts: 1, hours: 3 },
+    { day: weekDays[2], shifts: 2, hours: 7 },
+    { day: weekDays[3], shifts: 1, hours: 3 },
+    { day: weekDays[4], shifts: 2, hours: 6 },
+    { day: weekDays[5], shifts: 2, hours: 7 },
+    { day: weekDays[6], shifts: 2, hours: 6 }
+  ];
+  
+  mockCalendar.forEach((day,idx)=>{
     const dayDiv=document.createElement("div");
     dayDiv.className="calendar-day";
-    const jobForDay=calendarJobs[idx]||null;
     
-    if(jobForDay) {
-      dayDiv.classList.add('has-job');
+    if(day.shifts > 0) {
+      dayDiv.innerHTML=`
+        <h3>${day.day}</h3>
+        <div class="event">${day.shifts} ${day.shifts === 1 ? 'shift' : 'shifts'}<br>${day.hours}h total</div>
+      `;
+    } else {
+      dayDiv.innerHTML=`
+        <h3>${day.day}</h3>
+        <div class="no-event">${text[currentLang].noJobsDay}</div>
+      `;
     }
     
-    dayDiv.innerHTML=`<h3>${day}</h3>${jobForDay ? `<div class="event">${jobForDay.title}<br>⏰ ${jobForDay.time}</div>` : `<div class="event" style="color:#9ca3af;">${text[currentLang].noJobsDay}</div>`}`;
-    
-    if(jobForDay){
-      dayDiv.onclick=()=>{ showPopup(jobForDay, idx, true); }
-    }
     calendarGrid.appendChild(dayDiv);
   });
 }
 renderCalendar();
 
-// ===== TOAST =====
-function showToast(message, type = 'success') {
-  const toast = document.getElementById('toast');
-  toast.innerText = message;
-  toast.className = `toast ${type}`;
-  toast.style.display = 'block';
-  setTimeout(() => {
-    toast.style.display = 'none';
-  }, 3000);
-}
-
-// ===== CONFETTI =====
-function createConfetti() {
-  const colors = ['#0077CC', '#0A2342', '#10b981', '#fbbf24', '#f472b6'];
-  for(let i = 0; i < 30; i++) {
-    const confetti = document.createElement('div');
-    confetti.className = 'confetti';
-    confetti.style.left = Math.random() * 100 + '%';
-    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
-    confetti.style.animationDelay = Math.random() * 0.5 + 's';
-    confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
-    document.body.appendChild(confetti);
-    setTimeout(() => confetti.remove(), 3000);
-  }
-}
-
-// ===== EARNINGS CHART =====
-const ctx=document.getElementById('earningsChart').getContext('2d');
-const gradient = ctx.createLinearGradient(0, 0, 0, 80);
-gradient.addColorStop(0, '#0077CC');
-gradient.addColorStop(1, '#0A2342');
-
-new Chart(ctx,{
-  type:'bar',
-  data:{ 
-    labels:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
-    datasets:[{ 
-      label:'Earnings (€)', 
-      data:[50,60,40,70,30,50,40], 
-      backgroundColor: gradient,
-      borderRadius: 8,
-      borderSkipped: false,
-    }]
-  },
-  options:{ 
-    responsive:true, 
-    plugins:{legend:{display:false}}, 
-    scales:{
-      y:{beginAtZero:true, grid: {color: 'rgba(0,0,0,0.05)'}},
-      x:{grid: {display: false}}
-    }
-  }
-});
-
-// ===== INIT =====
-updateUpgradeBanner();
+// Init lang
+setLang('en');
 </script>
 </body>
 </html>
