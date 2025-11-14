@@ -70,104 +70,91 @@ main { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
 h1 { font-size: 32px; margin-bottom: 10px; font-weight: 800; }
 .subtitle { color: #6b7280; font-size: 16px; margin-bottom: 30px; }
 
-/* PRICING BANNER */
-.pricing-banner {
+/* FREE TRIAL BANNER */
+.trial-banner {
   background: linear-gradient(135deg, #0A2342, #0077CC);
   border-radius: 22px;
   padding: 30px;
   margin-bottom: 30px;
   color: white;
   box-shadow: 0 20px 50px rgba(10,35,66,0.3);
+  position: relative;
+  overflow: hidden;
 }
-.pricing-content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 30px;
+.trial-content {
+  position: relative;
+  z-index: 2;
+}
+.trial-header {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
+  margin-bottom: 20px;
 }
-.pricing-left h2 {
+.trial-title {
   font-size: 24px;
   font-weight: 800;
-  margin: 0 0 12px 0;
-}
-.pricing-left p {
-  font-size: 15px;
-  opacity: 0.9;
   margin: 0;
-  line-height: 1.6;
 }
-.pricing-plans {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
-.pricing-plan {
-  background: rgba(255,255,255,0.15);
-  backdrop-filter: blur(10px);
-  border: 2px solid rgba(255,255,255,0.2);
-  border-radius: 16px;
-  padding: 20px;
-  transition: all 0.3s;
-  cursor: pointer;
-}
-.pricing-plan:hover {
-  background: rgba(255,255,255,0.25);
-  border-color: rgba(255,255,255,0.4);
-  transform: translateY(-3px);
-}
-.pricing-plan.active {
-  background: rgba(255,255,255,0.95);
-  color: #0A2342;
-  border-color: white;
-}
-.plan-name {
-  font-size: 14px;
-  font-weight: 700;
-  margin-bottom: 8px;
-  opacity: 0.9;
-}
-.pricing-plan.active .plan-name {
-  opacity: 1;
-}
-.plan-price {
-  font-size: 28px;
-  font-weight: 800;
-  margin-bottom: 12px;
-}
-.plan-features {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-.plan-features li {
+.trial-badge {
+  background: rgba(255,255,255,0.2);
+  padding: 6px 16px;
+  border-radius: 50px;
   font-size: 13px;
-  opacity: 0.85;
-  display: flex;
-  align-items: center;
-  gap: 6px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
 }
-.pricing-plan.active .plan-features li {
-  opacity: 1;
+.progress-container {
+  margin-bottom: 20px;
+}
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-size: 15px;
+  font-weight: 600;
+}
+.progress-bar-bg {
+  background: rgba(255,255,255,0.2);
+  border-radius: 50px;
+  height: 12px;
+  overflow: hidden;
+  position: relative;
+}
+.progress-bar-fill {
+  background: linear-gradient(90deg, #00eda8, #00a3ff);
+  height: 100%;
+  border-radius: 50px;
+  transition: width 0.6s ease;
+  box-shadow: 0 0 20px rgba(0,237,168,0.5);
+}
+.trial-cta {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+.trial-text {
+  flex: 1;
+  font-size: 15px;
+  opacity: 0.95;
+  line-height: 1.5;
 }
 .upgrade-btn {
   background: white;
   color: #0A2342;
   border: none;
-  padding: 12px 24px;
+  padding: 14px 28px;
   border-radius: 12px;
   font-weight: 700;
-  font-size: 14px;
+  font-size: 15px;
   cursor: pointer;
   transition: all 0.3s;
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  margin-top: 16px;
+  white-space: nowrap;
 }
 .upgrade-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
 }
 
 .section { 
@@ -232,7 +219,6 @@ h1 { font-size: 32px; margin-bottom: 10px; font-weight: 800; }
 .job-btn:hover { opacity: .85; transform: translateY(-2px); }
 
 /* Earnings section premium */
-.earnings-section { }
 .earnings-grid { 
   display: grid; 
   grid-template-columns: 1.5fr 1fr; 
@@ -264,7 +250,6 @@ h1 { font-size: 32px; margin-bottom: 10px; font-weight: 800; }
 .summary-value { font-size: 32px; font-weight: 800; color: #0A2342; margin-bottom: 4px; }
 .summary-delta { font-size: 14px; font-weight: 600; }
 .delta-positive { color: #059669; }
-.delta-negative { color: #DC2626; }
 .summary-meta { font-size: 13px; color: #6b7280; margin-top: 8px; }
 
 /* Calendario premium */
@@ -313,7 +298,7 @@ h1 { font-size: 32px; margin-bottom: 10px; font-weight: 800; }
 
 footer { text-align: center; color: #6b7280; font-size: 13px; margin: 40px 0 20px; }
 
-/* Popup premium */
+/* Popup premium CON CORIANDOLI */
 #popup { 
   display: none; 
   position: fixed; 
@@ -326,30 +311,55 @@ footer { text-align: center; color: #6b7280; font-size: 13px; margin: 40px 0 20p
 }
 #popup > div { 
   background: #fff;
-  padding: 40px;
+  padding: 50px;
   border-radius: 24px;
   text-align: center;
   box-shadow: 0 30px 80px rgba(0,0,0,0.3);
   animation: slideUp 0.4s ease;
-  max-width: 500px;
+  max-width: 550px;
   width: 90%;
+  position: relative;
+  overflow: hidden;
 }
 @keyframes slideUp { 
   from { opacity: 0; transform: translateY(30px); } 
   to { opacity: 1; transform: translateY(0); } 
 }
+
+/* Coriandoli animation */
+.confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: #f0f;
+  opacity: 0;
+  animation: confetti-fall 3s ease-out forwards;
+}
+@keyframes confetti-fall {
+  0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(600px) rotate(720deg); opacity: 0; }
+}
+
 #popup h3 { 
   margin: 0 0 20px 0; 
-  font-size: 24px; 
+  font-size: 32px; 
   font-weight: 800; 
   color: #0A2342;
+}
+#popup .popup-emoji {
+  font-size: 64px;
+  margin-bottom: 20px;
+  animation: bounce 0.6s ease infinite;
+}
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
 }
 #popup p { 
   margin: 0 0 30px 0; 
   color: #6b7280; 
   line-height: 1.8;
-  font-size: 15px;
-  text-align: left;
+  font-size: 16px;
 }
 #popup .button-group {
   display: flex;
@@ -359,15 +369,15 @@ footer { text-align: center; color: #6b7280; font-size: 13px; margin: 40px 0 20p
 }
 #popup button { 
   font-weight: 600; 
-  font-size: 14px; 
-  padding: 12px 24px; 
+  font-size: 15px; 
+  padding: 14px 28px; 
   border-radius: 12px; 
   cursor: pointer; 
   border: none; 
   transition: all 0.3s;
 }
 #popup .accept-btn { 
-  background: #0A2342; 
+  background: linear-gradient(90deg, #0A2342, #0077CC);
   color: white;
   box-shadow: 0 4px 12px rgba(10,35,66,0.3);
 }
@@ -386,12 +396,40 @@ footer { text-align: center; color: #6b7280; font-size: 13px; margin: 40px 0 20p
 }
 #popup .close-btn:hover { background: #d1d5db; }
 
+/* Upgrade popup special */
+#upgradePopup {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(10px);
+  justify-content: center;
+  align-items: center;
+  z-index: 10001;
+}
+#upgradePopup > div {
+  background: linear-gradient(135deg, #ffffff, #f7fbff);
+  padding: 60px 50px;
+  border-radius: 24px;
+  text-align: center;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.4);
+  animation: slideUp 0.5s ease;
+  max-width: 600px;
+  width: 90%;
+  position: relative;
+  overflow: hidden;
+  border: 3px solid #0077CC;
+}
+
 @media (max-width: 768px) {
-  .pricing-content {
-    grid-template-columns: 1fr;
+  .trial-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
   }
-  .pricing-plans {
-    grid-template-columns: 1fr;
+  .trial-cta {
+    flex-direction: column;
+    align-items: stretch;
   }
   .earnings-grid {
     grid-template-columns: 1fr;
@@ -428,34 +466,27 @@ footer { text-align: center; color: #6b7280; font-size: 13px; margin: 40px 0 20p
   <h1 id="welcome">Welcome back, Cleaner! 👋</h1>
   <p class="subtitle" id="subtitle">Here you'll find your shifts, earnings and confirmed appointments.</p>
 
-  <!-- PRICING BANNER -->
-  <div class="pricing-banner">
-    <div class="pricing-content">
-      <div class="pricing-left">
-        <h2 id="pricing-title">Choose your plan</h2>
-        <p id="pricing-desc">Upgrade to Pro for unlimited jobs and premium features. Grow your earnings with LustroLindo.</p>
+  <!-- FREE TRIAL BANNER -->
+  <div class="trial-banner" id="trialBanner">
+    <div class="trial-content">
+      <div class="trial-header">
+        <h2 class="trial-title" id="trial-title">Free Trial Progress</h2>
+        <div class="trial-badge" id="trial-badge">FREE PLAN</div>
       </div>
-      <div class="pricing-plans">
-        <div class="pricing-plan active" id="planFree">
-          <div class="plan-name" id="plan-free-name">FREE</div>
-          <div class="plan-price">€0<span style="font-size:16px;font-weight:600;opacity:0.7;">/mo</span></div>
-          <ul class="plan-features">
-            <li>✓ <span id="free-feat1">Max 3 jobs/month</span></li>
-            <li>✓ <span id="free-feat2">Basic support</span></li>
-            <li>✓ <span id="free-feat3">Standard rate</span></li>
-          </ul>
+      <div class="progress-container">
+        <div class="progress-label">
+          <span id="progress-text">Completed jobs</span>
+          <span id="progress-count"><strong>2/3</strong></span>
         </div>
-        <div class="pricing-plan" id="planPro">
-          <div class="plan-name" id="plan-pro-name">PRO</div>
-          <div class="plan-price">€29<span style="font-size:16px;font-weight:600;opacity:0.7;">/mo</span></div>
-          <ul class="plan-features">
-            <li>✓ <span id="pro-feat1">Unlimited jobs</span></li>
-            <li>✓ <span id="pro-feat2">Priority support</span></li>
-            <li>✓ <span id="pro-feat3">+15% rate boost</span></li>
-            <li>✓ <span id="pro-feat4">Early access</span></li>
-          </ul>
-          <button class="upgrade-btn" id="upgradeBtn">Upgrade to Pro</button>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" id="progressBar" style="width: 66%;"></div>
         </div>
+      </div>
+      <div class="trial-cta">
+        <p class="trial-text" id="trial-text">
+          Complete 1 more job to unlock your first payout! After that, upgrade to Pro for unlimited earnings.
+        </p>
+        <button class="upgrade-btn" id="upgradeBtnBanner">Upgrade to Pro</button>
       </div>
     </div>
   </div>
@@ -515,6 +546,21 @@ footer { text-align: center; color: #6b7280; font-size: 13px; margin: 40px 0 20p
   </div>
 </div>
 
+<!-- Upgrade popup con coriandoli -->
+<div id="upgradePopup">
+  <div id="upgradePopupContent">
+    <div class="popup-emoji">🎉</div>
+    <h3 id="upgrade-title">Congratulations!</h3>
+    <p id="upgrade-text">
+      You've completed your free trial! Ready to unlock unlimited earnings with Pro?
+    </p>
+    <div class="button-group">
+      <button class="accept-btn" id="upgradeNowBtn">Upgrade to Pro - €29/mo</button>
+      <button class="close-btn" onclick="closeUpgradePopup()" id="upgrade-close">Maybe later</button>
+    </div>
+  </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 // Traduzioni
@@ -522,18 +568,11 @@ const text = {
   en: {
     welcome: "Welcome back, Cleaner! 👋",
     subtitle: "Here you'll find your shifts, earnings and confirmed appointments.",
-    pricingTitle: "Choose your plan",
-    pricingDesc: "Upgrade to Pro for unlimited jobs and premium features. Grow your earnings with LustroLindo.",
-    planFreeName: "FREE",
-    planProName: "PRO",
-    freeFeat1: "Max 3 jobs/month",
-    freeFeat2: "Basic support",
-    freeFeat3: "Standard rate",
-    proFeat1: "Unlimited jobs",
-    proFeat2: "Priority support",
-    proFeat3: "+15% rate boost",
-    proFeat4: "Early access",
-    upgradeBtn: "Upgrade to Pro",
+    trialTitle: "Free Trial Progress",
+    trialBadge: "FREE PLAN",
+    progressText: "Completed jobs",
+    trialText: "Complete 1 more job to unlock your first payout! After that, upgrade to Pro for unlimited earnings.",
+    upgradeBtnBanner: "Upgrade to Pro",
     jobsTitle: "Your upcoming jobs",
     earningsTitle: "Weekly earnings",
     calendarTitle: "Work calendar",
@@ -553,23 +592,20 @@ const text = {
     weekDays: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
     newBadge: "NEW",
     urgentBadge: "URGENT",
-    premiumBadge: "PREMIUM"
+    premiumBadge: "PREMIUM",
+    upgradeTitle: "Congratulations!",
+    upgradeText: "You've completed your free trial! Ready to unlock unlimited earnings with Pro?",
+    upgradeNowBtn: "Upgrade to Pro - €29/mo",
+    upgradeClose: "Maybe later"
   },
   it: {
     welcome: "Bentornato, Cleaner! 👋",
     subtitle: "Qui trovi i tuoi turni, guadagni e appuntamenti confermati.",
-    pricingTitle: "Scegli il tuo piano",
-    pricingDesc: "Passa a Pro per job illimitati e funzioni premium. Fai crescere i tuoi guadagni con LustroLindo.",
-    planFreeName: "GRATIS",
-    planProName: "PRO",
-    freeFeat1: "Max 3 job/mese",
-    freeFeat2: "Supporto base",
-    freeFeat3: "Tariffa standard",
-    proFeat1: "Job illimitati",
-    proFeat2: "Supporto prioritario",
-    proFeat3: "+15% tariffa",
-    proFeat4: "Accesso anticipato",
-    upgradeBtn: "Passa a Pro",
+    trialTitle: "Progresso Prova Gratuita",
+    trialBadge: "PIANO GRATIS",
+    progressText: "Lavori completati",
+    trialText: "Completa 1 altro lavoro per sbloccare il tuo primo pagamento! Poi passa a Pro per guadagni illimitati.",
+    upgradeBtnBanner: "Passa a Pro",
     jobsTitle: "I tuoi prossimi lavori",
     earningsTitle: "Guadagni settimanali",
     calendarTitle: "Calendario lavori",
@@ -589,27 +625,26 @@ const text = {
     weekDays: ['Lun','Mar','Mer','Gio','Ven','Sab','Dom'],
     newBadge: "NUOVO",
     urgentBadge: "URGENTE",
-    premiumBadge: "PREMIUM"
+    premiumBadge: "PREMIUM",
+    upgradeTitle: "Congratulazioni!",
+    upgradeText: "Hai completato la tua prova gratuita! Pronto a sbloccare guadagni illimitati con Pro?",
+    upgradeNowBtn: "Passa a Pro - €29/mese",
+    upgradeClose: "Forse più tardi"
   }
 };
 
 let currentLang = 'en';
+let completedJobs = 2; // Simula 2/3 job completati
+
 function setLang(lang){
   currentLang = lang;
   document.getElementById('welcome').innerText = text[lang].welcome;
   document.getElementById('subtitle').innerText = text[lang].subtitle;
-  document.getElementById('pricing-title').innerText = text[lang].pricingTitle;
-  document.getElementById('pricing-desc').innerText = text[lang].pricingDesc;
-  document.getElementById('plan-free-name').innerText = text[lang].planFreeName;
-  document.getElementById('plan-pro-name').innerText = text[lang].planProName;
-  document.getElementById('free-feat1').innerText = text[lang].freeFeat1;
-  document.getElementById('free-feat2').innerText = text[lang].freeFeat2;
-  document.getElementById('free-feat3').innerText = text[lang].freeFeat3;
-  document.getElementById('pro-feat1').innerText = text[lang].proFeat1;
-  document.getElementById('pro-feat2').innerText = text[lang].proFeat2;
-  document.getElementById('pro-feat3').innerText = text[lang].proFeat3;
-  document.getElementById('pro-feat4').innerText = text[lang].proFeat4;
-  document.getElementById('upgradeBtn').innerText = text[lang].upgradeBtn;
+  document.getElementById('trial-title').innerText = text[lang].trialTitle;
+  document.getElementById('trial-badge').innerText = text[lang].trialBadge;
+  document.getElementById('progress-text').innerText = text[lang].progressText;
+  document.getElementById('trial-text').innerText = text[lang].trialText;
+  document.getElementById('upgradeBtnBanner').innerText = text[lang].upgradeBtnBanner;
   document.getElementById('jobs-title').innerText = text[lang].jobsTitle;
   document.getElementById('earnings-title').innerText = text[lang].earningsTitle;
   document.getElementById('calendar-title').innerText = text[lang].calendarTitle;
@@ -622,8 +657,49 @@ function setLang(lang){
   document.getElementById('popupAccept').innerText = text[lang].accept;
   document.getElementById('popupReject').innerText = text[lang].reject;
   document.getElementById('popupClose').innerText = text[lang].close;
+  document.getElementById('upgrade-title').innerText = text[lang].upgradeTitle;
+  document.getElementById('upgrade-text').innerText = text[lang].upgradeText;
+  document.getElementById('upgradeNowBtn').innerText = text[lang].upgradeNowBtn;
+  document.getElementById('upgrade-close').innerText = text[lang].upgradeClose;
+  updateProgress();
   renderJobs();
   renderCalendar();
+}
+
+function updateProgress() {
+  const progressBar = document.getElementById('progressBar');
+  const progressCount = document.getElementById('progress-count');
+  const percentage = (completedJobs / 3) * 100;
+  
+  progressBar.style.width = percentage + '%';
+  progressCount.innerHTML = `<strong>${completedJobs}/3</strong>`;
+  
+  if(completedJobs >= 3) {
+    showUpgradePopup();
+  }
+}
+
+function showUpgradePopup() {
+  const popup = document.getElementById('upgradePopup');
+  popup.style.display = 'flex';
+  
+  // Genera coriandoli
+  const content = document.getElementById('upgradePopupContent');
+  const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#f9ca24', '#6c5ce7', '#a29bfe'];
+  
+  for(let i = 0; i < 50; i++) {
+    const confetti = document.createElement('div');
+    confetti.className = 'confetti';
+    confetti.style.left = Math.random() * 100 + '%';
+    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+    confetti.style.animationDelay = Math.random() * 0.5 + 's';
+    confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+    content.appendChild(confetti);
+  }
+}
+
+function closeUpgradePopup() {
+  document.getElementById('upgradePopup').style.display = 'none';
 }
 
 // Logout
@@ -632,11 +708,11 @@ document.getElementById("logoutBtn").addEventListener("click", ()=>{
   window.location.href="index.html";
 });
 
-// Upgrade button
-document.getElementById("upgradeBtn").addEventListener("click", ()=>{
-  document.getElementById('planFree').classList.remove('active');
-  document.getElementById('planPro').classList.add('active');
-  alert(text[currentLang].upgradeBtn + ' ✅');
+// Upgrade buttons
+document.getElementById("upgradeBtnBanner").addEventListener("click", showUpgradePopup);
+document.getElementById("upgradeNowBtn").addEventListener("click", ()=>{
+  alert('Upgrade to Pro! 🎉');
+  closeUpgradePopup();
 });
 
 // Jobs con pricing reale
@@ -721,6 +797,8 @@ function showPopup(job,index){
   document.getElementById("popup").style.display="flex";
 
   document.getElementById("popupAccept").onclick = ()=>{
+    completedJobs++;
+    updateProgress();
     addToCalendar(job);
     jobs.splice(index,1);
     renderJobs();
@@ -829,6 +907,7 @@ new Chart(ctx,{
 });
 
 setLang('en');
+updateProgress();
 </script>
 </body>
 </html>
