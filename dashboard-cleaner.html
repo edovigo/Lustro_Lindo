@@ -66,117 +66,17 @@ header {
 }
 .logout-btn:hover { opacity: .85; }
 
-main { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
-h1 { font-size: 32px; margin-bottom: 10px; font-weight: 800; }
-.subtitle { color: #6b7280; font-size: 16px; margin-bottom: 30px; }
+main { max-width: 1100px; margin: 40px auto; padding: 0 20px; }
+h1 { font-size: 28px; margin-bottom: 10px; font-weight: 800; }
+.section { background: #ffffff; border-radius: 22px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); padding: 25px; margin-top: 25px; }
+.section h2 { font-size: 20px; margin-bottom: 15px; color: #0A2342; font-weight: 800; }
 
-/* FREE TRIAL BANNER */
-.trial-banner {
-  background: linear-gradient(135deg, #0A2342, #0077CC);
-  border-radius: 22px;
-  padding: 30px;
-  margin-bottom: 30px;
-  color: white;
-  box-shadow: 0 20px 50px rgba(10,35,66,0.3);
-  position: relative;
-  overflow: hidden;
-}
-.trial-content {
-  position: relative;
-  z-index: 2;
-}
-.trial-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-.trial-title {
-  font-size: 24px;
-  font-weight: 800;
-  margin: 0;
-}
-.trial-badge {
-  background: rgba(255,255,255,0.2);
-  padding: 6px 16px;
-  border-radius: 50px;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-}
-.progress-container {
-  margin-bottom: 20px;
-}
-.progress-label {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-  font-size: 15px;
-  font-weight: 600;
-}
-.progress-bar-bg {
-  background: rgba(255,255,255,0.2);
-  border-radius: 50px;
-  height: 12px;
-  overflow: hidden;
-  position: relative;
-}
-.progress-bar-fill {
-  background: linear-gradient(90deg, #00eda8, #00a3ff);
-  height: 100%;
-  border-radius: 50px;
-  transition: width 0.6s ease;
-  box-shadow: 0 0 20px rgba(0,237,168,0.5);
-}
-.trial-cta {
-  display: flex;
-  gap: 16px;
-  align-items: center;
-}
-.trial-text {
-  flex: 1;
-  font-size: 15px;
-  opacity: 0.95;
-  line-height: 1.5;
-}
-.upgrade-btn {
-  background: white;
-  color: #0A2342;
-  border: none;
-  padding: 14px 28px;
-  border-radius: 12px;
-  font-weight: 700;
-  font-size: 15px;
-  cursor: pointer;
-  transition: all 0.3s;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  white-space: nowrap;
-}
-.upgrade-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
-}
-
-.section { 
-  background: #ffffff; 
-  border-radius: 22px; 
-  box-shadow: 0 10px 25px rgba(0,0,0,0.08); 
-  padding: 30px; 
-  margin-bottom: 30px;
-}
-.section h2 { 
-  font-size: 22px; 
-  margin-bottom: 20px; 
-  color: #0A2342; 
-  font-weight: 800; 
-}
-
-/* Job cards premium */
-.job-list { display: grid; gap: 16px; }
+/* Prossimi lavori */
+.job-list { display: grid; gap: 15px; }
 .job-item { 
   background: linear-gradient(135deg, rgba(247,251,255,0.8), rgba(255,255,255,1));
   border: 2px solid #e5e7eb;
-  padding: 20px;
+  padding: 18px;
   border-radius: 16px;
   display: flex;
   justify-content: space-between;
@@ -185,12 +85,17 @@ h1 { font-size: 32px; margin-bottom: 10px; font-weight: 800; }
 }
 .job-item:hover {
   border-color: #0077CC;
-  transform: translateY(-2px);
   box-shadow: 0 10px 25px rgba(0,119,204,0.15);
 }
-.job-info { flex: 1; }
-.job-title { font-weight: 700; font-size: 16px; color: #0A2342; margin-bottom: 6px; }
-.job-meta { font-size: 14px; color: #6b7280; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+.job-info { display: flex; flex-direction: column; gap: 6px; flex: 1; }
+.job-title { font-weight: 700; font-size: 16px; color: #0A2342; }
+.job-meta { font-size: 14px; color: #6b7280; display: flex; gap: 12px; align-items: center; }
+.job-earnings { 
+  font-weight: 800;
+  font-size: 20px;
+  color: #0A2342;
+  margin-right: 16px;
+}
 .job-badge {
   display: inline-block;
   padding: 4px 10px;
@@ -203,250 +108,97 @@ h1 { font-size: 32px; margin-bottom: 10px; font-weight: 800; }
 .badge-urgent { background: #fee2e2; color: #991b1b; }
 .badge-premium { background: #fef3c7; color: #92400e; }
 
-.job-right { display: flex; align-items: center; gap: 20px; }
-.job-earnings { font-weight: 800; font-size: 24px; color: #0A2342; }
-.job-btn { 
-  padding: 12px 20px; 
-  border-radius: 12px; 
-  font-weight: 600; 
-  font-size: 14px; 
-  cursor: pointer; 
-  border: none; 
-  transition: all 0.3s;
-  background: #0A2342;
-  color: white;
-}
-.job-btn:hover { opacity: .85; transform: translateY(-2px); }
+.job-btn { padding: 10px 18px; border-radius: 12px; font-weight:600; font-size:14px; cursor:pointer; border:none; transition:all 0.3s; }
+.view-btn { background:#0A2342; color:white; }
+.view-btn:hover { opacity: .85; }
 
-/* Earnings section premium */
-.earnings-grid { 
-  display: grid; 
-  grid-template-columns: 1.5fr 1fr; 
-  gap: 30px; 
-  align-items: start;
-}
-.chart-container { 
+/* Guadagni settimanali */
+.earnings-section { display:flex; flex-direction:column; }
+.week-shifts { display: flex; flex-direction: column; gap: 12px; }
+.shift-item {
   background: linear-gradient(135deg, rgba(10,35,66,0.03), rgba(0,119,204,0.03));
-  padding: 20px;
-  border-radius: 16px;
-}
-.summary-cards {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 16px;
   display: flex;
-  flex-direction: column;
-  gap: 16px;
+  justify-content: space-between;
+  align-items: center;
 }
-.summary-card {
-  background: linear-gradient(135deg, rgba(247,251,255,0.8), rgba(255,255,255,1));
-  border: 2px solid #e5e7eb;
-  padding: 20px;
-  border-radius: 16px;
-  transition: all 0.3s;
-}
-.summary-card:hover {
-  border-color: #0077CC;
-  box-shadow: 0 5px 15px rgba(0,119,204,0.1);
-}
-.summary-label { font-size: 13px; color: #6b7280; font-weight: 600; margin-bottom: 8px; }
-.summary-value { font-size: 32px; font-weight: 800; color: #0A2342; margin-bottom: 4px; }
-.summary-delta { font-size: 14px; font-weight: 600; }
-.delta-positive { color: #059669; }
-.summary-meta { font-size: 13px; color: #6b7280; margin-top: 8px; }
+.shift-info { display: flex; flex-direction: column; gap: 4px; }
+.shift-date { font-weight: 700; font-size: 14px; color: #0A2342; }
+.shift-details { font-size: 13px; color: #6b7280; }
+.shift-earnings { font-weight: 800; font-size: 18px; color: #0A2342; }
 
-/* Calendario premium */
-.calendar-grid { 
-  display: grid; 
-  grid-template-columns: repeat(7, 1fr); 
-  gap: 12px;
+.earnings-summary {
+  margin-top: 20px;
+  padding: 20px;
+  background: linear-gradient(135deg, rgba(0,119,204,0.1), rgba(10,35,66,0.05));
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
+.summary-label { font-size: 14px; color: #6b7280; font-weight: 600; }
+.summary-total { font-size: 32px; font-weight: 800; color: #0A2342; }
+.summary-meta { font-size: 13px; color: #6b7280; margin-top: 4px; }
+
+/* Calendario */
+.calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 12px; margin-top:10px; }
 .calendar-day { 
   background: linear-gradient(135deg, rgba(247,251,255,0.8), rgba(255,255,255,1));
   border: 2px solid #e5e7eb;
-  border-radius: 16px;
-  padding: 16px;
+  border-radius: 12px;
+  padding: 12px;
   cursor: pointer;
-  transition: all 0.3s;
-  min-height: 100px;
-  display: flex;
-  flex-direction: column;
+  transition: all 0.2s;
+  font-size: 14px;
+  min-height: 80px;
 }
 .calendar-day:hover { 
   border-color: #0077CC;
-  transform: translateY(-3px);
-  box-shadow: 0 10px 25px rgba(0,119,204,0.15);
+  box-shadow: 0 5px 15px rgba(0,119,204,0.1);
 }
-.calendar-day h3 { 
-  margin: 0 0 10px 0; 
-  font-weight: 700; 
-  font-size: 14px; 
-  color: #0A2342;
-}
-.calendar-event { 
-  font-size: 12px;
-  color: #4b5563;
+.calendar-day h3 { margin:0 0 8px 0; font-weight:700; font-size: 14px; color: #0A2342; }
+.calendar-day .event { 
+  font-size:12px;
+  color:#4b5563;
+  margin-top:6px;
+  padding: 6px;
   background: rgba(0,119,204,0.08);
-  padding: 8px;
-  border-radius: 8px;
-  margin-top: 6px;
-  line-height: 1.4;
+  border-radius: 6px;
 }
-.calendar-no-event {
-  font-size: 12px;
-  color: #9ca3af;
+.calendar-day .no-event {
+  font-size:12px;
+  color:#9ca3af;
   font-style: italic;
-  margin-top: auto;
 }
 
-footer { text-align: center; color: #6b7280; font-size: 13px; margin: 40px 0 20px; }
+footer { text-align:center; color:#6b7280; font-size:13px; margin-top:40px; padding:20px 0; }
 
-/* Popup premium */
-#popup { 
-  display: none; 
-  position: fixed; 
-  inset: 0; 
-  background: rgba(0,0,0,0.6); 
-  backdrop-filter: blur(8px); 
-  justify-content: center; 
-  align-items: center; 
-  z-index: 10000;
-}
+/* Popup */
+#popup { display:none; position:fixed; inset:0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); justify-content:center; align-items:center; z-index:10000; }
 #popup > div { 
-  background: #fff;
-  padding: 40px;
-  border-radius: 24px;
-  text-align: center;
-  box-shadow: 0 30px 80px rgba(0,0,0,0.3);
-  animation: slideUp 0.4s ease;
+  background:#fff;
+  padding:30px;
+  border-radius:16px;
+  text-align:center;
+  box-shadow:0 20px 60px rgba(0,0,0,0.3);
+  animation:fadeIn 0.3s ease;
+  max-width:90%;
   max-width: 500px;
-  width: 90%;
 }
-@keyframes slideUp { 
-  from { opacity: 0; transform: translateY(30px); } 
-  to { opacity: 1; transform: translateY(0); } 
-}
-#popup h3 { 
-  margin: 0 0 20px 0; 
-  font-size: 24px; 
-  font-weight: 800; 
-  color: #0A2342;
-}
-#popup p { 
-  margin: 0 0 30px 0; 
-  color: #6b7280; 
-  line-height: 1.8;
-  font-size: 15px;
-  text-align: left;
-}
-#popup .button-group {
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-#popup button { 
-  font-weight: 600; 
-  font-size: 14px; 
-  padding: 12px 24px; 
-  border-radius: 12px; 
-  cursor: pointer; 
-  border: none; 
-  transition: all 0.3s;
-}
-#popup .accept-btn { 
-  background: #0A2342; 
-  color: white;
-  box-shadow: 0 4px 12px rgba(10,35,66,0.3);
-}
-#popup .accept-btn:hover { 
-  opacity: .9; 
-  transform: translateY(-2px);
-}
-#popup .reject-btn { 
-  background: #DC2626; 
-  color: white;
-}
-#popup .reject-btn:hover { opacity: .9; }
-#popup .close-btn { 
-  background: #e5e7eb; 
-  color: #374151;
-}
-#popup .close-btn:hover { background: #d1d5db; }
-
-/* Upgrade popup CON CORIANDOLI */
-#upgradePopup {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.7);
-  backdrop-filter: blur(10px);
-  justify-content: center;
-  align-items: center;
-  z-index: 10001;
-}
-#upgradePopup > div {
-  background: linear-gradient(135deg, #ffffff, #f7fbff);
-  padding: 60px 50px;
-  border-radius: 24px;
-  text-align: center;
-  box-shadow: 0 40px 100px rgba(0,0,0,0.4);
-  animation: slideUp 0.5s ease;
-  max-width: 600px;
-  width: 90%;
-  position: relative;
-  overflow: hidden;
-  border: 3px solid #0077CC;
-}
-.popup-emoji {
-  font-size: 64px;
-  margin-bottom: 20px;
-  animation: bounce 0.6s ease infinite;
-}
-@keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-
-/* Coriandoli */
-.confetti {
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  opacity: 0;
-  animation: confetti-fall 3s ease-out forwards;
-}
-@keyframes confetti-fall {
-  0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
-  100% { transform: translateY(600px) rotate(720deg); opacity: 0; }
-}
-
-@media (max-width: 768px) {
-  .trial-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
-  }
-  .trial-cta {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  .earnings-grid {
-    grid-template-columns: 1fr;
-  }
-  .calendar-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  .job-item {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
-  }
-  .job-right {
-    width: 100%;
-    justify-content: space-between;
-  }
-}
+@keyframes fadeIn { from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);} }
+#popup h3 { margin: 0 0 16px 0; font-size: 20px; font-weight: 800; color: #0A2342; }
+#popup p { margin: 0 0 20px 0; color: #6b7280; line-height: 1.6; }
+#popup button { font-weight:600; font-size:14px; padding:10px 18px; border-radius:12px; cursor:pointer; border:none; transition:all 0.3s; }
+#popup .accept-btn { background:#0A2342; color:white; }
+#popup .accept-btn:hover { opacity: .85; }
+#popup .reject-btn { background:#DC2626; color:white; }
+#popup .reject-btn:hover { opacity: .85; }
+#popup .close-btn { background:#6b7280; color:white; }
+#popup .close-btn:hover { opacity: .85; }
 </style>
 </head>
-
 <body>
 
 <header>
@@ -462,61 +214,27 @@ footer { text-align: center; color: #6b7280; font-size: 13px; margin: 40px 0 20p
 
 <main>
   <h1 id="welcome">Welcome back, Cleaner! 👋</h1>
-  <p class="subtitle" id="subtitle">Here you'll find your shifts, earnings and confirmed appointments.</p>
+  <p style="color:#6b7280;" id="subtitle">Here you'll find your shifts, earnings and confirmed appointments.</p>
 
-  <!-- FREE TRIAL BANNER -->
-  <div class="trial-banner" id="trialBanner">
-    <div class="trial-content">
-      <div class="trial-header">
-        <h2 class="trial-title" id="trial-title">Free Trial Progress</h2>
-        <div class="trial-badge" id="trial-badge">FREE PLAN</div>
-      </div>
-      <div class="progress-container">
-        <div class="progress-label">
-          <span id="progress-text">Completed jobs</span>
-          <span id="progress-count"><strong>2/3</strong></span>
-        </div>
-        <div class="progress-bar-bg">
-          <div class="progress-bar-fill" id="progressBar" style="width: 66%;"></div>
-        </div>
-      </div>
-      <div class="trial-cta">
-        <p class="trial-text" id="trial-text">
-          Complete 1 more job to unlock your first payout! After that, upgrade to Pro for unlimited earnings.
-        </p>
-        <button class="upgrade-btn" id="upgradeBtnBanner">Upgrade to Pro - €29/mo</button>
-      </div>
-    </div>
-  </div>
   <!-- Prossimi lavori -->
   <div class="section">
     <h2 id="jobs-title">Your upcoming jobs</h2>
     <div class="job-list" id="jobList"></div>
   </div>
 
-  <!-- Guadagni -->
+  <!-- Guadagni settimanali -->
   <div class="section earnings-section">
-    <h2 id="earnings-title">Weekly earnings</h2>
-    <div class="earnings-grid">
-      <div class="chart-container">
-        <canvas id="earningsChart"></canvas>
+    <h2 id="earnings-title">This week's shifts</h2>
+    <div class="week-shifts" id="weekShifts"></div>
+    <div class="earnings-summary">
+      <div>
+        <div class="summary-label" id="summary-label">Total this week</div>
+        <div class="summary-total" id="summary-total">€418</div>
+        <div class="summary-meta" id="summary-meta">12 shifts completed • 38h worked</div>
       </div>
-      <div class="summary-cards">
-        <div class="summary-card">
-          <div class="summary-label" id="label-total">Total this week</div>
-          <div class="summary-value">€418</div>
-          <div class="summary-delta delta-positive" id="delta">▲ +12% vs last week</div>
-        </div>
-        <div class="summary-card">
-          <div class="summary-label" id="label-completed">Completed</div>
-          <div class="summary-value">12</div>
-          <div class="summary-meta" id="meta-hours">38 hours worked</div>
-        </div>
-        <div class="summary-card">
-          <div class="summary-label" id="label-avg">Average hourly</div>
-          <div class="summary-value">€11</div>
-          <div class="summary-meta" id="meta-rate">Standard rate</div>
-        </div>
+      <div style="text-align: right;">
+        <div style="font-size: 14px; color: #6b7280; font-weight: 600;" id="avg-label">Average hourly</div>
+        <div style="font-size: 24px; font-weight: 800; color: #0A2342;">€11/h</div>
       </div>
     </div>
   </div>
@@ -535,7 +253,7 @@ footer { text-align: center; color: #6b7280; font-size: 13px; margin: 40px 0 20p
   <div>
     <h3 id="popupTitle">Job details</h3>
     <p id="popupText"></p>
-    <div class="button-group">
+    <div style="display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin-top:15px;">
       <button class="accept-btn" id="popupAccept">Accept</button>
       <button class="reject-btn" id="popupReject">Reject</button>
       <button class="close-btn" onclick="closePopup()" id="popupClose">Close</button>
@@ -543,177 +261,84 @@ footer { text-align: center; color: #6b7280; font-size: 13px; margin: 40px 0 20p
   </div>
 </div>
 
-<!-- Upgrade popup con coriandoli -->
-<div id="upgradePopup">
-  <div id="upgradePopupContent">
-    <div class="popup-emoji">🎉</div>
-    <h3 id="upgrade-title" style="font-size:32px;font-weight:800;color:#0A2342;margin:0 0 20px 0;">Congratulations!</h3>
-    <p id="upgrade-text" style="font-size:16px;color:#6b7280;margin:0 0 30px 0;line-height:1.8;">
-      You've completed your free trial! Ready to unlock unlimited earnings with Pro?
-    </p>
-    <div class="button-group">
-      <button class="accept-btn" id="upgradeNowBtn" style="background:linear-gradient(90deg,#0A2342,#0077CC);color:white;padding:14px 28px;font-size:15px;">Upgrade to Pro - €29/mo</button>
-      <button class="close-btn" onclick="closeUpgradePopup()" id="upgrade-close">Maybe later</button>
-    </div>
-  </div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-// Traduzioni
+// ✅ TRADUZIONI IT/EN
 const text = {
   en: {
     welcome: "Welcome back, Cleaner! 👋",
     subtitle: "Here you'll find your shifts, earnings and confirmed appointments.",
-    trialTitle: "Free Trial Progress",
-    trialBadge: "FREE PLAN",
-    progressText: "Completed jobs",
-    trialText: "Complete 1 more job to unlock your first payout! After that, upgrade to Pro for unlimited earnings.",
-    upgradeBtnBanner: "Upgrade to Pro - €29/mo",
     jobsTitle: "Your upcoming jobs",
-    earningsTitle: "Weekly earnings",
+    earningsTitle: "This week's shifts",
     calendarTitle: "Work calendar",
-    delta: "▲ +12% vs last week",
-    labelTotal: "Total this week",
-    labelCompleted: "Completed",
-    labelAvg: "Average hourly",
-    metaHours: "38 hours worked",
-    metaRate: "Standard rate",
     jobDetails: "Job details",
     accept: "Accept",
     reject: "Reject",
     close: "Close",
     view: "View",
-    noJobs: "✨ All jobs assigned. Get ready for the next ones! ✨",
+    noJobs: "✨ All jobs have been assigned. 🚀 Get ready for the next ones! ✨",
     noJobsDay: "No shifts",
     weekDays: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
+    summaryLabel: "Total this week",
+    summaryMeta: "shifts completed • %h worked",
+    avgLabel: "Average hourly",
     newBadge: "NEW",
     urgentBadge: "URGENT",
-    premiumBadge: "PREMIUM",
-    upgradeTitle: "Congratulations!",
-    upgradeText: "You've completed your free trial! Ready to unlock unlimited earnings with Pro?",
-    upgradeNowBtn: "Upgrade to Pro - €29/mo",
-    upgradeClose: "Maybe later"
+    premiumBadge: "PREMIUM"
   },
   it: {
     welcome: "Bentornato, Cleaner! 👋",
     subtitle: "Qui trovi i tuoi turni, guadagni e appuntamenti confermati.",
-    trialTitle: "Progresso Prova Gratuita",
-    trialBadge: "PIANO GRATIS",
-    progressText: "Lavori completati",
-    trialText: "Completa 1 altro lavoro per sbloccare il tuo primo pagamento! Poi passa a Pro per guadagni illimitati.",
-    upgradeBtnBanner: "Passa a Pro - €29/mese",
     jobsTitle: "I tuoi prossimi lavori",
-    earningsTitle: "Guadagni settimanali",
+    earningsTitle: "Turni di questa settimana",
     calendarTitle: "Calendario lavori",
-    delta: "▲ +12% vs settimana scorsa",
-    labelTotal: "Totale settimana",
-    labelCompleted: "Completati",
-    labelAvg: "Media oraria",
-    metaHours: "38 ore lavorate",
-    metaRate: "Tariffa standard",
     jobDetails: "Dettagli lavoro",
     accept: "Accetta",
     reject: "Rifiuta",
     close: "Chiudi",
     view: "Vedi",
-    noJobs: "✨ Tutti i lavori assegnati. Preparati per i prossimi! ✨",
+    noJobs: "✨ Tutti i lavori sono stati assegnati. 🚀 Preparati per i prossimi! ✨",
     noJobsDay: "Nessun turno",
     weekDays: ['Lun','Mar','Mer','Gio','Ven','Sab','Dom'],
+    summaryLabel: "Totale settimana",
+    summaryMeta: "turni completati • %h lavorate",
+    avgLabel: "Media oraria",
     newBadge: "NUOVO",
     urgentBadge: "URGENTE",
-    premiumBadge: "PREMIUM",
-    upgradeTitle: "Congratulazioni!",
-    upgradeText: "Hai completato la tua prova gratuita! Pronto a sbloccare guadagni illimitati con Pro?",
-    upgradeNowBtn: "Passa a Pro - €29/mese",
-    upgradeClose: "Forse più tardi"
+    premiumBadge: "PREMIUM"
   }
 };
 
 let currentLang = 'en';
-let completedJobs = 2; // 2/3 job completati
-
 function setLang(lang){
   currentLang = lang;
   document.getElementById('welcome').innerText = text[lang].welcome;
   document.getElementById('subtitle').innerText = text[lang].subtitle;
-  document.getElementById('trial-title').innerText = text[lang].trialTitle;
-  document.getElementById('trial-badge').innerText = text[lang].trialBadge;
-  document.getElementById('progress-text').innerText = text[lang].progressText;
-  document.getElementById('trial-text').innerText = text[lang].trialText;
-  document.getElementById('upgradeBtnBanner').innerText = text[lang].upgradeBtnBanner;
   document.getElementById('jobs-title').innerText = text[lang].jobsTitle;
   document.getElementById('earnings-title').innerText = text[lang].earningsTitle;
   document.getElementById('calendar-title').innerText = text[lang].calendarTitle;
-  document.getElementById('delta').innerText = text[lang].delta;
-  document.getElementById('label-total').innerText = text[lang].labelTotal;
-  document.getElementById('label-completed').innerText = text[lang].labelCompleted;
-  document.getElementById('label-avg').innerText = text[lang].labelAvg;
-  document.getElementById('meta-hours').innerText = text[lang].metaHours;
-  document.getElementById('meta-rate').innerText = text[lang].metaRate;
   document.getElementById('popupAccept').innerText = text[lang].accept;
   document.getElementById('popupReject').innerText = text[lang].reject;
   document.getElementById('popupClose').innerText = text[lang].close;
-  document.getElementById('upgrade-title').innerText = text[lang].upgradeTitle;
-  document.getElementById('upgrade-text').innerText = text[lang].upgradeText;
-  document.getElementById('upgradeNowBtn').innerText = text[lang].upgradeNowBtn;
-  document.getElementById('upgrade-close').innerText = text[lang].upgradeClose;
-  updateProgress();
+  document.getElementById('summary-label').innerText = text[lang].summaryLabel;
+  document.getElementById('avg-label').innerText = text[lang].avgLabel;
   renderJobs();
+  renderWeekShifts();
   renderCalendar();
 }
 
-function updateProgress() {
-  const progressBar = document.getElementById('progressBar');
-  const progressCount = document.getElementById('progress-count');
-  const percentage = (completedJobs / 3) * 100;
-  
-  progressBar.style.width = percentage + '%';
-  progressCount.innerHTML = `<strong>${completedJobs}/3</strong>`;
-}
-
-function showUpgradePopup() {
-  const popup = document.getElementById('upgradePopup');
-  popup.style.display = 'flex';
-  
-  // Genera coriandoli
-  const content = document.getElementById('upgradePopupContent');
-  const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#f9ca24', '#6c5ce7', '#a29bfe'];
-  
-  for(let i = 0; i < 50; i++) {
-    const confetti = document.createElement('div');
-    confetti.className = 'confetti';
-    confetti.style.left = Math.random() * 100 + '%';
-    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
-    confetti.style.animationDelay = Math.random() * 0.5 + 's';
-    confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
-    content.appendChild(confetti);
-  }
-}
-
-function closeUpgradePopup() {
-  document.getElementById('upgradePopup').style.display = 'none';
-}
-
-// Logout
-document.getElementById("logoutBtn").addEventListener("click", ()=>{
+// ✅ LOGOUT
+const logoutBtn = document.getElementById("logoutBtn");
+logoutBtn.addEventListener("click", ()=>{
   localStorage.removeItem('lustro_user');
   window.location.href="index.html";
 });
 
-// Upgrade buttons
-document.getElementById("upgradeBtnBanner").addEventListener("click", showUpgradePopup);
-document.getElementById("upgradeNowBtn").addEventListener("click", ()=>{
-  alert('Upgrade to Pro! 🎉');
-  closeUpgradePopup();
-});
-
-// Jobs con pricing REALE
-let jobs = [
+// ✅ JOBS con guadagni reali
+const jobs = [
   { 
     title: "🏠 Apartment – Milan Center", 
     date: "18 Nov", 
-    time: "09:00-12:00",
+    time: "09:00 - 12:00",
     hours: 3,
     rate: 11,
     location: "Via Tortona 15", 
@@ -723,7 +348,7 @@ let jobs = [
   { 
     title: "🏢 Office – Porta Romana", 
     date: "20 Nov", 
-    time: "14:00-17:00",
+    time: "14:00 - 17:00",
     hours: 3,
     rate: 12,
     location: "Corso Buenos Aires 42", 
@@ -733,7 +358,7 @@ let jobs = [
   { 
     title: "🏡 Villa – San Siro", 
     date: "22 Nov", 
-    time: "10:00-14:00",
+    time: "10:00 - 14:00",
     hours: 4,
     rate: 13,
     location: "Via Novara 88", 
@@ -746,7 +371,7 @@ const jobList = document.getElementById("jobList");
 function renderJobs() {
   jobList.innerHTML = "";
   if(jobs.length===0){
-    jobList.innerHTML=`<div style="color:#6b7280; font-style:italic; text-align:center; padding:30px;">${text[currentLang].noJobs}</div>`;
+    jobList.innerHTML=`<div style="color:#4b5563; font-style:italic; text-align:center; padding:20px;">${text[currentLang].noJobs}</div>`;
     return;
   }
   jobs.forEach((job,idx)=>{
@@ -760,17 +385,19 @@ function renderJobs() {
       <div class="job-info">
         <div class="job-title">${job.title}</div>
         <div class="job-meta">
-          <span>📅 ${job.date} • ${job.time}</span>
+          <span>${job.date} • ${job.time}</span>
           <span class="job-badge ${badgeClass}">${badgeText}</span>
         </div>
       </div>
-      <div class="job-right">
+      <div style="display:flex; align-items:center; gap:16px;">
         <div class="job-earnings">€${earnings}</div>
-        <button class="job-btn">${text[currentLang].view}</button>
+        <button class="job-btn view-btn">${text[currentLang].view}</button>
       </div>
     `;
-    const viewBtn = div.querySelector(".job-btn");
-    viewBtn.onclick = ()=>{ showPopup(job,idx); };
+    const viewBtn = div.querySelector(".view-btn");
+    viewBtn.onclick = ()=>{
+      showPopup(job,idx);
+    };
     jobList.appendChild(div);
   });
 }
@@ -780,27 +407,24 @@ function showPopup(job,index){
   const earnings = job.hours * job.rate;
   document.getElementById("popupTitle").innerText = text[currentLang].jobDetails;
   document.getElementById("popupText").innerHTML = `
-    <strong style="font-size:18px; color:#0A2342;">${job.title}</strong><br><br>
-    📅 <strong>Date:</strong> ${job.date}<br>
-    🕐 <strong>Time:</strong> ${job.time}<br>
-    📍 <strong>Location:</strong> ${job.location}<br>
-    💰 <strong>Earnings:</strong> €${earnings} (${job.hours}h × €${job.rate}/h)<br><br>
-    <strong>Details:</strong> ${job.details}
+    <strong>${job.title}</strong><br>
+    📅 ${job.date} • ${job.time}<br>
+    📍 ${job.location}<br>
+    💰 €${earnings} (${job.hours}h × €${job.rate}/h)<br><br>
+    ${job.details}
   `;
   document.getElementById("popup").style.display="flex";
 
-  document.getElementById("popupAccept").onclick = ()=>{
-    completedJobs++;
-    updateProgress();
-    if(completedJobs >= 3) {
-      showUpgradePopup();
-    }
+  const acceptBtn=document.getElementById("popupAccept");
+  const rejectBtn=document.getElementById("popupReject");
+
+  acceptBtn.onclick = ()=>{
     addToCalendar(job);
     jobs.splice(index,1);
     renderJobs();
     closePopup();
   };
-  document.getElementById("popupReject").onclick = ()=>{
+  rejectBtn.onclick = ()=>{
     jobs.splice(index,1);
     renderJobs();
     closePopup();
@@ -809,7 +433,52 @@ function showPopup(job,index){
 
 function closePopup(){ document.getElementById("popup").style.display="none"; }
 
-// Calendario
+// ✅ WEEK SHIFTS con guadagni reali
+const weekShifts = [
+  { date: "Mon 18 Nov", time: "09:00-12:00", location: "Via Tortona 15", hours: 3, rate: 11 },
+  { date: "Mon 18 Nov", time: "14:00-17:00", location: "Corso Como 8", hours: 3, rate: 11 },
+  { date: "Tue 19 Nov", time: "10:00-13:00", location: "Via Montenapoleone 12", hours: 3, rate: 12 },
+  { date: "Wed 20 Nov", time: "09:00-12:00", location: "Porta Romana 42", hours: 3, rate: 12 },
+  { date: "Wed 20 Nov", time: "14:00-18:00", location: "San Siro 88", hours: 4, rate: 13 },
+  { date: "Thu 21 Nov", time: "10:00-13:00", location: "Navigli 33", hours: 3, rate: 11 },
+  { date: "Fri 22 Nov", time: "09:00-12:00", location: "Brera 7", hours: 3, rate: 11 },
+  { date: "Fri 22 Nov", time: "15:00-18:00", location: "Isola 55", hours: 3, rate: 11 },
+  { date: "Sat 23 Nov", time: "10:00-14:00", location: "Duomo 1", hours: 4, rate: 13 },
+  { date: "Sat 23 Nov", time: "15:00-18:00", location: "Garibaldi 22", hours: 3, rate: 12 },
+  { date: "Sun 24 Nov", time: "10:00-13:00", location: "Loreto 45", hours: 3, rate: 12 },
+  { date: "Sun 24 Nov", time: "14:00-17:00", location: "Lambrate 90", hours: 3, rate: 11 }
+];
+
+const weekShiftsContainer = document.getElementById("weekShifts");
+function renderWeekShifts() {
+  weekShiftsContainer.innerHTML = "";
+  let totalEarnings = 0;
+  let totalHours = 0;
+  
+  weekShifts.forEach(shift => {
+    const earnings = shift.hours * shift.rate;
+    totalEarnings += earnings;
+    totalHours += shift.hours;
+    
+    const div = document.createElement("div");
+    div.className = "shift-item";
+    div.innerHTML = `
+      <div class="shift-info">
+        <div class="shift-date">${shift.date}</div>
+        <div class="shift-details">📍 ${shift.location} • ${shift.time}</div>
+      </div>
+      <div class="shift-earnings">€${earnings}</div>
+    `;
+    weekShiftsContainer.appendChild(div);
+  });
+  
+  // Update summary
+  document.getElementById('summary-total').innerText = `€${totalEarnings}`;
+  document.getElementById('summary-meta').innerText = text[currentLang].summaryMeta.replace('%', weekShifts.length).replace('%h', totalHours + 'h');
+}
+renderWeekShifts();
+
+// ✅ CALENDARIO con turni reali
 const calendarJobs=[];
 function addToCalendar(job){
   calendarJobs.push(job);
@@ -821,35 +490,30 @@ function renderCalendar(){
   calendarGrid.innerHTML="";
   const weekDays = text[currentLang].weekDays;
   
+  // Mock: alcuni giorni hanno turni, altri no
   const mockCalendar = [
-    { day: weekDays[0], shifts: [] },
-    { day: weekDays[1], shifts: [] },
-    { day: weekDays[2], shifts: [] },
-    { day: weekDays[3], shifts: [] },
-    { day: weekDays[4], shifts: [] },
-    { day: weekDays[5], shifts: [] },
-    { day: weekDays[6], shifts: [] }
+    { day: weekDays[0], shifts: 2, hours: 6 },
+    { day: weekDays[1], shifts: 1, hours: 3 },
+    { day: weekDays[2], shifts: 2, hours: 7 },
+    { day: weekDays[3], shifts: 1, hours: 3 },
+    { day: weekDays[4], shifts: 2, hours: 6 },
+    { day: weekDays[5], shifts: 2, hours: 7 },
+    { day: weekDays[6], shifts: 2, hours: 6 }
   ];
-  
-  // Aggiungi job accettati al calendario
-  calendarJobs.forEach(job => {
-    const dayIndex = parseInt(job.date.split(' ')[0]) % 7;
-    mockCalendar[dayIndex].shifts.push(`${job.time} ${job.location.split(' ')[0]}`);
-  });
   
   mockCalendar.forEach((day,idx)=>{
     const dayDiv=document.createElement("div");
     dayDiv.className="calendar-day";
     
-    if(day.shifts.length > 0) {
+    if(day.shifts > 0) {
       dayDiv.innerHTML=`
         <h3>${day.day}</h3>
-        ${day.shifts.map(s => `<div class="calendar-event">${s}</div>`).join('')}
+        <div class="event">${day.shifts} ${day.shifts === 1 ? 'shift' : 'shifts'}<br>${day.hours}h total</div>
       `;
     } else {
       dayDiv.innerHTML=`
         <h3>${day.day}</h3>
-        <div class="calendar-no-event">${text[currentLang].noJobsDay}</div>
+        <div class="no-event">${text[currentLang].noJobsDay}</div>
       `;
     }
     
@@ -858,58 +522,8 @@ function renderCalendar(){
 }
 renderCalendar();
 
-// Grafico earnings
-const ctx=document.getElementById('earningsChart').getContext('2d');
-new Chart(ctx,{
-  type:'bar',
-  data:{ 
-    labels:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
-    datasets:[{ 
-      label:'Earnings (€)', 
-      data:[66, 36, 91, 33, 66, 91, 66],
-      backgroundColor:'rgba(0, 119, 204, 0.8)',
-      borderRadius: 8,
-      borderSkipped: false,
-    }]
-  },
-  options:{ 
-    responsive:true,
-    maintainAspectRatio: true,
-    plugins:{
-      legend:{display:false},
-      tooltip: {
-        backgroundColor: 'rgba(10, 35, 66, 0.95)',
-        padding: 12,
-        titleFont: { size: 14, weight: 'bold' },
-        bodyFont: { size: 13 },
-        borderColor: '#0077CC',
-        borderWidth: 1,
-        callbacks: {
-          label: function(context) {
-            return '€' + context.parsed.y;
-          }
-        }
-      }
-    }, 
-    scales:{
-      y:{
-        beginAtZero:true,
-        grid: { color: 'rgba(0,0,0,0.05)' },
-        ticks: { 
-          callback: function(value) { return '€' + value; },
-          font: { size: 12 }
-        }
-      },
-      x:{
-        grid: { display: false },
-        ticks: { font: { size: 12, weight: '600' } }
-      }
-    }
-  }
-});
-
+// Init lang
 setLang('en');
-updateProgress();
 </script>
 </body>
 </html>
