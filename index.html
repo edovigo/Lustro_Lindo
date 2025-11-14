@@ -694,7 +694,7 @@
       
       <div style="margin-bottom: 32px;">
         <div style="display: flex; align-items: baseline; gap: 8px;">
-          <span class="text-5xl font-extrabold navy">€299</span>
+          <span class="text-5xl font-extrabold navy">€319</span>
           <span class="text-gray-600" id="per-month-2">/mese</span>
         </div>
       </div>
@@ -1076,7 +1076,7 @@ function setLang(lang) {
 
 // Booking logic
 let currentStep = 1;
-const bookingData = { plan: null, date: null, time: null, cleaner: null };
+const bookingData = { plan: null, date: null, time: null, cleaner: null, notes: '' };
 
 const plans = [
   { 
@@ -1090,7 +1090,7 @@ const plans = [
   { 
     id: 'premium', 
     name: 'Premium', 
-    price: 299, 
+    price: 319, 
     cleanings: '6×3h',
     featured: true,
     features: ['6 cleaning/mese (3h)', 'Tutto Essentials +', 'Priority booking', 'Deep cleaning incluso']
@@ -1146,8 +1146,8 @@ function renderStep() {
   const btnNext = document.getElementById('btnNext');
   const progressFill = document.getElementById('progressFill');
   
-  stepIndicator.innerText = `Step ${currentStep} of 4`;
-  progressFill.style.width = (currentStep * 25) + '%';
+  stepIndicator.innerText = `Step ${currentStep} of 5`;
+  progressFill.style.width = (currentStep * 20) + '%';
   
   btnBack.style.display = currentStep > 1 ? 'block' : 'none';
   btnNext.innerText = currentStep === 4 ? 'Conferma prenotazione' : 'Continua →';
@@ -1275,7 +1275,30 @@ function renderStep() {
     
     btnNext.disabled = !bookingData.cleaner;
   }
-  else if(currentStep === 4) {
+    else if(currentStep === 4) {
+    stepTitle.innerText = 'Note o richieste speciali?';
+    content.innerHTML = `
+      <div style="margin-top: 20px;">
+        <label style="font-size:16px;font-weight:700;color:#0A2342;margin-bottom:12px;display:block;">
+          Hai richieste particolari? (opzionale)
+        </label>
+        <textarea 
+          id="bookingNotes"
+          placeholder="Es: preferisco prodotti senza profumo, ho un gatto, ecc..."
+          style="width:100%; min-height:120px; padding:16px; border:2px solid #e5e7eb; border-radius:12px; font-family:Inter; font-size:15px; resize:vertical;"
+        >${bookingData.notes || ''}</textarea>
+      </div>
+    `;
+    
+    const textarea = document.getElementById('bookingNotes');
+    textarea.oninput = () => {
+      bookingData.notes = textarea.value;
+    };
+    
+    btnNext.disabled = false;
+  }
+  else if(currentStep === 5) {
+  else if(currentStep === 5) {
     stepTitle.innerText = 'Conferma la prenotazione';
     const plan = plans.find(p => p.id === bookingData.plan);
     const cleaner = cleaners.find(c => c.id === bookingData.cleaner);
