@@ -161,7 +161,6 @@
     font-size: 13px;
     color: #374151;
   }
-  
   .calendar-container {
     margin-top: 20px;
   }
@@ -527,7 +526,6 @@
   }
 </style>
 </head>
-
 <body>
 
 <header>
@@ -798,18 +796,17 @@
 </section>
 
 <footer class="text-center py-12 text-gray-500 text-sm">© 2025 LustroLindo — The future of living.</footer>
-
 <!-- BOOKING PANEL -->
 <div id="bookingOverlay">
   <div id="bookingPanel">
     <div class="progress-bar">
-      <div class="progress-fill" id="progressFill" style="width: 25%;"></div>
+      <div class="progress-fill" id="progressFill" style="width: 20%;"></div>
     </div>
     
     <button class="panel-close" onclick="closeBooking()">✕</button>
     
     <div class="panel-header">
-      <div style="font-size:14px;color:#6b7280;font-weight:600;margin-bottom:4px;" id="stepIndicator">Step 1 of 4</div>
+      <div style="font-size:14px;color:#6b7280;font-weight:600;margin-bottom:4px;" id="stepIndicator">Step 1 of 5</div>
       <h2 style="font-size:24px;font-weight:800;color:#0A2342;margin:0;" id="stepTitle">Scegli il tuo piano</h2>
     </div>
     
@@ -1073,8 +1070,7 @@ function setLang(lang) {
   document.getElementById('cta-cleaner-sub').innerText = t.ctaCleanerSub;
   document.getElementById('btn-shifts').innerText = t.btnShifts;
 }
-
-// Booking logic
+  // Booking logic
 let currentStep = 1;
 const bookingData = { plan: null, date: null, time: null, cleaner: null, notes: '' };
 
@@ -1127,6 +1123,7 @@ function openBooking() {
   bookingData.date = null;
   bookingData.time = null;
   bookingData.cleaner = null;
+  bookingData.notes = '';
   
   document.getElementById('bookingOverlay').style.display = 'flex';
   document.body.style.overflow = 'hidden';
@@ -1150,7 +1147,7 @@ function renderStep() {
   progressFill.style.width = (currentStep * 20) + '%';
   
   btnBack.style.display = currentStep > 1 ? 'block' : 'none';
-  btnNext.innerText = currentStep === 4 ? 'Conferma prenotazione' : 'Continua →';
+  btnNext.innerText = currentStep === 5 ? 'Conferma prenotazione' : 'Continua →';
   
   if(currentStep === 1) {
     stepTitle.innerText = 'Scegli il tuo piano';
@@ -1275,7 +1272,7 @@ function renderStep() {
     
     btnNext.disabled = !bookingData.cleaner;
   }
-    else if(currentStep === 4) {
+  else if(currentStep === 4) {
     stepTitle.innerText = 'Note o richieste speciali?';
     content.innerHTML = `
       <div style="margin-top: 20px;">
@@ -1298,7 +1295,6 @@ function renderStep() {
     btnNext.disabled = false;
   }
   else if(currentStep === 5) {
-  else if(currentStep === 5) {
     stepTitle.innerText = 'Conferma la prenotazione';
     const plan = plans.find(p => p.id === bookingData.plan);
     const cleaner = cleaners.find(c => c.id === bookingData.cleaner);
@@ -1317,6 +1313,12 @@ function renderStep() {
           <span style="color:#6b7280;">Cleaner</span>
           <strong>${cleaner.name} ${cleaner.emoji}</strong>
         </div>
+        ${bookingData.notes ? `
+        <div class="summary-row">
+          <span style="color:#6b7280;">Note</span>
+          <strong style="font-size:14px;font-weight:400;max-width:60%;text-align:right;">${bookingData.notes}</strong>
+        </div>
+        ` : ''}
         <div class="summary-row">
           <span>Abbonamento mensile</span>
           <strong style="color:#0A2342;font-size:24px;">€${plan.price}</strong>
@@ -1329,7 +1331,7 @@ function renderStep() {
 }
 
 function nextStep() {
-  if(currentStep === 4) {
+  if(currentStep === 5) {
     showToast(translations[currentLang].toastBooking);
     closeBooking();
     return;
