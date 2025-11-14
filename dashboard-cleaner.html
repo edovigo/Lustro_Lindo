@@ -70,6 +70,106 @@ main { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
 h1 { font-size: 32px; margin-bottom: 10px; font-weight: 800; }
 .subtitle { color: #6b7280; font-size: 16px; margin-bottom: 30px; }
 
+/* PRICING BANNER */
+.pricing-banner {
+  background: linear-gradient(135deg, #0A2342, #0077CC);
+  border-radius: 22px;
+  padding: 30px;
+  margin-bottom: 30px;
+  color: white;
+  box-shadow: 0 20px 50px rgba(10,35,66,0.3);
+}
+.pricing-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  align-items: center;
+}
+.pricing-left h2 {
+  font-size: 24px;
+  font-weight: 800;
+  margin: 0 0 12px 0;
+}
+.pricing-left p {
+  font-size: 15px;
+  opacity: 0.9;
+  margin: 0;
+  line-height: 1.6;
+}
+.pricing-plans {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.pricing-plan {
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255,255,255,0.2);
+  border-radius: 16px;
+  padding: 20px;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+.pricing-plan:hover {
+  background: rgba(255,255,255,0.25);
+  border-color: rgba(255,255,255,0.4);
+  transform: translateY(-3px);
+}
+.pricing-plan.active {
+  background: rgba(255,255,255,0.95);
+  color: #0A2342;
+  border-color: white;
+}
+.plan-name {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  opacity: 0.9;
+}
+.pricing-plan.active .plan-name {
+  opacity: 1;
+}
+.plan-price {
+  font-size: 28px;
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+.plan-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.plan-features li {
+  font-size: 13px;
+  opacity: 0.85;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.pricing-plan.active .plan-features li {
+  opacity: 1;
+}
+.upgrade-btn {
+  background: white;
+  color: #0A2342;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  margin-top: 16px;
+}
+.upgrade-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+}
+
 .section { 
   background: #ffffff; 
   border-radius: 22px; 
@@ -287,6 +387,12 @@ footer { text-align: center; color: #6b7280; font-size: 13px; margin: 40px 0 20p
 #popup .close-btn:hover { background: #d1d5db; }
 
 @media (max-width: 768px) {
+  .pricing-content {
+    grid-template-columns: 1fr;
+  }
+  .pricing-plans {
+    grid-template-columns: 1fr;
+  }
   .earnings-grid {
     grid-template-columns: 1fr;
   }
@@ -321,6 +427,38 @@ footer { text-align: center; color: #6b7280; font-size: 13px; margin: 40px 0 20p
 <main>
   <h1 id="welcome">Welcome back, Cleaner! 👋</h1>
   <p class="subtitle" id="subtitle">Here you'll find your shifts, earnings and confirmed appointments.</p>
+
+  <!-- PRICING BANNER -->
+  <div class="pricing-banner">
+    <div class="pricing-content">
+      <div class="pricing-left">
+        <h2 id="pricing-title">Choose your plan</h2>
+        <p id="pricing-desc">Upgrade to Pro for unlimited jobs and premium features. Grow your earnings with LustroLindo.</p>
+      </div>
+      <div class="pricing-plans">
+        <div class="pricing-plan active" id="planFree">
+          <div class="plan-name" id="plan-free-name">FREE</div>
+          <div class="plan-price">€0<span style="font-size:16px;font-weight:600;opacity:0.7;">/mo</span></div>
+          <ul class="plan-features">
+            <li>✓ <span id="free-feat1">Max 3 jobs/month</span></li>
+            <li>✓ <span id="free-feat2">Basic support</span></li>
+            <li>✓ <span id="free-feat3">Standard rate</span></li>
+          </ul>
+        </div>
+        <div class="pricing-plan" id="planPro">
+          <div class="plan-name" id="plan-pro-name">PRO</div>
+          <div class="plan-price">€29<span style="font-size:16px;font-weight:600;opacity:0.7;">/mo</span></div>
+          <ul class="plan-features">
+            <li>✓ <span id="pro-feat1">Unlimited jobs</span></li>
+            <li>✓ <span id="pro-feat2">Priority support</span></li>
+            <li>✓ <span id="pro-feat3">+15% rate boost</span></li>
+            <li>✓ <span id="pro-feat4">Early access</span></li>
+          </ul>
+          <button class="upgrade-btn" id="upgradeBtn">Upgrade to Pro</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Prossimi lavori -->
   <div class="section">
@@ -384,6 +522,18 @@ const text = {
   en: {
     welcome: "Welcome back, Cleaner! 👋",
     subtitle: "Here you'll find your shifts, earnings and confirmed appointments.",
+    pricingTitle: "Choose your plan",
+    pricingDesc: "Upgrade to Pro for unlimited jobs and premium features. Grow your earnings with LustroLindo.",
+    planFreeName: "FREE",
+    planProName: "PRO",
+    freeFeat1: "Max 3 jobs/month",
+    freeFeat2: "Basic support",
+    freeFeat3: "Standard rate",
+    proFeat1: "Unlimited jobs",
+    proFeat2: "Priority support",
+    proFeat3: "+15% rate boost",
+    proFeat4: "Early access",
+    upgradeBtn: "Upgrade to Pro",
     jobsTitle: "Your upcoming jobs",
     earningsTitle: "Weekly earnings",
     calendarTitle: "Work calendar",
@@ -408,6 +558,18 @@ const text = {
   it: {
     welcome: "Bentornato, Cleaner! 👋",
     subtitle: "Qui trovi i tuoi turni, guadagni e appuntamenti confermati.",
+    pricingTitle: "Scegli il tuo piano",
+    pricingDesc: "Passa a Pro per job illimitati e funzioni premium. Fai crescere i tuoi guadagni con LustroLindo.",
+    planFreeName: "GRATIS",
+    planProName: "PRO",
+    freeFeat1: "Max 3 job/mese",
+    freeFeat2: "Supporto base",
+    freeFeat3: "Tariffa standard",
+    proFeat1: "Job illimitati",
+    proFeat2: "Supporto prioritario",
+    proFeat3: "+15% tariffa",
+    proFeat4: "Accesso anticipato",
+    upgradeBtn: "Passa a Pro",
     jobsTitle: "I tuoi prossimi lavori",
     earningsTitle: "Guadagni settimanali",
     calendarTitle: "Calendario lavori",
@@ -436,6 +598,18 @@ function setLang(lang){
   currentLang = lang;
   document.getElementById('welcome').innerText = text[lang].welcome;
   document.getElementById('subtitle').innerText = text[lang].subtitle;
+  document.getElementById('pricing-title').innerText = text[lang].pricingTitle;
+  document.getElementById('pricing-desc').innerText = text[lang].pricingDesc;
+  document.getElementById('plan-free-name').innerText = text[lang].planFreeName;
+  document.getElementById('plan-pro-name').innerText = text[lang].planProName;
+  document.getElementById('free-feat1').innerText = text[lang].freeFeat1;
+  document.getElementById('free-feat2').innerText = text[lang].freeFeat2;
+  document.getElementById('free-feat3').innerText = text[lang].freeFeat3;
+  document.getElementById('pro-feat1').innerText = text[lang].proFeat1;
+  document.getElementById('pro-feat2').innerText = text[lang].proFeat2;
+  document.getElementById('pro-feat3').innerText = text[lang].proFeat3;
+  document.getElementById('pro-feat4').innerText = text[lang].proFeat4;
+  document.getElementById('upgradeBtn').innerText = text[lang].upgradeBtn;
   document.getElementById('jobs-title').innerText = text[lang].jobsTitle;
   document.getElementById('earnings-title').innerText = text[lang].earningsTitle;
   document.getElementById('calendar-title').innerText = text[lang].calendarTitle;
@@ -456,6 +630,13 @@ function setLang(lang){
 document.getElementById("logoutBtn").addEventListener("click", ()=>{
   localStorage.removeItem('lustro_user');
   window.location.href="index.html";
+});
+
+// Upgrade button
+document.getElementById("upgradeBtn").addEventListener("click", ()=>{
+  document.getElementById('planFree').classList.remove('active');
+  document.getElementById('planPro').classList.add('active');
+  alert(text[currentLang].upgradeBtn + ' ✅');
 });
 
 // Jobs con pricing reale
@@ -566,7 +747,6 @@ function renderCalendar(){
   calendarGrid.innerHTML="";
   const weekDays = text[currentLang].weekDays;
   
-  // Mock data realistico
   const mockCalendar = [
     { day: weekDays[0], shifts: ["09:00-12:00 Via Tortona", "14:00-17:00 Corso Como"] },
     { day: weekDays[1], shifts: ["10:00-13:00 Via Montenapoleone"] },
@@ -598,7 +778,7 @@ function renderCalendar(){
 }
 renderCalendar();
 
-// Grafico earnings (dati realistici)
+// Grafico earnings
 const ctx=document.getElementById('earningsChart').getContext('2d');
 new Chart(ctx,{
   type:'bar',
@@ -606,7 +786,7 @@ new Chart(ctx,{
     labels:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
     datasets:[{ 
       label:'Earnings (€)', 
-      data:[66, 36, 91, 33, 66, 91, 66], // Dati realistici basati su turni
+      data:[66, 36, 91, 33, 66, 91, 66],
       backgroundColor:'rgba(0, 119, 204, 0.8)',
       borderRadius: 8,
       borderSkipped: false,
@@ -648,7 +828,6 @@ new Chart(ctx,{
   }
 });
 
-// Init
 setLang('en');
 </script>
 </body>
