@@ -24,7 +24,6 @@
   .dropdown:hover .dropdown-content {display:block;}
   .dropdown-content button:hover {background:#f2f2f2;}
 
-  /* Booking overlay */
   #bookingOverlay {
     position: fixed;
     inset: 0;
@@ -92,44 +91,75 @@
     padding: 30px;
   }
   
-  .service-grid {
+  .plan-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 16px;
     margin-top: 20px;
   }
-  .service-card {
+  .plan-card {
     background: linear-gradient(135deg, rgba(247,251,255,0.8), rgba(255,255,255,1));
     border: 2px solid #e5e7eb;
     border-radius: 16px;
     padding: 24px;
     cursor: pointer;
     transition: all 0.3s;
-    text-align: center;
   }
-  .service-card:hover {
+  .plan-card:hover {
     border-color: #0077CC;
     transform: translateY(-5px);
     box-shadow: 0 10px 25px rgba(0,119,204,0.15);
   }
-  .service-card.selected {
+  .plan-card.selected {
     border-color: #0077CC;
     background: linear-gradient(135deg, rgba(0,119,204,0.1), rgba(10,35,66,0.05));
     box-shadow: 0 10px 25px rgba(0,119,204,0.2);
   }
-  .service-icon {
-    font-size: 48px;
+  .plan-card.featured {
+    border-color: #0077CC;
+    border-width: 3px;
+  }
+  .plan-badge {
+    display: inline-block;
+    background: linear-gradient(90deg, #0A2342, #0077CC);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
     margin-bottom: 12px;
   }
-  .service-name {
-    font-weight: 700;
-    font-size: 16px;
+  .plan-name {
+    font-weight: 800;
+    font-size: 24px;
     color: #0A2342;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
   }
-  .service-desc {
-    font-size: 13px;
+  .plan-price {
+    font-weight: 800;
+    font-size: 36px;
+    color: #0A2342;
+    margin-bottom: 4px;
+  }
+  .plan-desc {
+    font-size: 14px;
     color: #6b7280;
+    margin-bottom: 16px;
+  }
+  .plan-features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .plan-feature {
+    display: flex;
+    align-items: start;
+    gap: 8px;
+    font-size: 13px;
+    color: #374151;
   }
   
   .calendar-container {
@@ -351,7 +381,6 @@
     transform: none;
   }
 
-  /* Login modal */
   .ll-overlay {
     position: fixed;
     inset: 0;
@@ -781,7 +810,7 @@
     
     <div class="panel-header">
       <div style="font-size:14px;color:#6b7280;font-weight:600;margin-bottom:4px;" id="stepIndicator">Step 1 of 4</div>
-      <h2 style="font-size:24px;font-weight:800;color:#0A2342;margin:0;" id="stepTitle">Che tipo di pulizia ti serve?</h2>
+      <h2 style="font-size:24px;font-weight:800;color:#0A2342;margin:0;" id="stepTitle">Scegli il tuo piano</h2>
     </div>
     
     <div class="panel-content" id="panelContent"></div>
@@ -1047,13 +1076,33 @@ function setLang(lang) {
 
 // Booking logic
 let currentStep = 1;
-const bookingData = { service: null, date: null, time: null, cleaner: null };
+const bookingData = { plan: null, date: null, time: null, cleaner: null };
 
-const services = [
-  { id: 'home', icon: '🏠', name: 'Pulizia casa', price: 50 },
-  { id: 'deep', icon: '✨', name: 'Pulizia profonda', price: 80 },
-  { id: 'move', icon: '📦', name: 'Trasloco', price: 120 },
-  { id: 'airbnb', icon: '🏨', name: 'Airbnb', price: 60 }
+const plans = [
+  { 
+    id: 'essentials', 
+    name: 'Essentials', 
+    price: 169, 
+    cleanings: '4×3h',
+    featured: false,
+    features: ['4 cleaning/mese (3h)', 'Cleaner fisso', 'Assicurazione', 'Concierge WhatsApp']
+  },
+  { 
+    id: 'premium', 
+    name: 'Premium', 
+    price: 299, 
+    cleanings: '6×3h',
+    featured: true,
+    features: ['6 cleaning/mese (3h)', 'Tutto Essentials +', 'Priority booking', 'Deep cleaning incluso']
+  },
+  { 
+    id: 'elite', 
+    name: 'Elite', 
+    price: 599, 
+    cleanings: '8×4h',
+    featured: false,
+    features: ['8 cleaning/mese (4h)', 'Tutto Premium +', 'Concierge 24/7', 'Stiratura + grocery']
+  }
 ];
 
 const cleaners = [
@@ -1074,7 +1123,7 @@ function startBookingFlow() {
 
 function openBooking() {
   currentStep = 1;
-  bookingData.service = null;
+  bookingData.plan = null;
   bookingData.date = null;
   bookingData.time = null;
   bookingData.cleaner = null;
@@ -1104,28 +1153,39 @@ function renderStep() {
   btnNext.innerText = currentStep === 4 ? 'Conferma prenotazione' : 'Continua →';
   
   if(currentStep === 1) {
-    stepTitle.innerText = 'Che tipo di pulizia ti serve?';
-    content.innerHTML = '<div class="service-grid"></div>';
-    const grid = content.querySelector('.service-grid');
+    stepTitle.innerText = 'Scegli il tuo piano';
+    content.innerHTML = '<div class="plan-grid"></div>';
+    const grid = content.querySelector('.plan-grid');
     
-    services.forEach(service => {
+    plans.forEach(plan => {
       const card = document.createElement('div');
-      card.className = 'service-card';
-      if(bookingData.service === service.id) card.classList.add('selected');
+      card.className = 'plan-card';
+      if(plan.featured) card.classList.add('featured');
+      if(bookingData.plan === plan.id) card.classList.add('selected');
+      
       card.innerHTML = `
-        <div class="service-icon">${service.icon}</div>
-        <div class="service-name">${service.name}</div>
-        <div style="margin-top:8px;font-weight:700;color:#0A2342;">€${service.price}</div>
+        ${plan.featured ? '<div class="plan-badge">PIÙ SCELTO</div>' : ''}
+        <div class="plan-name">${plan.name}</div>
+        <div class="plan-price">€${plan.price}<span style="font-size:16px;font-weight:600;color:#6b7280;">/mese</span></div>
+        <div class="plan-desc">${plan.cleanings} al mese</div>
+        <ul class="plan-features">
+          ${plan.features.map(f => `
+            <li class="plan-feature">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0077CC" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>${f}</span>
+            </li>
+          `).join('')}
+        </ul>
       `;
       card.onclick = () => {
-        bookingData.service = service.id;
+        bookingData.plan = plan.id;
         renderStep();
         btnNext.disabled = false;
       };
       grid.appendChild(card);
     });
     
-    btnNext.disabled = !bookingData.service;
+    btnNext.disabled = !bookingData.plan;
   }
   else if(currentStep === 2) {
     stepTitle.innerText = 'Quando ti serve?';
@@ -1217,30 +1277,26 @@ function renderStep() {
   }
   else if(currentStep === 4) {
     stepTitle.innerText = 'Conferma la prenotazione';
-    const service = services.find(s => s.id === bookingData.service);
+    const plan = plans.find(p => p.id === bookingData.plan);
     const cleaner = cleaners.find(c => c.id === bookingData.cleaner);
     
     content.innerHTML = `
       <div class="summary-box">
         <div class="summary-row">
-          <span style="color:#6b7280;">Servizio</span>
-          <strong>${service.name}</strong>
+          <span style="color:#6b7280;">Piano</span>
+          <strong>${plan.name} (${plan.cleanings})</strong>
         </div>
         <div class="summary-row">
-          <span style="color:#6b7280;">Data</span>
-          <strong>${bookingData.date} Nov 2025</strong>
-        </div>
-        <div class="summary-row">
-          <span style="color:#6b7280;">Orario</span>
-          <strong>${bookingData.time}</strong>
+          <span style="color:#6b7280;">Primo cleaning</span>
+          <strong>${bookingData.date} Nov 2025 - ${bookingData.time}</strong>
         </div>
         <div class="summary-row">
           <span style="color:#6b7280;">Cleaner</span>
           <strong>${cleaner.name} ${cleaner.emoji}</strong>
         </div>
         <div class="summary-row">
-          <span>Totale</span>
-          <strong style="color:#0A2342;font-size:24px;">€${service.price}</strong>
+          <span>Abbonamento mensile</span>
+          <strong style="color:#0A2342;font-size:24px;">€${plan.price}</strong>
         </div>
       </div>
     `;
