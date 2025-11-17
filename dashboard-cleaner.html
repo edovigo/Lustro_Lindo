@@ -971,7 +971,7 @@ function setLang(lang) {
   const totalShifts = isPro ? 12 : 3;
   const totalHours = isPro ? 38 : 9;
   const avgRate = isPro ? 12.65 : 11;
-  const chartData = isPro ? [66, 36, 91, 33, 66, 91, 66] : [33, 0, 33, 0, 33, 0, 0];
+  const chartData = isPro ? [66, 36, 91, 33, 66, 91, 66] : [33, 11, 33, 11, 33, 11, 0];
   
   main.innerHTML = `
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px;">
@@ -1063,7 +1063,7 @@ function setLang(lang) {
           <div class="chart-bars">
             ${chartData.map((value, idx) => `
               <div class="chart-bar-wrapper">
-                <div class="chart-bar" style="height: ${value > 0 ? (value / Math.max(...chartData)) * 100 : 0}%">
+                <div class="chart-bar" style="height: ${value > 0 ? Math.max((value / Math.max(...chartData)) * 100, 10) : 2}%">
                   ${value > 0 ? `<div class="chart-bar-tooltip">€${value}</div>` : ''}
                 </div>
                 <div class="chart-label">${weekDays[idx]}</div>
