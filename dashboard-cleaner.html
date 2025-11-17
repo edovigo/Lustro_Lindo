@@ -313,6 +313,12 @@ main {
 .chart-bar:hover .chart-bar-tooltip {
   opacity: 1;
 }
+}
+
+.chart-bar:hover .chart-bar-tooltip {
+  opacity: 1 !important;
+}
+
 .chart-label {
   font-size: 12px;
   font-weight: 600;
@@ -1060,63 +1066,47 @@ function setLang(lang) {
       </div>
       <div class="card-content">
         <div class="chart-container">
-          <div class="chart-bars" style="position: relative; padding: 20px 0;">
+<div class="chart-bars">
             ${chartData.map((value, idx) => {
               const maxValue = Math.max(...chartData.filter(v => v > 0));
-              const heightPx = value > 0 ? Math.max((value / maxValue) * 200, 30) : 8;
+              const heightPx = value > 0 ? Math.max((value / maxValue) * 160, 25) : 3;
               return `
-                <div class="chart-bar-wrapper" style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 12px;">
-                  <div style="position: relative; width: 100%; display: flex; justify-content: center;">
+                <div class="chart-bar-wrapper">
+                  <div style="position: relative; width: 100%; display: flex; justify-content: center; height: 180px; align-items: flex-end;">
                     <div class="chart-bar" style="
                       height: ${heightPx}px;
-                      width: 80%;
-                      background: linear-gradient(180deg, #3b82f6 0%, #1e40af 100%);
-                      border-radius: 12px 12px 4px 4px;
+                      width: 75%;
+                      background: ${value > 0 ? '#0A2342' : '#e2e8f0'};
+                      border-radius: 8px 8px 0 0;
                       position: relative;
                       transition: all 0.3s ease;
-                      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-                      cursor: pointer;
-                    " onmouseover="this.style.transform='translateY(-8px) scale(1.05)'; this.style.boxShadow='0 8px 24px rgba(59, 130, 246, 0.5)';" 
-                       onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 4px 12px rgba(59, 130, 246, 0.3)';">
+                    " onmouseover="this.style.opacity='0.85'; this.style.transform='translateY(-4px)';" 
+                       onmouseout="this.style.opacity='1'; this.style.transform='translateY(0)';">
                       ${value > 0 ? `
                         <div style="
                           position: absolute;
                           bottom: 110%;
                           left: 50%;
-                          transform: translateX(-50%);
-                          background: #0f172a;
+                          transform: translateX(-50%) translateY(-8px);
+                          background: #0A2342;
                           color: white;
-                          padding: 8px 14px;
-                          border-radius: 10px;
-                          font-size: 14px;
+                          padding: 6px 12px;
+                          border-radius: 8px;
+                          font-size: 13px;
                           font-weight: 700;
                           white-space: nowrap;
                           opacity: 0;
                           pointer-events: none;
                           transition: opacity 0.2s;
-                          box-shadow: 0 4px 12px rgba(0,0,0,0.3);
                         " class="chart-bar-tooltip">€${value}</div>
-                      ` : ''}
-                      ${value > 0 ? `
-                        <div style="
-                          position: absolute;
-                          top: 8px;
-                          left: 50%;
-                          transform: translateX(-50%);
-                          color: white;
-                          font-size: 16px;
-                          font-weight: 800;
-                          text-shadow: 0 2px 4px rgba(0,0,0,0.2);
-                        ">€${value}</div>
                       ` : ''}
                     </div>
                   </div>
                   <div class="chart-label" style="
-                    font-size: 13px;
-                    font-weight: 700;
+                    font-size: 12px;
+                    font-weight: 600;
                     color: #64748b;
-                    text-transform: uppercase;
-                    letter-spacing: 0.5px;
+                    margin-top: 8px;
                   ">${weekDays[idx]}</div>
                 </div>
               `;
