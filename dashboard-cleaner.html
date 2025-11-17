@@ -1061,14 +1061,18 @@ function setLang(lang) {
       <div class="card-content">
         <div class="chart-container">
           <div class="chart-bars">
-            ${chartData.map((value, idx) => `
-              <div class="chart-bar-wrapper">
-                <div class="chart-bar" style="height: ${value > 0 ? Math.max((value / Math.max(...chartData)) * 100, 10) : 2}%">
-                  ${value > 0 ? `<div class="chart-bar-tooltip">€${value}</div>` : ''}
+            ${chartData.map((value, idx) => {
+              const maxValue = Math.max(...chartData);
+              const heightPx = value > 0 ? Math.max((value / maxValue) * 180, 20) : 4;
+              return `
+                <div class="chart-bar-wrapper">
+                  <div class="chart-bar" style="height: ${heightPx}px; min-height: 20px;">
+                    ${value > 0 ? `<div class="chart-bar-tooltip">€${value}</div>` : ''}
+                  </div>
+                  <div class="chart-label">${weekDays[idx]}</div>
                 </div>
-                <div class="chart-label">${weekDays[idx]}</div>
-              </div>
-            `).join('')}
+              `;
+            }).join('')}
           </div>
         </div>
       </div>
